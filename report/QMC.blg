@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: QMC.aux
+The style file: unsrt.bst
+Database file #1: references.bib
+Warning--entry type for "http://scicore.unibas.ch/" isn't style-file defined
+--line 140 of file references.bib
+Warning--entry type for "prng" isn't style-file defined
+--line 146 of file references.bib
+Warning--I'm ignoring prng's extra "year" field
+--line 152 of file references.bib
+(There were 3 warnings)

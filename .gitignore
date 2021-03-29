@@ -1,0 +1,10 @@
+a.exe
+*.o
+*.mod
+*.asv
+et_nowalkers
+mu_sigma
+walker_positions
+test
+results
+modes
