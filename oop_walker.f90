@@ -1,5 +1,5 @@
 module dftbp_walker
-  integer, private, parameter :: natt = 4
+  integer, private, parameter :: natt = 6
   type walker
     real(8), dimension(3,natt) :: rxyz, fxyz
     real(8) :: etot, weight

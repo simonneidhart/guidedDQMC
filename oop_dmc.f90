@@ -12,7 +12,7 @@ program dmc
       character(len=100) :: filename, names, units, boundary_cond
     end subroutine initalizeWalkers
   end interface
-  integer, parameter :: nat = 4 !number of atoms
+  integer, parameter :: nat = 6 !number of atoms
   integer :: energy_count = 0, a !count the number of energy calculations
   type(walker), allocatable, dimension(:) :: walkers, new_walkers
   type(walker) :: half_walker
@@ -24,14 +24,14 @@ program dmc
   logical :: half_walker_flag = .FALSE.
 
   !Simulation parameters:-------------------------------------------------------
-  no_walkers_start = 10000 !initial number of walkers
+  no_walkers_start = 1000 !initial number of walkers
   maxWalkers = 1000000
-  delta_t = 0.1
-  n_steps = 10000 !number of simulation steps
+  delta_t = 0.00001
+  n_steps = 1000 !number of simulation steps
   a = 1
   damping = 0.1 !damping constant for the update of et in every iteration
   reduction_thereshold = 0.2 !reduce the damping constant if the error is below this thereshold
-  et = 8 !inital guess for the energy
+  et = 0.07 !inital guess for the energy
 
   !initialzations and memory allocations----------------------------------------
   old_no_walkers = no_walkers_start
@@ -192,7 +192,7 @@ program dmc
   !end of the simulation--------------------------------------------------------
 
   print*, "number of walkers = ", no_walkers
-  print*, "average_e0 = ", sum(all_e0(n-8000:n-1))/8000
+  print*, "average_e0 = ", sum(all_e0(n-800:n-1))/800
   print*, "e0 = ", e0
 
   print*, "Number of energy calculations = ", energy_count

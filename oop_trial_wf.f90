@@ -1,16 +1,32 @@
 module trial_wf_pot
   implicit real(8) (a-h,o-z)
-  integer, parameter :: dim = 12 !number of dimensions
+  integer, parameter :: dim = 18 !number of dimensions
   !real(8), dimension(dim) :: k_pot = 1.2 !parameters for the harmonic potential
-  real(8), dimension(dim) :: k_pot = (/2.0, 1.1, 0.4, 1.8, 3.2, 1.0, 3.4, 1.4, 1.1, &
-  0.6, 1.9, 0.6/)
-  real(8), dimension(dim) :: sigma2_shift =(/0.9143, -0.0292, 0.6006, -0.7162, &
-  -0.1565, 0.8315, 0.5844, 0.9190, 0.3115, -0.9286, 0.6983, 0.8680/)
-  real(8), dimension(dim) :: mu0 = -12.0
+  real(8), dimension(dim) :: k_pot = (/3.9747021e-01,&
+     4.2779164e-01,&
+     4.9963878e-01,&
+     5.7054775e-01,&
+     5.7236851e-01,&
+     5.7241640e-01,&
+     7.2577167e-01,&
+     5.6890741e-02,&
+     5.6862725e-02,&
+     2.5241198e-01,&
+     2.6351663e-01,&
+     1.6747849e-01,&
+     1.7120380e-01,&
+     1.1855984e-01,&
+     1.1829266e-01,&
+     7.9366769e-02,&
+     8.7255768e-02,&
+     2.0120823e-02/)
+  !real(8), dimension(dim) :: sigma2_shift =(/0.9143, -0.0292, 0.6006, -0.7162, &
+  !-0.1565, 0.8315, 0.5844, 0.9190, 0.3115, -0.9286, 0.6983, 0.8680/)
+  real(8), dimension(dim) :: mu0 = 0.0
   real(8), dimension(dim) :: sigma2 = 1.0 !sigma^2
-  real(8), dimension(dim) :: mu_shift =(/0.3575, 0.5155, 0.4863, -0.2155,&
-  0.3110, -0.6576, 0.4121, -0.9363, -0.4462, -0.9077, -0.8057, 0.6469/)
-  real(8) :: shift_mult = 0.001
+  !real(8), dimension(dim) :: mu_shift =(/0.3575, 0.5155, 0.4863, -0.2155,&
+  !0.3110, -0.6576, 0.4121, -0.9363, -0.4462, -0.9077, -0.8057, 0.6469/)
+  !real(8) :: shift_mult = 0.001
 
 contains
 
@@ -21,8 +37,9 @@ function drift(rxyz) result(v)
   real(8), dimension(dim) :: v, r, mu
 
   sigma2 = 1/sqrt(k_pot)
-  sigma2 = sigma2 + shift_mult*sigma2_shift
-  mu = mu0 + shift_mult*mu_shift
+  !sigma2 = sigma2 + shift_mult*sigma2_shift
+  !mu = mu0 + shift_mult*mu_shift
+  mu = mu0
 
   r = reshape(rxyz,shape(r))
 
@@ -40,8 +57,9 @@ real(8) function el(rxyz)
   real(8) ,dimension(dim) :: r, mu
 
   sigma2 = 1/sqrt(k_pot)
-  sigma2 = sigma2 + shift_mult*sigma2_shift
-  mu = mu0 + shift_mult*mu_shift
+  !sigma2 = sigma2 + shift_mult*sigma2_shift
+  !mu = mu0 + shift_mult*mu_shift
+  mu = mu0
 
   r = reshape(rxyz,shape(r))
 
