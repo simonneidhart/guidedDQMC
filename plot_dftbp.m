@@ -1,36 +1,35 @@
 load et_noWalkers
-load walker_positions_new
-walker_positions = walker_positions_new;
+load walker_positions
 
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-plot(x(100:end),(et_noWalkers(100:end,1)+5.6992283284),'LineWidth',1.2)
+plot(x(1:end),(et_noWalkers(1:end,3)+5.6992283284),x(1:end),ones(1,ll)*0.0739272,'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('ZPE [Hartee]','Interpreter','latex')
 
-zpe = mean(et_noWalkers(50:end,1))+5.6992283284
+%zpe = mean(et_noWalkers(50:end,1))+5.6992283284
 
 figure(2)
 plot(x,et_noWalkers(:,2),'LineWidth',1.2)
 xlabel('Iterations')
 ylabel('Number of walkers')
 
-nat = length(walker_positions)/8;
+nat = floor(length(walker_positions)/8);
 s = 20.0;
 c = [2,2,1,1,1,1,1,1];
 c = repmat(c,1,nat);
 
 figure(3)
 scatter3(walker_positions(:,1),walker_positions(:,2),walker_positions(:,3),s,c,'filled')
-
-err = zeros(1500,1);
-for i=1:1500
-    err(i) = mean(et_noWalkers(100:500+i,1))+5.6992283284 - 0.0739272;
-end
-
-figure(4)
-plot(1:1500,err)
+% 
+% err = zeros(1500,1);
+% for i=1:1500
+%     err(i) = mean(et_noWalkers(100:500+i,1))+5.6992283284 - 0.0739272;
+% end
+% 
+% figure(4)
+% plot(1:1500,err)
     
 % x = -5:0.1:5;
 
