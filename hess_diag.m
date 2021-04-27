@@ -52,12 +52,13 @@ save(filename,'e','-ascii')
 
 rx = V\C2H6;
 
-mx = V\masses';
-mxyz = V(:,1:18)*mx(1:18);
+v_inv = inv(V);
 
-filename = 'masses';
-save(filename,'mx','-ascii')
+rx1 = v_inv*C2H6;
 
+filename = 'V_inv';
+
+save(filename,'v_inv','-ascii')
 
 %rx(3) = 0; %identical eigenvectors
 %rx(4) = 0;

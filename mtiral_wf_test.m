@@ -1,6 +1,7 @@
 load ener
 load geom_opt.x
 load walker_positions_unguided
+load approx_kartesian
 e = reshape(ener,100,24);
 et = ones(1,100)*(-5.6253  + 5.6992283284);
 no_walkers = length(walker_positions_unguided)/8;
@@ -22,9 +23,9 @@ x = ((1:100) - 51)*0.1;
 %     end
 % end
 
-% for i=1:18
-%     kpot(i) = 2*approx(i,2)/(approx(i,1))^2;
-% end 
+for i=1:24
+    kpot(i) = 2*approx_kartesian(i,2)/(approx_kartesian(i,1))^2;
+end 
 
 st = zeros(24,1);
 for i=1:24
@@ -46,7 +47,8 @@ for i=1:24
 %     ylabel('Energy')
 %     hold off
     me = mean(pos(:,i));
-    st(i) = var(pos(:,i));
+    %st(i) = var(pos(:,i));
+    st(i) = 1/sqrt(kpot(i));
     y_trial = gauss(x,st(i));
     y_approx = 0.5/st(i)^2*x.^2;
     
