@@ -27,6 +27,8 @@ for i=1:24
     kpot(i) = 2*approx_kartesian(i,2)/(approx_kartesian(i,1))^2;
 end 
 
+save('k_pot','kpot','-ascii')
+
 st = zeros(24,1);
 for i=1:24
 %     fit2 = fit(x(b:end-b+1)',e(b:end-b+1,i),'poly2');
@@ -47,10 +49,10 @@ for i=1:24
 %     ylabel('Energy')
 %     hold off
     me = mean(pos(:,i));
-    %st(i) = var(pos(:,i));
-    st(i) = 1/sqrt(kpot(i));
+    st(i) = var(pos(:,i));
+    kpot(i) = 1/(st(i)^2*masses(i));
     y_trial = gauss(x,st(i));
-    y_approx = 0.5/st(i)^2*x.^2;
+    y_approx = 0.5*kpot(i)*x.^2;
     
     
     figure(i)
@@ -67,7 +69,7 @@ end
 
 st = reshape(st,3,8)';
 
-save('sigma','st','-ascii')
+save('k_pot_unguided','kpot','-ascii')
 
 % figure(2)
 % fitpoly2=fit(x(b:end-b+1)',e(b:end-b+1,18),'poly2')
@@ -75,6 +77,12 @@ save('sigma','st','-ascii')
 % plot(fitpoly2,x(b:end-b+1)',e(b:end-b+1,18))
 % % Move the legend to the top left corner.
 % legend('Location','NorthWest' );
+
+energy = 0;
+for i=1:24
+    energy = energy + 1/2*sqrt(kpot(i)/masses(i));
+end 
+energy
 
 function y = gauss(x,s2)
     y = 1/sqrt(2*pi*s2)*exp(-(x).^2/(2*s2));

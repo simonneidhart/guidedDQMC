@@ -1,5 +1,6 @@
 module dftbp_walker
-  integer, private, parameter :: natt = 6
+  use trial_wf_pot
+  integer, private, parameter :: natt = 8
   type walker
     real(8), dimension(3,natt) :: rxyz, fxyz
     real(8) :: etot, weight
@@ -29,7 +30,7 @@ contains
   subroutine propagate(this, et, delta_t, alat, deralat, atomnames)
     implicit none
     class(walker) :: this
-    real(8), dimension(3,natt) :: normal_rand
+    real(8), dimension(3,natt) :: normal_rand, masses_xyz
     real(8), dimension(3,3) :: alat, deralat
     real(8) :: delta_t, etot_prev, et
     character(len=2) :: atomnames(natt)
@@ -37,11 +38,13 @@ contains
     call normal(normal_rand,natt)
 
     etot_prev = this%etot
+    masses_xyz = reshape(masses,shape(masses_xyz))
     !move the walkers according to the Gaussian distribution------------------
-    this%rxyz = this%rxyz + normal_rand*sqrt(delta_t) + this%fxyz*delta_t
+    this%rxyz = this%rxyz + normal_rand*sqrt(delta_t/masses_xyz) + this%fxyz*delta_t/masses_xyz
     call energyandforces_dummy(natt, this%rxyz, this%fxyz, this%etot, alat, deralat, atomnames)
     !calculate the weights----------------------------------------------------
     this%weight = this%weight*exp(-delta_t*((this%etot + etot_prev)/2 - et))
+    !print*, "etot", this%etot, "weight", this%weight
 
   end subroutine propagate
 
