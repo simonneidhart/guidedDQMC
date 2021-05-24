@@ -1,0 +1,98 @@
+Analysis = {
+  CalculateForces = Yes
+  ProjectStates = {}
+  WriteEigenvectors = No
+  WriteBandOut = Yes
+  MullikenAnalysis = Yes
+  WriteNetCharges = No
+  AtomResolvedEnergies = No
+}
+Hamiltonian = DFTB {
+  Solver = RelativelyRobust {}
+  MaxAngularMomentum = {
+    C = "p"
+    H = "s"
+  }
+  SlaterKosterFiles = Type2FileNames {
+    Prefix = "3ob-3-1/"
+    Separator = "-"
+    Suffix = ".skf"
+    LowerCaseTypeName = No
+  }
+  SCC = Yes
+  SCCTolerance = 1.d-5
+  MaxSCCIterations = 850000
+  Filling = Fermi {
+    Temperature [K] = 400
+  }
+  Mixer = Anderson {
+    MixingParameter = 0.05
+    Generations = 4
+    InitMixingParameter = 0.01
+    DynMixingParameters = {
+1.0e-3 0.05
+1.0e-4 0.1
+1.0e-5 0.2
+1.0e-6 0.3
+    }
+    DiagonalRescaling = 0.1
+  }
+  ReadInitialCharges = {
+Yes
+  }
+  PolynomialRepulsive = {}
+  ShellResolvedSCC = No
+  OldSKInterpolation = No
+  RangeSeparated = None {}
+  HCorrection = None {}
+  SpinPolarisation = {}
+  ElectricField = {}
+  Charge = 0.0000000000000000
+  OnSiteCorrection = {}
+  Dispersion = {}
+  Solvation = {}
+  Electrostatics = GammaFunctional {}
+  ThirdOrder = No
+  ThirdOrderFull = No
+  Differentiation = FiniteDiff {
+    Delta = 1.2207031250000000E-004
+  }
+  ForceEvaluation = "Traditional"
+}
+Geometry = GenFormat {
+00008 C
+C H
+1     1    -4.023495466032503E-02    -2.890507878733175E-02     7.909002185468645E-01
+2     1    -3.029826069407367E-02    -3.738298246764928E-02    -8.635867063211673E-01
+3     2    -9.249810707284544E-01     1.689730897709390E-02     1.101843699251615E+00
+4     2     4.267649316297949E-01     7.328418911712647E-01     1.262693359750007E+00
+5     2     6.064861630540525E-01    -7.331057228009937E-01     1.049738798206207E+00
+6     2     1.044618612770166E+00    -7.893177529723508E-02    -1.044704778051873E+00
+7     2    -5.384595899332811E-01    -7.964201119670775E-01    -1.024315541835804E+00
+8     2    -5.439020934820332E-01     9.250071327302346E-01    -1.272572817507793E+00
+}
+ParserOptions = {
+  ParserVersion = 9
+  WriteHSDInput = Yes
+  StopAfterParsing = No
+  IgnoreUnprocessedNodes = No
+}
+Reks = None {}
+Driver = {}
+ExcitedState = {}
+Options = {
+  WriteDetailedOut = Yes
+  WriteAutotestTag = No
+  WriteDetailedXML = No
+  WriteResultsTag = No
+  RestartFrequency = 20
+  RandomSeed = 0
+  WriteHS = No
+  WriteRealHS = No
+  MinimiseMemoryUsage = No
+  ShowFoldedCoords = No
+  TimingVerbosity = 1
+  ReadChargesAsText = No
+  WriteChargesAsText = No
+  SkipChargeTest = No
+}
