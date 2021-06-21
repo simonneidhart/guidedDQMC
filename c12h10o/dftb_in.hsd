@@ -1,0 +1,45 @@
+Geometry = xyzFormat {
+ <<< "geometry.xyz"
+}
+
+# Calculate the Hessian
+
+Driver = SecondDerivatives {
+  Delta = 1e-4
+}
+
+# Do conjugate gradient optimisation
+
+#Driver = ConjugateGradient {
+#  MovedAtoms = 1:-1               # Move all atoms in the system
+#  MaxForceComponent = 1.0e-4      # Stop if maximal force below 1.0e-4
+#  MaxSteps = 200                  # Stop after maximal 100 steps
+#  OutputPrefix = "geometry_out"       # Final geometry in geom.out.{xyz,gen}
+#}
+
+Hamiltonian = DFTB {
+  Scc = Yes
+  SccTolerance = 1e-7
+  SlaterKosterFiles = Type2FileNames {
+    Prefix = "../../3ob-3-1/"
+    Separator = "-"
+    Suffix = ".skf"
+  }
+  MaxAngularMomentum {
+    C = "p"
+    H = "s"
+    O = "p"
+  }
+}
+
+Options {}
+
+Analysis {
+  CalculateForces = Yes
+}
+
+ParserOptions {
+  ParserVersion = 7
+}
+
+

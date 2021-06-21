@@ -1,14 +1,18 @@
 load et_noWalkers
 load walker_positions
 
+e_min = 5.6992283284;
+
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-plot(x(1:end),(et_noWalkers(1:end,1)+5.6992283284),x(1:end),ones(1,ll)*0.0739272,'LineWidth',1.2)
+start = 69;
+plot(x(start:end),(et_noWalkers(start:end,1)+e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
-ylabel('ZPE [Hartee]','Interpreter','latex')
+ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
 
-zpe = mean(et_noWalkers(100:end,1))+5.6992283284
+zpe = mean(et_noWalkers(start:end,1))+e_min
+st = std(et_noWalkers(start:end,1)+e_min)
 
 figure(2)
 plot(x,et_noWalkers(:,2),'LineWidth',1.2)
@@ -23,17 +27,17 @@ c = repmat(c,1,nat);
 %figure(3)
 %scatter3(walker_positions(:,1),walker_positions(:,2),walker_positions(:,3),s,c,'filled')
 
-le = 400;
-start = 50;
+le = 1900;
+start = 31;
 err = zeros(le,1);
 for i=1:le
-    err(i) = abs(mean(et_noWalkers(start:start+i,1))+5.6992283284 - 0.0739272);
+    err(i) = mean(et_noWalkers(start:start+i,1))+e_min;
 end
 
 figure(4)
 plot(1:le,err,'LineWidth',1.2)
-xlabel('Iterations')
-ylabel('Abs. Error')
+xlabel('Iterations','Interpreter','latex')
+ylabel('$Mean(E_T) - E_{min}$ [Hartee]','Interpreter','latex')
     
 % x = -5:0.1:5;
 

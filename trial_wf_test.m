@@ -4,7 +4,7 @@ load walker_positions
 load approx
 load n_masses
 
-% eigenvalues = eigenvalues_mass;
+%eigenvalues = eigenvalues_mass;
 new_masses = n_masses;
 e = reshape(ener_hess,100,18);
 et = ones(1,100)*(-5.6253  + 5.6992283284);
