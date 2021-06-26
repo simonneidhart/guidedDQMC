@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  21 JUN 2021 15:11
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  24 JUN 2021 10:00
 entering extended mode
 **./presentation.tex
 (presentation.tex
@@ -940,79 +940,124 @@ LaTeX Font Warning: Font shape `TU/phv/bx/it' undefined
 
 ] [5
 
-] [6
+]
+File: trialwf.png Graphic file (type bmp)
+<trialwf.png>
+ [6
+
+] [7
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 84.
+(hyperref)                removing `math shift' on input line 93.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 84.
+(hyperref)                removing `subscript' on input line 93.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 84.
+(hyperref)                removing `subscript' on input line 93.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 84.
+(hyperref)                removing `math shift' on input line 93.
 
-File: fig1.png Graphic file (type bmp)
-<fig1.png>
-[7
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 98.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 98.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 98.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 98.
-
-File: fig1.png Graphic file (type bmp)
-<fig1.png>
+File: p1.png Graphic file (type bmp)
+<p1.png>
 [8
 
 ]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 113.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 113.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 113.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 113.
-
 File: fig1.png Graphic file (type bmp)
 <fig1.png>
-[9
+ [9
 
-] [10
+]
+File: fig2.png Graphic file (type bmp)
+<fig2.png>
+ [10
+
+]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 128.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 128.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 128.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 128.
+
+File: p2.png Graphic file (type bmp)
+<p2.png>
+[11
+
+]
+File: fig3.png Graphic file (type bmp)
+<fig3.png>
+ [12
+
+]
+File: fig4.png Graphic file (type bmp)
+<fig4.png>
+ [13
+
+]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 166.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 166.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 166.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 166.
+
+File: p3.png Graphic file (type bmp)
+<p3.png>
+[14
+
+]
+File: fig5.png Graphic file (type bmp)
+<fig5.png>
+ [15
+
+]
+File: fig6.png Graphic file (type bmp)
+<fig6.png>
+ [16
+
+] [17
 
 ] (presentation.bbl
 File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
 File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
-) [11
+File: beamericonarticle.pdf Graphic file (type pdf)
+<use beamericonarticle.pdf>
+File: beamericonarticle.pdf Graphic file (type pdf)
+<use beamericonarticle.pdf>
+File: beamericonarticle.pdf Graphic file (type pdf)
+<use beamericonarticle.pdf>
+)
+Overfull \vbox (31.89398pt too high) detected at line 224
+ []
+
+[18
 
 ]
 \tf@nav=\write6
@@ -1024,25 +1069,25 @@ File: beamericonarticle.pdf Graphic file (type pdf)
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 226.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 226.
  (presentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 148.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 148.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 226.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 226.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 9402CF4B32A799744ADF9A3D30C34AD1;523.
+(rerunfilecheck)             Checksum: 33A394D47220F312123EB213D475C7DA;521.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 21437 strings out of 427240
- 373859 string characters out of 3145705
- 472911 words of memory out of 3000000
- 25461 multiletter control sequences out of 15000+200000
+ 21511 strings out of 427240
+ 374568 string characters out of 3145705
+ 476518 words of memory out of 3000000
+ 25526 multiletter control sequences out of 15000+200000
  15821 words of font info for 66 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,15n,57p,781b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on presentation.pdf (11 pages).
+Output written on presentation.pdf (18 pages).

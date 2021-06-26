@@ -17,35 +17,49 @@
 \headcommand {\sectionentry {3}{The Guiding Wave Function}{5}{The Guiding Wave Function}{0}}
 \headcommand {\slideentry {3}{0}{1}{5/5}{}{0}}
 \headcommand {\beamer@framepages {5}{5}}
-\headcommand {\beamer@sectionpages {5}{5}}
-\headcommand {\beamer@subsectionpages {5}{5}}
-\headcommand {\sectionentry {4}{Input and Output}{6}{Input and Output}{0}}
-\headcommand {\slideentry {4}{0}{1}{6/6}{}{0}}
+\headcommand {\slideentry {3}{0}{2}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\beamer@sectionpages {6}{6}}
-\headcommand {\beamer@subsectionpages {6}{6}}
-\headcommand {\sectionentry {5}{Results}{7}{Results}{0}}
-\headcommand {\beamer@subsectionpages {7}{6}}
-\headcommand {\beamer@subsectionentry {0}{5}{1}{7}{$C_2 H_6$}}
-\headcommand {\slideentry {5}{1}{1}{7/7}{$C_2 H_6$}{0}}
+\headcommand {\beamer@sectionpages {5}{6}}
+\headcommand {\beamer@subsectionpages {5}{6}}
+\headcommand {\sectionentry {4}{Input and Output}{7}{Input and Output}{0}}
+\headcommand {\slideentry {4}{0}{1}{7/7}{}{0}}
 \headcommand {\beamer@framepages {7}{7}}
+\headcommand {\beamer@sectionpages {7}{7}}
 \headcommand {\beamer@subsectionpages {7}{7}}
-\headcommand {\beamer@subsectionentry {0}{5}{2}{8}{$C_{12} H_{10} O$}}
-\headcommand {\slideentry {5}{2}{1}{8/8}{$C_{12} H_{10} O$}{0}}
+\headcommand {\sectionentry {5}{Results}{8}{Results}{0}}
+\headcommand {\beamer@subsectionpages {8}{7}}
+\headcommand {\beamer@subsectionentry {0}{5}{1}{8}{$C_2 H_6$}}
+\headcommand {\slideentry {5}{1}{1}{8/8}{$C_2 H_6$}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\beamer@subsectionpages {8}{8}}
-\headcommand {\beamer@subsectionentry {0}{5}{3}{9}{$H_2@C_{60}$}}
-\headcommand {\slideentry {5}{3}{1}{9/9}{$H_2@C_{60}$}{0}}
+\headcommand {\slideentry {5}{1}{2}{9/9}{$C_2 H_6$}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\beamer@sectionpages {7}{9}}
-\headcommand {\beamer@subsectionpages {9}{9}}
-\headcommand {\sectionentry {6}{Improvements to the Algorithm}{10}{Improvements to the Algorithm}{0}}
-\headcommand {\slideentry {6}{0}{1}{10/10}{}{0}}
+\headcommand {\slideentry {5}{1}{3}{10/10}{$C_2 H_6$}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\slideentry {6}{0}{2}{11/11}{}{0}}
+\headcommand {\beamer@subsectionpages {8}{10}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{11}{$C_{12} H_{10} O$}}
+\headcommand {\slideentry {5}{2}{1}{11/11}{$C_{12} H_{10} O$}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\beamer@partpages {1}{11}}
-\headcommand {\beamer@subsectionpages {10}{11}}
-\headcommand {\beamer@sectionpages {10}{11}}
-\headcommand {\beamer@documentpages {11}}
-\headcommand {\gdef \inserttotalframenumber {11}}
+\headcommand {\slideentry {5}{2}{2}{12/12}{$C_{12} H_{10} O$}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {5}{2}{3}{13/13}{$C_{12} H_{10} O$}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\beamer@subsectionpages {11}{13}}
+\headcommand {\beamer@subsectionentry {0}{5}{3}{14}{$H_2@C_{60}$}}
+\headcommand {\slideentry {5}{3}{1}{14/14}{$H_2@C_{60}$}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {5}{3}{2}{15/15}{$H_2@C_{60}$}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {5}{3}{3}{16/16}{$H_2@C_{60}$}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@sectionpages {8}{16}}
+\headcommand {\beamer@subsectionpages {14}{16}}
+\headcommand {\sectionentry {6}{Conclusions and Improvements}{17}{Conclusions and Improvements}{0}}
+\headcommand {\slideentry {6}{0}{1}{17/17}{}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {6}{0}{2}{18/18}{}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@partpages {1}{18}}
+\headcommand {\beamer@subsectionpages {17}{18}}
+\headcommand {\beamer@sectionpages {17}{18}}
+\headcommand {\beamer@documentpages {18}}
+\headcommand {\gdef \inserttotalframenumber {18}}

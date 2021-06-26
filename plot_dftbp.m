@@ -1,18 +1,19 @@
 load et_noWalkers
 load walker_positions
 
-e_min = 5.6992283284;
+% e_min = -102.915322308400;
+e_min = -27.5893786053000;
 
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-start = 69;
-plot(x(start:end),(et_noWalkers(start:end,1)+e_min),'LineWidth',1.2)
+start = 50;
+plot(x(start:end),(et_noWalkers(start:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
 
-zpe = mean(et_noWalkers(start:end,1))+e_min
-st = std(et_noWalkers(start:end,1)+e_min)
+zpe = mean(et_noWalkers(start:end,1))-e_min
+st = std(et_noWalkers(start:end,1)-e_min)
 
 figure(2)
 plot(x,et_noWalkers(:,2),'LineWidth',1.2)
@@ -28,10 +29,10 @@ c = repmat(c,1,nat);
 %scatter3(walker_positions(:,1),walker_positions(:,2),walker_positions(:,3),s,c,'filled')
 
 le = 1900;
-start = 31;
+start = 50;
 err = zeros(le,1);
 for i=1:le
-    err(i) = mean(et_noWalkers(start:start+i,1))+e_min;
+    err(i) = mean(et_noWalkers(start:start+i,1))-e_min;
 end
 
 figure(4)

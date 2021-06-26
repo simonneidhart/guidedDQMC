@@ -1,8 +1,7 @@
 load ener_hess
-load eigenvalues
 load walker_positions
-load approx
 load n_masses
+load eigenvalues
 
 %eigenvalues = eigenvalues_mass;
 new_masses = n_masses;
@@ -47,12 +46,12 @@ if (1)
 
         hold on
         histogram(pos(:,i),10,'Normalization','pdf')
-        plot(x(b:end-b+1),e(b:end-b+1,i) + 5.6992283284,x(b:end-b+1),y_new(b:end-b+1),x(b:end-b+1),y_gauss(b:end-b+1),x(b:end-b+1),et(b:end-b+1),'LineWidth',1.1)
-        legend('hist','actual','harmonic approx','trial wf','et')
+        plot(x(b:end-b+1),e(b:end-b+1,i) + 5.6992283284,x(b:end-b+1),y_new(b:end-b+1),x(b:end-b+1),y_gauss(b:end-b+1),'LineWidth',1.1)
+        legend('walkers','PES','harmonic approx.','trial wavefunction','Interpreter','latex')
         %legend('actual','harmonic approx','trial wf','et')
         ylim([0 1])
-        xlabel('x')
-        ylabel('Energy')
+        xlabel('x','Interpreter','latex')
+        ylabel('Energy [Hartree]','Interpreter','latex')
         hold off
 
     %     ylim([-5.7 -5.6])
@@ -61,7 +60,7 @@ if (1)
     %     %plot(x(b:end-b+1),e(b:end-b+1,i),x(b:end-b+1),et(b:end-b+1))
     %     legend('actual','old approx','new approx','et')
     %     %legend('actual','et')
-        title(int2str(i))
+%         title(int2str(i))
     end
 end
 save('k_pot','kpot','-ascii')
