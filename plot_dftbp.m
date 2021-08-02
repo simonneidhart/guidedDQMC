@@ -1,8 +1,9 @@
 load et_noWalkers
 load walker_positions
 
-% e_min = -102.915322308400;
-e_min = -27.5893786053000;
+%e_min = -102.915322308400;
+%e_min = -27.5893786053000;
+e_min = -0.440620475522069;
 
 figure(1)
 ll = length(et_noWalkers);
@@ -20,16 +21,21 @@ plot(x,et_noWalkers(:,2),'LineWidth',1.2)
 xlabel('Iterations')
 ylabel('Number of walkers')
 
-nat = floor(length(walker_positions)/8);
+nat = 23;
 s = 20.0;
-c = [2,2,1,1,1,1,1,1];
-c = repmat(c,1,nat);
+
+wp = walker_positions;
+
+c = ones(nat,1);
+c(1) = 2;
+c(2) = 2;
+c = repmat(c,1,et_noWalkers(end,2));
 
 %figure(3)
-%scatter3(walker_positions(:,1),walker_positions(:,2),walker_positions(:,3),s,c,'filled')
+%scatter3(wp(:,1),wp(:,2),wp(:,3),s,'b','filled')
 
 le = 1900;
-start = 50;
+start = 100;
 err = zeros(le,1);
 for i=1:le
     err(i) = mean(et_noWalkers(start:start+i,1))-e_min;
