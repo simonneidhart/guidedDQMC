@@ -1,18 +1,14 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
-\BOOKMARK [0][-]{chapter.2}{Theoretical Background}{}% 2
-\BOOKMARK [1][-]{section.2.1}{Random Number Generation}{chapter.2}% 3
-\BOOKMARK [1][-]{section.2.2}{Monte Carlo Methods}{chapter.2}% 4
-\BOOKMARK [1][-]{section.2.3}{Diffusion Quantum Monte Carlo}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.4}{Unguided DQMC}{chapter.2}% 6
-\BOOKMARK [2][-]{subsection.2.4.1}{Walker Initialization}{section.2.4}% 7
-\BOOKMARK [2][-]{subsection.2.4.2}{The Updating of ET}{section.2.4}% 8
-\BOOKMARK [1][-]{section.2.5}{Guided DQMC}{chapter.2}% 9
-\BOOKMARK [0][-]{chapter.3}{Results}{}% 10
-\BOOKMARK [1][-]{section.3.1}{The Quantum Harmonic Oscillator}{chapter.3}% 11
-\BOOKMARK [2][-]{subsection.3.1.1}{Comparison of guided and unguided DQMC}{section.3.1}% 12
-\BOOKMARK [1][-]{section.3.2}{Zero Point Energy of Ethane}{chapter.3}% 13
-\BOOKMARK [0][-]{chapter.4}{Conclusions and Outlook}{}% 14
-\BOOKMARK [0][-]{appendix.1.A}{The Box-Muller Algorithm}{}% 15
-\BOOKMARK [0][-]{appendix.1.B}{The Metropolis Algorithm}{}% 16
-\BOOKMARK [0][-]{appendix.1.C}{Numerical Derrivatives for EL\(x\) and v\(x\)}{}% 17
-\BOOKMARK [0][-]{appendix*.2}{Bibliography}{}% 18
+\BOOKMARK [0][-]{chapter.2}{Theoretical\040Background}{}% 2
+\BOOKMARK [1][-]{section.2.1}{The\040Born-Oppenheimer\040Approximation}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Monte\040Carlo\040Methods}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Diffusion\040Quantum\040Monte\040Carlo}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.4}{The\040DQMC\040Algorithm}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.4.1}{Walker\040Initialization}{section.2.4}% 7
+\BOOKMARK [0][-]{chapter.3}{Results}{}% 8
+\BOOKMARK [1][-]{section.3.1}{The\040Quantum\040Harmonic\040Oscillator}{chapter.3}% 9
+\BOOKMARK [2][-]{subsection.3.1.1}{Comparison\040of\040guided\040and\040unguided\040DQMC}{section.3.1}% 10
+\BOOKMARK [0][-]{appendix.1.A}{The\040Box-Muller\040Algorithm}{}% 11
+\BOOKMARK [0][-]{appendix.1.B}{The\040Metropolis\040Algorithm}{}% 12
+\BOOKMARK [0][-]{appendix.1.C}{Numerical\040Derrivatives\040for\040EL\(x\)\040and\040v\(x\)}{}% 13
+\BOOKMARK [0][-]{appendix*.2}{Bibliography}{}% 14

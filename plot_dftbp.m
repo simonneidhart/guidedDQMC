@@ -1,20 +1,25 @@
 load et_noWalkers
 load walker_positions
 
-%e_min = -102.915322308400;
-%e_min = -27.5893786053000;
-e_min = -0.440620475522069;
+e_min = -102.915340231900; %h2@c60
+%e_min = -27.5893786053000; %c12h10o
+%e_min = -0.440620475522069; %peroskite
+%e_min = -0.670556596200000; %h2
+% e_min = -102.2448840269; %c60
+%e_min = -5.69922832840000; %c2h6
+%unguided_res = 0.07386; 
 
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-start = 50;
-plot(x(start:end),(et_noWalkers(start:end,1)-e_min),'LineWidth',1.2)
+s = 100;
+plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
+title('guiding wf adjusted @ n=800')
 
-zpe = mean(et_noWalkers(start:end,1))-e_min
-st = std(et_noWalkers(start:end,1)-e_min)
+zpe = mean(et_noWalkers(s:end,1))-e_min
+st = std(et_noWalkers(s:end,1)-e_min)
 
 figure(2)
 plot(x,et_noWalkers(:,2),'LineWidth',1.2)
@@ -26,19 +31,22 @@ s = 20.0;
 
 wp = walker_positions;
 
-c = ones(nat,1);
-c(1) = 2;
-c(2) = 2;
+c = ones(nat,3);
+c(end,:) = 2;
+c(end -1,:) = 2;
 c = repmat(c,1,et_noWalkers(end,2));
 
-%figure(3)
-%scatter3(wp(:,1),wp(:,2),wp(:,3),s,'b','filled')
+figure(3)
+scatter3(wp(:,1),wp(:,2),wp(:,3),s,'b','filled')
+xlim([-10 10])
+ylim([-10 10])
+zlim([-10 10])
 
 le = 1900;
-start = 100;
+s = 100;
 err = zeros(le,1);
 for i=1:le
-    err(i) = mean(et_noWalkers(start:start+i,1))-e_min;
+    err(i) = mean(et_noWalkers(s-99:s+i,1))- e_min;
 end
 
 figure(4)

@@ -1,15 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{prng}
-D.~Blackman and S.~Vigna.
-\newblock Scrambled linear pseudorandom number generators, 2019.
-
-\bibitem{alavi}
-George~H. Booth, Alex J.~W. Thom, and Ali Alavi.
-\newblock Fermion monte carlo without fixed nodes: A game of life, death, and
-  annihilation in slater determinant space.
-\newblock {\em The Journal of Chemical Physics}, 131(5):054106, 2009.
-
 \bibitem{mccoy}
 Anne~B. McCoy.
 \newblock Diffusion monte carlo approaches for investigating the structure and
@@ -26,40 +16,19 @@ Julien Toulouse, Roland Assaraf, and Cyrus~J. Umrigar.
   volume~73 of {\em Advances in Quantum Chemistry}, pages 285 -- 314. Academic
   Press, 2016.
 
+\bibitem{cyrus2}
+Cyrus~J. Umrigar.
+\newblock Introduction to variational and projector monte carlo.
+
+\bibitem{alavi}
+George~H. Booth, Alex J.~W. Thom, and Ali Alavi.
+\newblock Fermion monte carlo without fixed nodes: A game of life, death, and
+  annihilation in slater determinant space.
+\newblock {\em The Journal of Chemical Physics}, 131(5):054106, 2009.
+
 \bibitem{split_join}
 C.~J. Umrigar, M.~P. Nightingale, and K.~J. Runge.
 \newblock A diffusion monte carlo algorithm with very small time‐step errors.
 \newblock {\em The Journal of Chemical Physics}, 99(4):2865--2890, 1993.
-
-\bibitem{dftbp}
-B.~Hourahine, B.~Aradi, V.~Blum, F.~Bonafé, A.~Buccheri, C.~Camacho,
-  C.~Cevallos, M.~Y. Deshaye, T.~Dumitrică, A.~Dominguez, S.~Ehlert,
-  M.~Elstner, T.~van~der Heide, J.~Hermann, S.~Irle, J.~J. Kranz, C.~Köhler,
-  T.~Kowalczyk, T.~Kubař, I.~S. Lee, V.~Lutsker, R.~J. Maurer, S.~K. Min,
-  I.~Mitchell, C.~Negre, T.~A. Niehaus, A.~M.~N. Niklasson, A.~J. Page,
-  A.~Pecchia, G.~Penazzi, M.~P. Persson, J.~Řezáč, C.~G. Sánchez,
-  M.~Sternberg, M.~Stöhr, F.~Stuckenberg, A.~Tkatchenko, V.~W.-z. Yu, and
-  T.~Frauenheim.
-\newblock Dftb+, a software package for efficient approximate density
-  functional theory based atomistic simulations.
-\newblock {\em The Journal of Chemical Physics}, 152(12):124101, 2020.
-
-\bibitem{3ob-3-1}
-M.~Gaus, A.~Goez, and M.~Elstner.
-\newblock Parametrization and benchmark of dftb3 for organic molecules.
-\newblock {\em Journal of Chemical Theory and Compuation}, 9(1):338–354,
-  2013.
-
-\bibitem{http://scicore.unibas.ch/}
-\url{http://scicore.unibas.ch/}.
-
-\bibitem{c2h6}
-Amir Karton, Branko Ruscic, and Jan~M.L. Martin.
-\newblock Benchmark atomization energy of ethane: Importance of accurate
-  zero-point vibrational energies and diagonal born–oppenheimer corrections
-  for a ‘simple’ organic molecule.
-\newblock {\em Journal of Molecular Structure: THEOCHEM}, 811(1):345--353,
-  2007.
-\newblock Computational Organic Chemistry.
 
 \end{thebibliography}

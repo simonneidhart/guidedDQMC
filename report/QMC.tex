@@ -15,7 +15,7 @@
 
 \exhyphenpenalty=1000
 \hyphenpenalty=1000
-%\linespread{1.15}
+\linespread{1.15}
 
 \title{Calculating the Zero Point Energy of Ethane Using the Diffusion Quantum Monte Carlo Method}
 \author{Simon Neidhart \\ \\ Supervisor: Prof. Dr. Stefan Goedecker}
@@ -33,16 +33,25 @@ Inspired by this, we exploit the similarity between the Schrödinger equation an
 In this work, the aim is to calculate zero point energies with the developed DQMC algorithm. In the first step, the algorithm is tested using the well known quantum harmonic oscillator. Then, it is applied to the molecule of ethane to calculate its zero point energy. The result is then compared to a reference calculation and we conclude that the algorithm performed very well.
 
 \chapter{Theoretical Background}
-This chapter covers the theory behind the developed DQMC algorithm from a mathematical and physical standpoint. The ingredients we need range from statistics and random numbers to quantum physics an the Schrödinger equation.
+This chapter covers the derivation and the theory behind the developed DQMC algorithm from a mathematical and physical standpoint. It aims to act as a guide to anyone who wants to understand the theory behind the algorithm or implement the algorithm.
 
-\section{Random Number Generation}
-For all Monte Carlo methods we need lots of random numbers. As we know, computers are deterministic machines so we need to resort to pseudo random numbers. These random numbers are not truly random because they can be predicted if one knows the initial parameters of the random number generator. However, this is not a problem here because for the Monte Carlo application the random numbers do not need to be truly random, but only in the sense of their probability distribution for a very large number of random numbers. For this application a good pseudo random number generator (PRNG) is sufficient and has the advantage that it can generate lots of random numbers fast.\\
-For the DQMC algorithm described later, we need random numbers from two different probability distributions: $\mathcal{U}([0,1])$ and $\mathcal{N}(\mu,\sigma)$. For the $\mathcal{U}([0,1])$ random numbers the we use Fortran's intrinsic function \verb|RANDOM_NUMBER| which internally uses the xoshiro256** PRNG \cite{prng}, a variant of the xorshift PRNG. For the $\mathcal{N}(\mu,\sigma)$ random number, we first generate $\mathcal{U}([0,1])$ random numbers and then transform them to $\mathcal{N}(0,1)$ random numbers using the Box-Muller algorithm (Appendix \ref{appendixA}) before we transform them to the desired mean and variance with the formula 
+\section{The Born-Oppenheimer Approximation}
+When considering a system of $N_{at}$ nuclei with positions $\bm{R}_i,...,\bm{R}_{N_{at}}$, masses $m_1,...,m_{N_{at}}$ and charge numbers $Z_1,...,N_{N_{at}}$ and $N$ electrons with positions $\bm{r}_i,...,\bm{r}_{N_{at}}$, the Born-Oppenheimer approximation justifies splitting the problem (and therefore also the Hamiltonian into two separate problems. First, the electronic part of the Hamiltonian
 \begin{equation}
-x' = x \sigma + \mu.
+\mathcal{H}^e = - \frac{1}{2}\sum_{i=1}^N \nabla^2_{\bm{r}_i}  + \sum_{i=1}^{N} \sum_{j=1}^{i-1} \frac{1}{|\bm{r}_i-\bm{r}_j|} - \sum_{i=1}^{N} \sum_{j=1}^{N_{at}} \frac{Z_j}{|\bm{r}_i-\bm{R}_j|} + \sum_{i=1}^{N_{at}} \sum_{j=1}^{i-1} \frac{Z_i Z_j}{|\bm{R}_i-\bm{R}_j|}
 \end{equation}
+containing the kinetic term of the electrons, the electron-electron, electron-nuclei and nuclei-nuclei interactions, is solved. In this work, we will use existing electronic structure codes to solve the electronic Schrödinger equation. This gives a potential energy surface (PES) $E_0^e(\bm{R}_i,...,\bm{R}_{N_{at}})$ with a minimum $E_{min}^e$. Since we do not have to worry about the electrons anymore, we will from now on write all atom coordinates in one vectctor $\bm{x} = \bm{R}_i,...,\bm{R}_{N_{at}}$ of length $3N_{at}$.
+The second part of the problem is the nucleonic Schrödinger equation
+\begin{equation} \label{eq:2.2}
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R_i}} \psi^n + E_0^e \psi^n = E_0 \psi^n,
+\end{equation}
+which we will solve for the energy $E_0$ using the DQMC algorithm. The Born-Oppenheimer approximation is justified by the fact that the nuclei are much heavier than the electrons and can therefore be treated classically in the electronic structure problem but then quantum-mechanically in the nucleonic Schrödinger equation. From the point of view of the electrons, the nuclei are basically stationary and therefore, their slow movement does not influence the solution of the electronic structure problem. The nuclei then feel the potential from the electrons and move accordingly on the PES.
+
+In this work, the goal is to calculate the zero-point energy (ZPE) of a system of atoms. The ZPE is defined as the difference between $E_{min}^e$ and $E_0$. Because the kinetic energy (first term in eq. \eqref{eq:2.2}) is always positive, $E_0$ is always greater than $E_{min}^e$ and therefore the ZPE is always positive.
+
 
 \section{Monte Carlo Methods}
+%evtl löschen
 The core of the Monte Carlo approach is to do numerical calculations by using lots of random numbers distributed according to a desired probability distribution $p(x)$ to approximate expectation values or integrals with averages over many trials.
 \begin{equation}
 \langle \mathcal{A} \rangle = \sum_{x \in \Omega} \mathcal{A}(x) p(x) \approx \frac{1}{N} \sum_{i=1}^N \mathcal{A}(x_i),
@@ -54,90 +63,88 @@ or
 where $x_i$ are the random numbers generated according to the probability distribution $p(x)$. Because doing a sum or integral over the entire space $\Omega$ is often not possible because the space is too large, one generates the $x_i$ from a Markov Chain. This means that from a given $x_i$, $x_{i+1} = f(x_i,i,$"noise"$)$ can be generated using a stochastic process. To ensure that the $x_i$ follow the probability distribution $p(x)$ a acceptance-rejection step needs to be introduced. Namely, if $\alpha = \frac{p(x_{i+1})}{p(x_i)} > 1$ the new value $x_{i+1}$ always gets accepted and if $\alpha < 1$ the new value $x_{i+1}$ only gets accepted with probability $\alpha$. Put together, these steps leads to the metropolis algorithm (Appendix \ref{appendixB}). These ingredients form the basis of most Monte Carlo methods including the here presented DQMC algorithm.
 
 \section{Diffusion Quantum Monte Carlo}
-For the DQMC algorithm we use the connection between the Schrödinger equation
-\begin{equation}
-H \psi(\bm{x},t) = E_T \psi(\bm{x},t),
-\end{equation}
-where $H = -\frac{1}{2} \nabla^2_{\bm{x}} + V(\bm{x})$ is the Hamiltonian and and $\psi(\bm{x},t)$ the many particle wave function and the diffusion equation 
-\begin{equation} \label{eq:2.5}
-\frac{\partial}{\partial t} \rho(\bm{x},t) = \frac{1}{2} \nabla^2_{\bm{x}} \rho(\bm{x},t) + (E_T - V(\bm{x}))\rho(\bm{x},t).
-\end{equation}
-Comparing these two equations, we notice that for $\frac{\partial}{\partial t} \rho(\bm{x},t) = 0$ the diffusion equation satisfies the Schrödinger equation
- Then \eqref{eq:2.5} satisfies the Schrödinger equation
-\begin{equation} \label{eq:2.6}
--\frac{1}{2} \nabla^2_{\bm{x}} \rho(\bm{x},t) + V(\bm{x})\rho(\bm{x},t) = E_T \rho(\bm{x},t).
-\end{equation}
-This means that we can simulate diffusion until a stationary point is reached when $\frac{\partial}{\partial t} \rho(\bm{x},t) = 0$. To simulate this diffusion we use the known short time propagator of \eqref{eq:2.5} for moving a particle form position $\bm{x}$ to position $\bm{y}$ during a short time step $\Delta t$
-\begin{equation} \label{eq:2.7}
-G(\bm{x},\bm{y};\Delta t) = \frac{1}{\sqrt{2 \pi \Delta t}} e^{-(\bm{x}-\bm{y})^2/(2\Delta t)} e^{-\Delta t (V(\bm{y}) - E_T)}.
-\end{equation}
-This propagator has two parts. The first part $\frac{1}{\sqrt{2 \pi \Delta t}} e^{-(\bm{x}-\bm{y})^2/(2\Delta t)}$ is pure diffusion and corresponds to a Gaussian distribution centred around $\bm{x}$ giving a smaller value, the further $\bm{y}$ is away from $\bm{x}$. The second part $q = e^{-\Delta t (V(\bm{y}) - E_T)}$ represents a branching process. If $V(\bm{y}) > E_T$ then $q < 1$ and if $V(\bm{y}) < E_T$ then $q > 1$. Therefore $q$ can be used to decide if a move was beneficial to decreasing the energy or not, similar to the acceptance-rejection step in the Metropolis algorithm.\\
-With these ingredients we can construct our DQMC algorithm using a population of walkers and simulating diffusion on them. The branching process can be implemented by letting walkers die, survive or reproduce according to the value of $q$. If $q < 1$, meaning the diffusion move has put the walker above the barrier of $E_T$, we let the walker die with probability $1-q$ or survive with probability $q$. This ensures that this classically forbidden move can happen with an exponentially decreasing probability, guaranteeing that we can in principle explore the entire potential energy surface $V(\bm{x})$. If on the other hand $q > 1$, meaning the diffusion move has put the walker below the barrier of $E_T$, we let the walker survive and give birth to $\lfloor q-1 \rfloor$ new walkers and an additional walker with the probability $q-\lfloor q \rfloor$. This makes walkers that live in a region where $V(\bm{x})$ is small compared to $E_T$ reproduce and  walker that live in a region where $V(\bm{x})$ is large compared to $E_T$ die out over time.\\
-The last ingredient we need is to adjust the energy barrier $E_T$ to control the population of walkers. There are multiple ways to do this but generally speaking we need to decrease $E_T$ if the number of walkers is growing and increase $E_T$ if the number of walkers is decreasing. When we arrive at a point where the number of walkers and therefore also $E_T$ remains stable, we have found the energy eigenvalue of the Schrödinger equation.
+To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are two main ways to derive the DQMC algorithm. The first way is by a transformation to an imaginary time $\tau = it/\hbar$ \cite{mccoy,cyrus}. The second way exploits the similarity between the Schrödinger equation and the diffusion equation.
 
-\section{Unguided DQMC}
-Putting all this theory together, we get the unguided DQMC algorithm.
+Here, we compare the Schrödinger equation \eqref{eq:2.2} to the diffusion equation 
+\begin{equation} \label{eq:2.5}
+\frac{\partial}{\partial t} \psi(\bm{x},t) = \frac{1}{2} \nabla^2_{\bm{x}} \psi(\bm{x},t) + (E - V(\bm{x}))\psi(\bm{x},t)
+\end{equation}
+with an additional growth or decay term on the right hand side.
+Comparing these two equations, we notice that for $\frac{\partial}{\partial t} \psi(\bm{x},t) = 0$ the diffusion equation satisfies the time independent Schrödinger equation and we get
+\begin{equation} \label{eq:2.6}
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi(\bm{x}) + E_0^e(\bm{x})\psi(\bm{x}) = E_T \psi(\bm{x}).
+\end{equation}
+Instead of $E_0$, we have now introduced the trial energy $E_T$. This trial energy will be adjusted during the simulation of the diffusion and will give us the solution of the Schrödinger equation $E_0$ once we have reached a stationary state, when $\frac{\partial}{\partial t} \psi(\bm{x},t) = 0$. To simulate this diffusion we use the known short time propagator of \eqref{eq:2.5} for moving a particle form position $\bm{x}$ to position $\bm{y}$ during a short time step $\Delta t$
+\begin{equation} \label{eq:2.7}
+G(\bm{x_i},\bm{y}_i;\Delta t) = \sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2 \Delta t)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta t^2),
+\end{equation}
+for $i=1,...,3N_{at}$. This propagator has two parts. The first part $\sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2\Delta t)}$ is pure diffusion for dimension $i$ and corresponds to a Gaussian distribution centered around $\bm{x}_i$ giving a smaller value, the further $\bm{y}_i$ is away from $\bm{x}_i$. The second part $q = e^{-\Delta t (E_0^e(\bm{y}) - E_T)}$ represents a branching process. If $E_0^e(\bm{y}) > E_T$ then $q < 1$ and if $E_0^e(\bm{y}) < E_T$ then $q > 1$.\\
+Up to this point, we have derived the unguided DQMC algorithm. To improve the convergence it is very useful to introduce a trial or guiding wave function $\psi_T(\bm{x})$. $\psi_T$ should approximate $\psi(\bm{x})$ as good as possible, without requiring to much effort to compute and evaluate. Our program will later need a lot of evaluations of the first and second derivative of $\psi_T(\bm{x})$. We now multiply the Schrödinger equation \eqref{eq:2.6} with $\psi_T(\bm{x})$, define $f(\bm{x}) = \psi(\bm{x}) \psi_T(\bm{x})$ and after some calculation \cite{cyrus2} we get
+\begin{equation} \label{eq:2.8}
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} f(\bm{x}) + \nabla \cdot (\bm{v}(\bm{x}) f(\bm{x})) + (E_L(\bm{x}) - E_T)f(\bm{x}) = 0.
+\end{equation}
+We have now introduced the drift velocity $\bm{v}(\bm{x}) = \nabla \psi_T(\bm{x})/ \psi_T(\bm{x})$ and the local energy $E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi_T(\bm{x}) + E_0^e(\bm{x})$ and similarly to the unguided case, we can get the short-time propagator
+\begin{equation} \label{eq:2.9}
+\tilde{G}(\bm{x_i},\bm{y}_i;\Delta t) = \sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i-\bm{v}(\bm{x})\Delta t)^2 m_i/(2 \Delta t)} e^{-\Delta t (E_L(\bm{x})+E_L(\bm{y}))/2 - E_T)} + \mathcal{O}(\Delta t^2).
+\end{equation}
+There are two major differences compared to the unguided propagator. In addition to the pure diffusion described by the Gaussian distribution, we now have the drift velocity, which drifts $\bm{x}$ towards a region where $f(\bm{x})$ is large. Second, the local energy adds the kinetic energy of the nuclei to the evaluation of the PES and the local energy is averaged over the position before and after the propagation. 
+With these ingredients we can construct our DQMC algorithm using a population of walkers and simulating diffusion on them. First, we just update the walker position according to the first part of the propagator by displacing it according to
+\begin{equation}\label{2.10}
+\bm{y}_i = \bm{x}_i + \bm{\eta}_i + \bm{v}_i(\bm{x})\Delta t/m_i \text{ for } i=1,...,N_{at},
+\end{equation}
+where $\bm{\eta}$ is a vector of $N_{at}$ normal distributed random numbers with mean $0$ and standard deviation $\sqrt{\Delta t / m_i}$ for dimension $i$.
+
+The branching process can be implemented by letting walkers die, survive or reproduce according to their weight $w$ which is updated from step $k$ to step $k+1$ according to 
+\begin{equation}\label{eq:2.11} 
+w^{(k+1)} = w^{(k)} e^{(-\Delta t(E_L(\bm{x}) + E_L(\bm{y}))/2 - E_T))}.
+\end{equation}
+
+With these non-integer weights, one can implement the split-join algorithm \cite{split_join} to do the branching process. There are many alternatives, but split-join has the advantage that it limits the duplication of walker that would occur with other methods.
+ In each iteration the weight for each walker is updated according to \eqref{eq:2.11}. Walkers with a weight $w > 2$ split into $\lfloor w \rfloor$ walkers with new weights $w/\lfloor w \rfloor$. For two walkers $\alpha$ and $\beta$ with weight $w_\alpha < 1/2$ and $w_\beta < 1/2$ one keeps walker $\alpha$  with probability $w_\alpha/(w_\alpha + w_\beta)$ and walker $\beta$ otherwise. The surviving walker gets the new weight $(w_\alpha + w_\beta)$. All walkers with weight $1/2 \leq w \leq 2$ survive and keep their weight. This algorithm keeps the total weight of all walkers $W^{(k)} =  \sum_{i = 1}^{N_w^{(k)}} w_i^{(k)}$ constant during iteration $k$ and limits the duplication of walkers that would occur with the standard branching process.
+ This process ensures that even walkers with a local energy higher than $E_T$ have a chance of surviving and therefore the entire PES is sampled if we run the simulation long enough. \\
+The last step is to adjust the trial energy $E_T$. $E_T$ controls the population of walker and it therefore needs to be adjusted to keep the walker population from dying out or growing exponentially. Generally speaking, we need to decrease $E_T$ if the number of walkers is increasing and increase $E_T$ if the number of walkers is decreasing.  Like with the split-join algorithm, there are multiple ways to adjust the trial energy \cite{mccoy,alavi}. We will here use an approach \cite{cyrus} that makes use of the total weight $W^{(k)}$ after iteration $k$ and updates $E_T$ according to
+\begin{equation}\label{eq:2.12} 
+E_T^{(k+1)} = E_0^{(k)} + \xi \log(W^{(k)}/W^{(0)}),
+\end{equation}
+where $\xi > 0$ is a damping parameter, $W^{(0)}$ is the sum of weight at the start of the simulation and
+\begin{equation}\label{eq:2.13} 
+E_0^{(k)} = \frac{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} E_L(\bm{x}_{i}^{(k)})}{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} },
+\end{equation}
+is the current estimation of the ground state energy $E_0$. At the end of the simulation, this estimate can be improved by averaging it over may iterations after the equilibration phase giving the final result of the calculation, the energy eigenvalue of the Schrödinger equation and therefore also the ZPE.
+\section{The DQMC Algorithm}
+Putting all this theory together, we get the guided DQMC algorithm.
 
 \begin{algorithm}
-\caption{Unguided DQMC}\label{dqmc}
+\caption{Guided DQMC}\label{dqmc}
 \begin{algorithmic}[1]
-\Procedure{DQMC}{$steps, \Delta t, V(x)$}
+\Procedure{DQMC}{$steps, \Delta t, E_0^e(x), \psi_T(x), m$}
 \State \textbf{initialize} $walkers$
 \For{$i=1,steps$}
 	\ForAll{$x$ \textbf{in} $walkers$}
-		\State \textbf{draw} $y \sim \mathcal{N}(y,\sqrt{\Delta t})$
-		\State $x = x + y$ \Comment{Moving the walker}
-		\State $q = exp(-\Delta t (V(x) - E_T))$
-		\State $children = \lfloor q \rfloor$ \Comment{$children$ includes the surviving parent}
+		\State \textbf{draw} $\eta \sim \mathcal{N}(y,\sqrt{\Delta t/m})$
+		\State $x = x + \eta + v(x)$ \Comment{Moving the walker}
+		\State $w = w \cdot exp(-\Delta t (E_L(x)+E_L(x_{prev}))/2 - E_T))$
+		\If {($w > 2$)}
+		\State \textbf{make} $\lfloor q \rfloor$ \textbf{copies of} $x$ \textbf{with weight} $w/\lfloor w \rfloor$ \textbf{for the next cycle}
+		\EndIf
+		\If {($w < 1/2$)}
+		\State \textbf{find another walker} $y$ \textbf{with} $w_y < 1/2$
 		\State \textbf{draw} $r \sim \mathcal{U}([0,1])$
-		\If{$(q - \lfloor q \rfloor > r)$}
-		\State $children = children + 1$ \Comment{$children = 0$ means the walker dies}
+		\If{($w/(w+w_y) > r)$)}
+		\State \textbf{make a copy of} $x$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
+		\Else
+		\State \textbf{make a copy of} $y$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
+		\EndIf
 		\EndIf 
-		\State \textbf{make} $children$ copies of $walker$ $x$ for the next step
 	\EndFor
-	\State \textbf{update} $E_T$ \Comment{According to \eqref{eq:2.8} or \eqref{eq:2.9}}
+	\State \textbf{update} $E_T$ \Comment{According to \eqref{eq:2.13}}
 \EndFor 
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 \subsection{Walker Initialization}
-There are several ways to initialize walkers. One is to distribute a given number of them randomly in a given simulation box. This can be done for every dimension individually by drawing uniform random numbers within the specified box bounds. Alternatively, one can start with the walkers evenly spaced along a grid in every dimension or start with all walkers in the minimum of the potential energy surface if this is known. \\ 
-For the calculations of the zero point energy, it makes sense to start with all the walker in the optimized geometry of the system that is also used as a reference energy to calculate the zero point energy.
-
-\subsection{The Updating of $E_T$}
-The update step of the energy barrier $E_T$ (line 15) can be done in different ways. The most trivial way is just to check if the if the walker population has increased or decreased and then divide or multiply $E_T$ by a constant factor $\alpha > 0$. This method has two distinct problems. First, if the initial guess for $E_T$ is way to large, this method decreases it to slow and in the meantime the population of walkers grows exponentially slowing down the calculation and eventually exceeding the memory limit. On the other hand, if the inital guess is too low, the walkers die out very fast and the simulation stops. Second, if $E_T$ gets close to its true value the multiplication or division by $\alpha$ changes it to much and we can never get a very accurate result. Therefore, we need a formula that adjusts $E_T$ depending on how fast the walker population changes. One such formula \cite{alavi} adjusts $E_T$ according to
-\begin{equation}\label{eq:2.8} 
-E_T(t) = E_T(t-A \Delta t) - \frac{\xi}{A \Delta t} \log{\frac{N_w(t)}{N_w(t-A \Delta t)}},
-\end{equation}
-where $N_w(t)$ is the number of walkers at the discrete time $t$ and $\xi > 0$ is a damping parameter to prevent large fluctuations in $E_T$. This formula does not adjust $E_T$ in every time step but only every $A$ time steps. As reported in \cite{alavi}, good values to use for this formula are $\xi = 0.1 - 0.05$ and $A = 5 - 10$.\\
-A different approach \cite{mccoy} uses the potential energy of the current configuration to update $E_T$ according to
-\begin{equation}\label{eq:2.9} 
-E_T(t) = \bar{V} - \alpha \frac{N_w(t)-N_w(0)}{N_w(0)},
-\end{equation}
-where $\bar{V}$ is the ensemble average of the potential over all the walkers. For the damping constant $\alpha$ it is recommended to use a value close to $1/\Delta t$. This appears to be quite inefficient because one needs to calculate the potential again for every walker but this is actually not the case since we can use the values already calculated (line 7) and let them contribute to the ensemble average children times. If we were to do this between line 12 and 13, it is quite efficient.
-
-\section{Guided DQMC}
-Guided DQMC introduces a trial wave function $\psi_T(\bm{x})$ to help the algorithm converge faster. This leads to two major changes in the algorithm. \cite{cyrus} \\
-The update step of the walker position (line 6) is now no longer pure diffusion, but has an added term called the drift velocity $\bm{v}(\bm{x}) = \nabla_{\bm{x}} \psi_T(\bm{x})/ \psi_T(\bm{x})$. The step proposing a new positions for a walker $\bm{x}_i$ is now 
-\begin{equation}\label{eq:2.11} 
-\bm{x}_{i,F} = \bm{x}_{i,I} + \bm{v}(\bm{x}_i)\Delta t + \bm{y_i},
-\end{equation}
-where $\bm{x}_{i,F}$ is the final and $\bm{x}_{i,I}$ is the initial position of the walker. $\bm{y}_i$ is a normal distributed random number with mean $\bm{x}_{i,I}$ and standard deviation $\sqrt{\Delta t}$. The addition of the drift velocity $\bm{v}(\bm{x}_i)$ to the diffusion term moves the walker towards a region where $|\psi_T(\bm{x}_i)|$ increases.\\
-The birth, survival and death process of the walkers also needs to be adapted. All walkers get a weight $w_i$ which is updated every step according to
-\begin{equation}\label{eq:2.12} 
-w_{i,F} = w_{i,I} \exp{(-\Delta t(E_L(\bm{x}_{i,F}) + E_L(\bm{x}_{i,I}))/2 - E_T))},
-\end{equation}
-where $E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x})$ is the local energy with $H$ the Hamiltonian. Depending on the form of the trial wave function $\psi_T(\bm{x})$, the calculation of the local energy and the drift velocity can be done analytically (e.g. for Gaussian trial wave functions) or has to be done numerically (Appendix \ref{appendixC}). \\
-With these non-integer weights, one can implement the split-join algorithm \cite{split_join} which is an improvement to the implementation of the branching process used before. In each iteration the weight for each walker is updated according to \eqref{eq:2.12}. Walkers with a weight $w_i > 2$ split into $\lfloor w_i \rfloor$ walkers with new weights $w_i/\lfloor w_i \rfloor$. For two walkers $\alpha$ and $\beta$ with weight $w_\alpha < 1/2$ and $w_\beta < 1/2$ one keeps walker $\alpha$  with probability $w_\alpha/(w_\alpha + w_\beta)$ and walker $\beta$ otherwise. The surviving walker gets the new weight $(w_\alpha + w_\beta)$. All walkers with weight $1/2 \leq w_i \leq 2$ survive and keep their weight. This algorithm keeps the total weight of all walkers $W^{(k)} =  \sum_{i = 1}^{N_w^{(k)}} w_i^{(k)}$ constant during iteration $k$ and limits the duplication of walkers that would occur with the standard branching process.\\
-The adjusting of the trial energy $E_T$ from iteration $k$ to $k+1$ can also be improved by using the formula
-\begin{equation}\label{eq:2.13} 
-E_T^{(k+1)} = E_0^{(k)} + \xi \log(W^{(k)}/W^{(0)}),
-\end{equation}
-where $\xi > 0$ is a damping parameter, $W^{(0)}$ is the sum of weight at the start of the simulation and
-\begin{equation}\label{eq:2.14} 
-E_0^{(k)} = \frac{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} E_L(\bm{x}_{i}^{(k)})}{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} },
-\end{equation}
-is the current estimation of the ground state energy $E_0$. At the end of the simulation, this estimate can be improved by averaging it over may iterations after the equilibration phase giving the final result of the calculation.
+There are several ways to initialize walkers. One is to distribute them randomly in a given simulation box. This can be done for every dimension individually by drawing uniform random numbers within the specified box bounds. Even better  Alternatively, one can start with all walkers in the minimum of the PES. Since one need an equilibration phase at the start of the simulation, this gives enough time for the walkers to spread out and explore the PES.\\ 
+At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. Unfortunately this is not the exact wave function, but it still can be useful to get some information about the system.
 
 \chapter{Results}
 \section{The Quantum Harmonic Oscillator}
@@ -206,45 +213,6 @@ Table 1: Averaged ground state energy for different qualities of the trial wave 
 \\
 One can clearly see that the quality of the guiding wave function drastically improves the performance of the DQMC algorithm in terms of the accuracy but also in terms of the fluctuations. The gain in accuracy and the decrease in the standard deviation are roughly proportional to the quality of the trial wave function. However, if the guiding wave function is chosen poorly, the algorithm might not converge at all or one would get a better result using unguided DQMC.
 
-\begin{center}
-\scalebox{0.5}{\includegraphics{conv1.png}}
-\end{center}
-Figure 1: Convergence of the ground state energy for different qualities of the trial wave function (energies averaged over 100 iterations).\\
-\\
-Here, we can see that the speed of the convergence does not improve much with the quality of the trial wave function. All simulations show a better convergence than the typical convergence of Monte Carlo simulations of $1/\sqrt{t}$ for $t$ being the number of time steps calculated. The fluctuations however, differ significantly and improve with a better trial wave function. However, if we take the average of the blue curve for the unguided DQMC algorithm, we actually get a better result than we would get for guided DQMC with $c=0.1$.\\
-\begin{center}
-\scalebox{0.5}{\includegraphics{walkers.png}}
-\end{center}
-Figure 2: Fluctuations in the walker population during the simulation.\\
-\\
-The number of walkers is also affected by the quality of the trial wave function. For a good trial wave function, the number of walkers remains constant over the entire simulation while for unguided DQMC, the walker population fluctuated quite a bit and is harder to control.\\
-In conclusion, guided DQMC can give a significant accuracy boost if a good trial wave function is chosen. The choice of the trial wave function depends on the specific system under investigation.
-
-
-
-\section{Zero Point Energy of Ethane}
-In order to put the developed algorithm to use, we calculated the zero point energy (ZPE) of the ethane molecule ($C_{2}H_{6}$). We used unguided DQMC with the implementation of the split-join algorithm and \eqref{eq:2.9} to update the trial energy after every iteration. As in \cite{mccoy}, $\Delta t = 10$ and $\alpha = 0.01$ were used as simulation parameters. The simulation was carried out in Cartesian coordinates and therefore the position vector for each walker has a dimension of $24$. To account for the different masses of the atoms, the random displacement of the atoms (line 5 and 6) used the width of the Gaussian distribution given by 
-\begin{equation}\label{eq:3.6} 
-\sigma_i = \sqrt{\frac{\Delta t}{m_i}},
-\end{equation}
-where $m_i$ is the mass of the atom $i$. This this leads to the fact that heavier atoms get smaller random displacements than lighter atoms. To calculate the potential energies, we used DFTB+, a implementation of Density Functional based Tight Binding \cite{dftbp} with the Third-Order Parametrization for Organic and Biological Systems (3ob-3-1) parameter set \cite{3ob-3-1}. This method is much faster than common density functional and configuration interaction methods and therefore allows for longer simulations with more walkers. After every move of a walker, DFTB+ was called via a Fortran subroutine and returned the potential energy $V(\bm{x})$ for the given coordinates of the walker.\\
-The initial position of the walkers was also calculated with DFTB+ using a geometry optimization of the $C_{2}H_{6}$ molecule. This calculation also gave the minimal energy of the potential energy surface used to calculate the ZPE. $1000$ walkers were then simulated from this initial position for $2000$ time steps. For the calculation of the ZPE, the trial energy $E_T$ was then averaged over all iterations after a short equilibration phase of $50$ time steps. The ZPE is now calculated as the difference between the minimal energy of the potential energy surface and this averaged trial energy of the DQMC simulation. This calculation resulted in a ZPE of $0.07386$ Hartree or $46.35$ kcal/mol with a standard deviation of $2.362 \cdot 10^{-3}$ Hartree.\\
-The calculation was preformed on sciCORE scientific computing center at University of Basel \cite{http://scicore.unibas.ch/} and used about $14$ hours of CPU time on a single core. In comparison, the ZPE calculated in \cite{c2h6} using more sophisticated methods gives a value of $46.39$ kcal/mol.
-\begin{center}
-\scalebox{0.5}{\includegraphics{zpe.png}}
-\end{center}
-Figure 3: Fluctuations of the ZPE after the equilibration phase\\
-\\
-The fluctuations of the ZPE are quite large. To decrease the fluctuations, one needs to do a simulation with more walkers and to improve the precision of the overall result, one can do a longer simulation or average the result over multiple simulations.
-\begin{center}
-\scalebox{0.5}{\includegraphics{autocorr.png}}
-\end{center}
-Figure 4: Autocorrelation function of the energy.\\
-\\
-As a last investigation, we looked at the autocorrelation of the energy. Here we notice that after about $40$ steps the energy becomes uncorrelated. This increases the confidence in our result and shows that the algorithm works well.
-\chapter{Conclusions and Outlook}
-DQMC proved to be a simple and efficient tool to calculate ground state and zero point energies. The algorithm developed in this work can be applied to various molecules and quantum systems with little to no adjustments. For its simplicity and speed, the algorithm provides moderately accurate results. For more accurate results one can look at the methods and implementations pesented in Ref. \cite{c2h6}. The example calculation of the ZPE of ethane $(C_{2}H_{6})$ supports these claims as the result was fairly accurate using only little computational resources.\\
-To further improve the algorithm, one can implement guided DQMC for molecules such as ethane. The challenge there is to find a good guiding wave function. This can be done using Gaussian guiding wave functions either in Cartesian coordinated or along the  vibrational modes. This approach promises faster convergence, smaller fluctuations and therefore a more accurate result than the unguided DQMC algorithm.
 \begin{appendices}
 \chapter{The Box-Muller Algorithm} \label{appendixA}
 The Box-Muller algorithm transforms two $\mathcal{U}([0,1])$ random numbers ($u_1, u_2$) to two $\mathcal{N}(0,1)$ random numbers ($x_1, x_2$).

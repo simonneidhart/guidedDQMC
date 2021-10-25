@@ -1,0 +1,7 @@
+\babel@toc {ngerman}{}
+\beamer@sectionintoc {1}{Einleitung}{2}{0}{1}
+\beamer@sectionintoc {2}{Einleitung}{3}{0}{2}
+\beamer@sectionintoc {3}{Einleitung}{4}{0}{3}
+\beamer@sectionintoc {4}{Einleitung}{5}{0}{4}
+\beamer@sectionintoc {5}{The DQMC Algorithm}{6}{0}{5}
+\beamer@sectionintoc {6}{Einleitung}{8}{0}{6}

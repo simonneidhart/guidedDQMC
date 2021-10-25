@@ -1,0 +1,65 @@
+#Compute forces and stress
+Analysis {
+  CalculateForces = Yes
+}
+
+#Provide input on accuracy, SK files and SCF
+Hamiltonian = DFTB {
+ # Eigensolver = RelativelyRobust{}
+ Solver = RelativelyRobust{}
+  MaxAngularMomentum = { # The highest orbital of every atom needs to be set here.
+    C = "p"
+    #Si = "p"
+    #H = "s"
+    #O = "p"
+    #N = "p"
+  }
+  SlaterKosterFiles = Type2FileNames {
+    Prefix = "3ob-3-1/"
+    #Prefix = "mio-1-1/"
+    #Prefix = "pbc-0-3/"
+
+    Separator = "-"
+    Suffix = ".skf"
+  }
+ SCC = Yes
+ SCCTolerance = 1.d-5 # 1d-5
+ MaxSCCIterations = 200
+ Filling = Fermi {
+  Temperature [K] = 400
+ }
+Mixer = Anderson {
+   MixingParameter = 0.05
+   Generations = 4
+   # Now the over-ride the (previously hidden) default old settings
+       InitMixingParameter = 0.01
+       DynMixingParameters = {
+       1.0e-3 0.05 # use 0.1 as mixing if more converged that 1.0e-2
+       1.0e-4 0.1 # again, but 1.0e-3
+       1.0e-5 0.2 # and the same
+       1.0e-6 0.3 # and the same
+       }
+   DiagonalRescaling = 0.1
+}
+
+# Use previous charge file
+ ReadInitialCharges = {
+<<<"input_restart.gen"
+}
+
+### Definition of the k-point mesh
+##K-Points state how many duplicats of the cell get evaluated
+##in each direction
+# KPointsAndWeights = SupercellFolding{
+#<<<"input_kpoints.gen"
+#}
+
+}
+
+Geometry = GenFormat {
+  <<< "input_geometry.gen"
+}
+
+ParserOptions {
+  ParserVersion = 8
+}

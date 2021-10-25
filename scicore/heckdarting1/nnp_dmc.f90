@@ -72,6 +72,7 @@ end program dmc
   print*, "RuNNers started"
   call getRuNNerEnergiesAndForces(globalRuNNerHandles(1), ats, etot, fxyz)
   print*, "Energy calculation successfull: ", etot
+  call gradient_descent(ats)
   call read_hessian(ats, e0_theory, debug_extended)
 
   !initialzations and memory allocations----------------------------------------
@@ -273,3 +274,50 @@ end program dmc
   if ( ios /= 0 ) stop "Error closing file unit 15"
 
 end subroutine do_simulation
+
+subroutine gradient_descent(ats)
+  use parameters
+  use precision
+  use atomicStructure
+  use RuNNerInterface
+  implicit none
+  type(atStruct) :: ats
+  real(dp) :: etot,alpha=1d-3,norm=1,vectornorm=0,vectornorm2=0,angle,angle1
+  real(dp) ,  dimension(3,ats%nat) :: fxyz, prev_fxyz
+  integer :: i, j, k, ios, iter=0
+
+  call getRuNNerEnergiesAndForces(globalRuNNerHandles(1), ats, etot, fxyz)
+  write(unit=*, fmt=*) "The energy in the given state is: ", etot
+
+  do while ( norm>1d-6 )
+    iter = iter+1 !count iterations
+    prev_fxyz = fxyz
+    ats%ats = ats%ats + fxyz*alpha !updating the positions
+    call getRuNNerEnergiesAndForces(globalRuNNerHandles(1), ats, etot, fxyz) !calculates negative gradient and total energy
+
+    !calculating the gradient norm and the angle between the vectors
+    angle = 0
+    norm = 0
+    do i=1,nat
+      vectornorm = 0
+      vectornorm2 = 0
+      do j=1,3
+        vectornorm = vectornorm+fxyz(j,i)**2
+        vectornorm2 = vectornorm2+prev_fxyz(j,i)**2
+      end do
+      norm = norm + sqrt(vectornorm)/nat !average over all the gradient norms
+      !angle between the current and previous gradient vector of the atom i
+      angle=angle+acos(dot_product(prev_fxyz(:,i),fxyz(:,i))/(sqrt(vectornorm)*sqrt(vectornorm2)))
+    end do
+    if (angle/nat > 1.0472) then  !average of all the angles, gradient feedback
+      alpha = alpha/2
+    else
+      alpha = alpha*1.05
+    endif
+  end do
+
+  write(unit=*, fmt=*) "The energy after the minimization is: ", etot
+  write(unit=*, fmt='(I5,A)') iter, " iterations were needed to obtain a precision of 1d-6"
+  write(unit=*, fmt=*)
+
+end subroutine gradient_descent
