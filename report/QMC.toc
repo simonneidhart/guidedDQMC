@@ -6,10 +6,11 @@
 \contentsline {section}{\numberline {2.3}Diffusion Quantum Monte Carlo}{4}{section.2.3}%
 \contentsline {section}{\numberline {2.4}The DQMC Algorithm}{7}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Walker Initialization}{7}{subsection.2.4.1}%
-\contentsline {chapter}{\numberline {3}Results}{8}{chapter.3}%
-\contentsline {section}{\numberline {3.1}The Quantum Harmonic Oscillator}{8}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Comparison of guided and unguided DQMC}{9}{subsection.3.1.1}%
-\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{10}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{11}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$ and $v(x)$}{12}{appendix.1.C}%
-\contentsline {chapter}{Bibliography}{13}{appendix*.2}%
+\contentsline {section}{\numberline {2.5}Gaussian Trial Wave Functions}{8}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Results}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The Quantum Harmonic Oscillator}{10}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Comparison of guided and unguided DQMC}{11}{subsection.3.1.1}%
+\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{12}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{13}{appendix.1.B}%
+\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$ and $v(x)$}{14}{appendix.1.C}%
+\contentsline {chapter}{Bibliography}{15}{appendix*.2}%

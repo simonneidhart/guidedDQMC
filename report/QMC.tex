@@ -83,7 +83,11 @@ Up to this point, we have derived the unguided DQMC algorithm. To improve the co
 \begin{equation} \label{eq:2.8}
 \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} f(\bm{x}) + \nabla \cdot (\bm{v}(\bm{x}) f(\bm{x})) + (E_L(\bm{x}) - E_T)f(\bm{x}) = 0.
 \end{equation}
-We have now introduced the drift velocity $\bm{v}(\bm{x}) = \nabla \psi_T(\bm{x})/ \psi_T(\bm{x})$ and the local energy $E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi_T(\bm{x}) + E_0^e(\bm{x})$ and similarly to the unguided case, we can get the short-time propagator
+We have now introduced the drift velocity $\bm{v}(\bm{x}) = \nabla \psi_T(\bm{x})/ \psi_T(\bm{x})$ and the local energy 
+\begin{equation}\label{el}
+E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi_T(\bm{x}) + E_0^e(\bm{x}),
+\end{equation}
+and similarly to the unguided case, we can get the short-time propagator
 \begin{equation} \label{eq:2.9}
 \tilde{G}(\bm{x_i},\bm{y}_i;\Delta t) = \sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i-\bm{v}(\bm{x})\Delta t)^2 m_i/(2 \Delta t)} e^{-\Delta t (E_L(\bm{x})+E_L(\bm{y}))/2 - E_T)} + \mathcal{O}(\Delta t^2).
 \end{equation}
@@ -144,7 +148,47 @@ Putting all this theory together, we get the guided DQMC algorithm.
 \end{algorithm}
 \subsection{Walker Initialization}
 There are several ways to initialize walkers. One is to distribute them randomly in a given simulation box. This can be done for every dimension individually by drawing uniform random numbers within the specified box bounds. Even better  Alternatively, one can start with all walkers in the minimum of the PES. Since one need an equilibration phase at the start of the simulation, this gives enough time for the walkers to spread out and explore the PES.\\ 
-At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. Unfortunately this is not the exact wave function, but it still can be useful to get some information about the system.
+At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. This is not the exact wave function, but it still can be useful to get some information about the system.
+\section{Gaussian Trial Wave Functions}
+This section discusses a simple way of choosing a trial wave function that can be used for various molecular systems. The idea is to transform from the Cartesian coordinate system  to a coordinate system defined by the vibrational modes. In this coordinate system, we can use the harmonic approximation to calculate a Gaussian trial wave function that gives a good approximation of the exact trial wave function.\\
+First, we need to calculate the Hessian matrix of the PES
+\begin{equation}
+H_{i,j} = \left. \frac{\partial^2 E_0^e(\bm{x})}{\partial \bm{x}_i \partial \bm{x}_j }\right|_{\bm{x} = \bm{x}^0},
+\end{equation}
+where $\bm{x}^0$ is the minimum energy configuration of the system. The Hessian matrix should be symmetric ($H_{i,j} = H_{j,i}$). Because it is calculated numerically it often is not exactly symmetric. It is therefore a good practice to symmetrize it by replacing it by $\frac{1}{2} H H^T$. It is also much faster and often more accurate to calculate the Hessian as the first derivative of the force vectors instead of the second derivative of the postilions. 
+Then, we calculate the eigenvectors $\bm{u}^i$ and  eigenvalues $\lambda_i$
+\begin{equation} \label{eigs}
+H \bm{u}^i = \lambda_i \bm{u}^i = m_i \omega_i^2 \bm{u}^i,
+\end{equation}
+where $m_i$ is the mass and $\omega_i$ the frequency of the harmonic oscillation along the vibrational mode $\bm{u}^i$.\\
+Because a translation or rotation of the entire molecule does not change the energy, six of the eigenvalues are zero for molecules with more than two atoms. This means that we now have $3 N_{at} - 6$ dimensions defined by the eigenvectors $u^i$.\\
+for the calculation of the local energy $E_L$ in equation \eqref{el} we need the masses for all the new $3 N_{at} - 6$ dimensions. To do this, we calculate the mass-scaled Hessian matrix
+\begin{equation}
+\tilde{H}_{i,j} = \left. \frac{1}{\sqrt{m_i m_j}}\frac{\partial^2 E_0^e(\bm{x})}{ \partial \bm{x}_i \partial \bm{x}_j }\right|_{\bm{x} = \bm{x}^0}.
+\end{equation}
+and its eigenvalues and eigenvectors
+\begin{equation}
+\tilde{H} \bm{\tilde{u}}^i = \tilde{\lambda}_i \bm{\tilde{u}}^i = \omega_i^2 \bm{\tilde{u}}^i.
+\end{equation}
+Comparing $\tilde{\lambda}_i \bm{u}^i = \omega_i^2 \bm{u}^i$ with $\lambda_i \bm{u}^i = m_i \omega_i^2 \bm{u}^i$ from \eqref{eigs}, we get $m_i = \lambda_i / \tilde{\lambda}_i$ for the masses of the $3 N_{at} - 6$ new dimensions.\\
+With the $\omega_i$, we can now calculate the ground state energy in the harmonic approximation
+\begin{equation}
+E_0^{harm} = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \omega_i = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \sqrt{\tilde{\lambda}_i} = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \sqrt{\frac{\lambda_i}{m_i}},
+\end{equation}
+and the Gaussian trial wave function
+\begin{equation}
+\psi_T(\bm{x}) = \prod_{i=1}^{3N_{at}-6} \mathcal{N} e^{-\frac{1}{2} m_i \omega_i (\bm{x}_i - \bm{x}^0_i)^2} = \prod_{i=1}^{3N_{at}-6} \mathcal{N} e^{-\frac{1}{2} \frac{(\bm{x}_i - \bm{x}^0_i)^2}{\sigma_i^2}},
+\end{equation}
+where $\sigma_i^2 = 1/(m_i \omega_i) = 1/(m_i\sqrt{\tilde{\lambda}}_i)$. 
+The big advantage of Gaussian trial wave functions is that the first and second derivatives can be calculated analytically. This gives
+\begin{equation}
+\bm{v}_i(\bm{x}) = \nabla_{\bm{x}_i} \psi_T(\bm{x})/ \psi_T(\bm{x}) = \frac{-(\bm{x}_i - \bm{x}^0_i)}{\sigma_i^2}
+\end{equation}
+for the drift velocity and 
+\begin{equation}\label{el}
+E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i \sigma^2_i} \left( \frac{(\bm{x}_i - \bm{x}^0_i)^2}{\sigma^2_i} - 1 \right) + E_0^e(\bm{x})
+\end{equation}
+for the local energy.
 
 \chapter{Results}
 \section{The Quantum Harmonic Oscillator}

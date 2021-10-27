@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  21 OCT 2021 11:20
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  25 OCT 2021 16:01
 entering extended mode
 **./QMC.tex
 (QMC.tex
@@ -388,10 +388,7 @@ LaTeX Warning: Command \@footnotemark  has changed.
 
 ) (QMC.aux
 
-LaTeX Warning: Label `eq:2.8' multiply defined.
-
-
-LaTeX Warning: Label `eq:2.9' multiply defined.
+LaTeX Warning: Label `el' multiply defined.
 
 )
 \openout1 = `QMC.aux'.
@@ -504,65 +501,65 @@ Chapter 2.
 
 ] [4] [5]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 118.
+put line 122.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 120.
+(Font)              using `TU/ptm/m/n' instead on input line 124.
 
-[6] [7]
+[6] [7] [8] [9]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--176
+Underfull \hbox (badness 10000) in paragraph at lines 211--220
 
  []
 
-[8
+[10
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 212--215
+Underfull \hbox (badness 10000) in paragraph at lines 256--259
 
  []
 
-[9]
+[11]
 Appendix A.
 
-Overfull \hbox (1.67125pt too wide) in paragraph at lines 218--219
+Overfull \hbox (1.67125pt too wide) in paragraph at lines 262--263
 \TU/ptm/bx/n/12 The Box-Muller algorithm transforms two $\OMS/cmsy/m/n/12 U\OT1
 /cmr/m/n/12 ([0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1])$ \TU/ptm/bx/n/12 random n
 umbers ($\OML/cmm/m/it/12 u[]; u[]$\TU/ptm/bx/n/12 ) to two $\OMS/cmsy/m/n/12 N
 \OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1)$
  []
 
-[10
+[12
 
 ]
 Appendix B.
-[11
+[13
 
 ]
 Appendix C.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 253.
+(hyperref)                removing `math shift' on input line 297.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 253.
+(hyperref)                removing `subscript' on input line 297.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 253.
+(hyperref)                removing `math shift' on input line 297.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 253.
+(hyperref)                removing `math shift' on input line 297.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 253.
+(hyperref)                removing `math shift' on input line 297.
 
-(QMC.bbl [12
+(QMC.bbl [14
 
 ]
 
@@ -570,38 +567,32 @@ LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
 (Font)              using `TU/ptm/m/n' instead on input line 7.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
- [13
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 313.
+ [15
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 313.
  (QMC.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 269.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 269.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 313.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 313.
+Package rerunfilecheck Info: File `QMC.out' has not changed.
+(rerunfilecheck)             Checksum: F1FC6CDED49CF9B13D92119E39445A9D;1102.
 
-
-Package rerunfilecheck Warning: File `QMC.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `QMC.out':
-(rerunfilecheck)             Before: 5C8CB402B3F06D5D90436E29F3C13C0B;1098
-(rerunfilecheck)             After:  17B4CB69C7F1A8A05EF325A60D6750E5;1017.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 313.
  ) 
 Here is how much of TeX's memory you used:
- 11545 strings out of 427240
- 159810 string characters out of 3145705
- 299643 words of memory out of 3000000
- 15865 multiletter control sequences out of 15000+200000
+ 11547 strings out of 427240
+ 159820 string characters out of 3145705
+ 299788 words of memory out of 3000000
+ 15867 multiletter control sequences out of 15000+200000
  20542 words of font info for 79 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  39i,9n,45p,959b,395s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on QMC.pdf (14 pages).
+Output written on QMC.pdf (16 pages).
