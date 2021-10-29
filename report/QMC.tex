@@ -60,7 +60,7 @@ or
 \begin{equation}
 \int_{x \in \Omega} \mathcal{A}(x) p(x) d^n x \approx \frac{1}{N} \sum_{i=1}^N \mathcal{A}(x_i),
 \end{equation}
-where $x_i$ are the random numbers generated according to the probability distribution $p(x)$. Because doing a sum or integral over the entire space $\Omega$ is often not possible because the space is too large, one generates the $x_i$ from a Markov Chain. This means that from a given $x_i$, $x_{i+1} = f(x_i,i,$"noise"$)$ can be generated using a stochastic process. To ensure that the $x_i$ follow the probability distribution $p(x)$ a acceptance-rejection step needs to be introduced. Namely, if $\alpha = \frac{p(x_{i+1})}{p(x_i)} > 1$ the new value $x_{i+1}$ always gets accepted and if $\alpha < 1$ the new value $x_{i+1}$ only gets accepted with probability $\alpha$. Put together, these steps leads to the metropolis algorithm (Appendix \ref{appendixB}). These ingredients form the basis of most Monte Carlo methods including the here presented DQMC algorithm.
+where $x_i$ are the random numbers generated according to the probability distribution $p(x)$. Because doing a sum or integral over the entire space $\Omega$ is often not possible because the space is too large, one generates the $x_i$ from a Markov Chain. This means that from a given $x_i$, $x_{i+1} = f(x_i,i,$"noise"$)$ can be generated using a stochastic process. To ensure that the $x_i$ follow the probability distribution $p(x)$ a acceptance-rejection step needs to be introduced. Namely, if $\alpha = \frac{p(x_{i+1})}{p(x_i)} > 1$ the new value $x_{i+1}$ always gets accepted and if $\alpha < 1$ the new value $x_{i+1}$ only gets accepted with probability $\alpha$. Put together, these steps leads to the Metropolis algorithm (Appendix \ref{appendixB}). These ingredients form the basis of most Monte Carlo methods including the here presented DQMC algorithm.
 
 \section{Diffusion Quantum Monte Carlo}
 To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are two main ways to derive the DQMC algorithm. The first way is by a transformation to an imaginary time $\tau = it/\hbar$ \cite{mccoy,cyrus}. The second way exploits the similarity between the Schrödinger equation and the diffusion equation.
@@ -125,7 +125,7 @@ Putting all this theory together, we get the guided DQMC algorithm.
 \State \textbf{initialize} $walkers$
 \For{$i=1,steps$}
 	\ForAll{$x$ \textbf{in} $walkers$}
-		\State \textbf{draw} $\eta \sim \mathcal{N}(y,\sqrt{\Delta t/m})$
+		\State \textbf{draw} $\eta \sim \mathcal{N}(x,\sqrt{\Delta t/m})$
 		\State $x = x + \eta + v(x)$ \Comment{Moving the walker}
 		\State $w = w \cdot exp(-\Delta t (E_L(x)+E_L(x_{prev}))/2 - E_T))$
 		\If {($w > 2$)}
@@ -146,9 +146,7 @@ Putting all this theory together, we get the guided DQMC algorithm.
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-\subsection{Walker Initialization}
-There are several ways to initialize walkers. One is to distribute them randomly in a given simulation box. This can be done for every dimension individually by drawing uniform random numbers within the specified box bounds. Even better  Alternatively, one can start with all walkers in the minimum of the PES. Since one need an equilibration phase at the start of the simulation, this gives enough time for the walkers to spread out and explore the PES.\\ 
-At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. This is not the exact wave function, but it still can be useful to get some information about the system.
+\newpage
 \section{Gaussian Trial Wave Functions}
 This section discusses a simple way of choosing a trial wave function that can be used for various molecular systems. The idea is to transform from the Cartesian coordinate system  to a coordinate system defined by the vibrational modes. In this coordinate system, we can use the harmonic approximation to calculate a Gaussian trial wave function that gives a good approximation of the exact trial wave function.\\
 First, we need to calculate the Hessian matrix of the PES
@@ -161,7 +159,7 @@ Then, we calculate the eigenvectors $\bm{u}^i$ and  eigenvalues $\lambda_i$
 H \bm{u}^i = \lambda_i \bm{u}^i = m_i \omega_i^2 \bm{u}^i,
 \end{equation}
 where $m_i$ is the mass and $\omega_i$ the frequency of the harmonic oscillation along the vibrational mode $\bm{u}^i$.\\
-Because a translation or rotation of the entire molecule does not change the energy, six of the eigenvalues are zero for molecules with more than two atoms. This means that we now have $3 N_{at} - 6$ dimensions defined by the eigenvectors $u^i$.\\
+Because a translation or rotation of the entire molecule does not change the energy, six of the eigenvalues are zero for molecules with more than two atoms. This means that we now have $3 N_{at} - 6$ dimensions defined by the eigenvectors $\bm{u}^i$.\\
 for the calculation of the local energy $E_L$ in equation \eqref{el} we need the masses for all the new $3 N_{at} - 6$ dimensions. To do this, we calculate the mass-scaled Hessian matrix
 \begin{equation}
 \tilde{H}_{i,j} = \left. \frac{1}{\sqrt{m_i m_j}}\frac{\partial^2 E_0^e(\bm{x})}{ \partial \bm{x}_i \partial \bm{x}_j }\right|_{\bm{x} = \bm{x}^0}.
@@ -173,7 +171,7 @@ and its eigenvalues and eigenvectors
 Comparing $\tilde{\lambda}_i \bm{u}^i = \omega_i^2 \bm{u}^i$ with $\lambda_i \bm{u}^i = m_i \omega_i^2 \bm{u}^i$ from \eqref{eigs}, we get $m_i = \lambda_i / \tilde{\lambda}_i$ for the masses of the $3 N_{at} - 6$ new dimensions.\\
 With the $\omega_i$, we can now calculate the ground state energy in the harmonic approximation
 \begin{equation}
-E_0^{harm} = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \omega_i = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \sqrt{\tilde{\lambda}_i} = \sum_{i=1}^{3N_{at}-6} \frac{1}{2} \sqrt{\frac{\lambda_i}{m_i}},
+E_0^{harm} = \frac{1}{2} \sum_{i=1}^{3N_{at}-6} \omega_i = \frac{1}{2}\sum_{i=1}^{3N_{at}-6}  \sqrt{\tilde{\lambda}_i} = \frac{1}{2} \sum_{i=1}^{3N_{at}-6}  \sqrt{\frac{\lambda_i}{m_i}},
 \end{equation}
 and the Gaussian trial wave function
 \begin{equation}
@@ -188,9 +186,20 @@ for the drift velocity and
 \begin{equation}\label{el}
 E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i \sigma^2_i} \left( \frac{(\bm{x}_i - \bm{x}^0_i)^2}{\sigma^2_i} - 1 \right) + E_0^e(\bm{x})
 \end{equation}
-for the local energy.
+for the local energy. 
+\section{Implementation Details}
+As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the position of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation for the local energy $E_L(\bm{x})$.
+\subsection{Walker Initialization}
+There are several ways to initialize walkers. The easiest way is to start with all walkers at the initial configuration where the energy is $E^e_{min}$. This has the disadvantage, that it takes time for the walkers to spread out and start sampling the entire PES. A better way, is to start with the walkers distributed according to $\psi_T(\bm{x})$. In the case of Gaussian trial wave functions, this can be achieved by giving the walkers the initial position $\bm{x}_i = \eta \sigma_i$ for each dimension $i$.
+At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. This is not the exact wave function, but it still can be useful to get some information about the system.
+\subsection{Parallelization}
+A big advantage of the DQMC Algorithm is that it can be easily parallelized to run on multiple CPU cores. By far the most expensive step of the algorithm is the evaluation of the PES for the calculation of $E_L(\bm{x})$ on line 7. This can be done in parallel for all the walkers since their are independent of each other. We therefore close the for-loop starting on line 4 after line 7 and run that part in parallel. Then we loop over all walkers again for the split-join algorithm. This part can not be done in parallel but the time this takes is negligible. \\
+%TODO comparison 1 vs 20 CPU cores
 
 \chapter{Results}
+
+\section{Ethane}
+To test and tune our algorithm, we first use the simple molecule of ethane.
 \section{The Quantum Harmonic Oscillator}
 To test the algorithm, we first let it run with the potential of the $d$-dimensional quantum harmonic oscillator
 \begin{equation}\label{eq:3.1} 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  25 OCT 2021 16:01
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  28 OCT 2021 16:36
 entering extended mode
 **./QMC.tex
 (QMC.tex
@@ -507,59 +507,64 @@ put line 122.
 LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
 (Font)              using `TU/ptm/m/n' instead on input line 124.
 
-[6] [7] [8] [9]
+[6] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 196--198
+
+ []
+
+[9]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 211--220
+Underfull \hbox (badness 10000) in paragraph at lines 220--229
 
  []
 
 [10
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 256--259
+Underfull \hbox (badness 10000) in paragraph at lines 265--268
 
  []
 
-[11]
+[11] [12]
 Appendix A.
 
-Overfull \hbox (1.67125pt too wide) in paragraph at lines 262--263
+Overfull \hbox (1.67125pt too wide) in paragraph at lines 271--272
 \TU/ptm/bx/n/12 The Box-Muller algorithm transforms two $\OMS/cmsy/m/n/12 U\OT1
 /cmr/m/n/12 ([0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1])$ \TU/ptm/bx/n/12 random n
 umbers ($\OML/cmm/m/it/12 u[]; u[]$\TU/ptm/bx/n/12 ) to two $\OMS/cmsy/m/n/12 N
 \OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1)$
  []
 
-[12
+[13
 
 ]
 Appendix B.
-[13
+[14
 
 ]
 Appendix C.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 297.
+(hyperref)                removing `math shift' on input line 306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 297.
+(hyperref)                removing `subscript' on input line 306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 297.
+(hyperref)                removing `math shift' on input line 306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 297.
+(hyperref)                removing `math shift' on input line 306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 297.
+(hyperref)                removing `math shift' on input line 306.
 
-(QMC.bbl [14
+(QMC.bbl [15
 
 ]
 
@@ -567,16 +572,16 @@ LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
 (Font)              using `TU/ptm/m/n' instead on input line 7.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 313.
- [15
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 322.
+ [16
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 313.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 322.
  (QMC.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 313.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 313.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 322.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 322.
 Package rerunfilecheck Info: File `QMC.out' has not changed.
-(rerunfilecheck)             Checksum: F1FC6CDED49CF9B13D92119E39445A9D;1102.
+(rerunfilecheck)             Checksum: 2C20C18428DB88E870C63C878417308A;1296.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -584,15 +589,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 313.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 322.
  ) 
 Here is how much of TeX's memory you used:
  11547 strings out of 427240
  159820 string characters out of 3145705
- 299788 words of memory out of 3000000
+ 300013 words of memory out of 3000000
  15867 multiletter control sequences out of 15000+200000
  20542 words of font info for 79 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 39i,9n,45p,959b,395s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,9n,45p,959b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on QMC.pdf (16 pages).
+Output written on QMC.pdf (17 pages).
