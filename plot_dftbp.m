@@ -2,11 +2,11 @@ load et_noWalkers
 load walker_positions
 
 % e_min = -102.915340231900; %h2@c60
-%e_min = -27.5893786053000; %c12h10o
+% e_min = -27.5893786053000; %c12h10o
 %e_min = -0.440620475522069; %peroskite
 %e_min = -0.670556596200000; %h2
-e_min = -102.2448840269; %c60
-%e_min = -5.69922832840000; %c2h6
+% e_min = -102.2448840269; %c60
+e_min = -5.69922832840000; %c2h6
 %unguided_res = 0.07386; 
 
 figure(1)
@@ -16,7 +16,7 @@ s = 100;
 plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
-title('guiding wf adjusted @ n=800')
+% title('guiding wf adjusted @ n=800')
 
 zpe = mean(et_noWalkers(s:end,1))-e_min
 st = std(et_noWalkers(s:end,1)-e_min)
@@ -42,8 +42,8 @@ xlim([-10 10])
 ylim([-10 10])
 zlim([-10 10])
 
-le = 4500;
-s = 500;
+le = 1500;
+s = 300;
 err = zeros(le,1);
 for i=1:le
     err(i) = mean(et_noWalkers(s-99:s+i,1))- e_min;

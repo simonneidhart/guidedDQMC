@@ -43,7 +43,7 @@ When considering a system of $N_{at}$ nuclei with positions $\bm{R}_i,...,\bm{R}
 containing the kinetic term of the electrons, the electron-electron, electron-nuclei and nuclei-nuclei interactions, is solved. In this work, we will use existing electronic structure codes to solve the electronic Schrödinger equation. This gives a potential energy surface (PES) $E_0^e(\bm{R}_i,...,\bm{R}_{N_{at}})$ with a minimum $E_{min}^e$. Since we do not have to worry about the electrons anymore, we will from now on write all atom coordinates in one vectctor $\bm{x} = \bm{R}_i,...,\bm{R}_{N_{at}}$ of length $3N_{at}$.
 The second part of the problem is the nucleonic Schrödinger equation
 \begin{equation} \label{eq:2.2}
-\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R_i}} \psi^n + E_0^e \psi^n = \mathcal{H} \psi^n = E_0 \psi^n,
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R_i}} \psi^n + E_0^e \psi^n = E_0 \psi^n,
 \end{equation}
 which we will solve for the energy $E_0$ using the DQMC algorithm. The Born-Oppenheimer approximation is justified by the fact that the nuclei are much heavier than the electrons and can therefore be treated classically in the electronic structure problem but then quantum-mechanically in the nucleonic Schrödinger equation. From the point of view of the electrons, the nuclei are basically stationary and therefore, their slow movement does not influence the solution of the electronic structure problem. The nuclei then feel the potential from the electrons and move accordingly on the PES.
 
@@ -63,24 +63,25 @@ or
 where $x_i$ are the random numbers generated according to the probability distribution $p(x)$. Because doing a sum or integral over the entire space $\Omega$ is often not possible because the space is too large, one generates the $x_i$ from a Markov Chain. This means that from a given $x_i$, $x_{i+1} = f(x_i,i,$"noise"$)$ can be generated using a stochastic process. To ensure that the $x_i$ follow the probability distribution $p(x)$ a acceptance-rejection step needs to be introduced. Namely, if $\alpha = \frac{p(x_{i+1})}{p(x_i)} > 1$ the new value $x_{i+1}$ always gets accepted and if $\alpha < 1$ the new value $x_{i+1}$ only gets accepted with probability $\alpha$. Put together, these steps leads to the Metropolis algorithm (Appendix \ref{appendixB}). These ingredients form the basis of most Monte Carlo methods including the here presented DQMC algorithm.
 
 \section{Diffusion Quantum Monte Carlo}
-To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are two main ways to derive the DQMC algorithm but the most common one is by a transformation to of the Schrödinger equation to an imaginary time $\tau = it$ \cite{mccoy,cyrus,herleitung2}. The Schrödinger equation then becomes
+To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are two main ways to derive the DQMC algorithm. The first way is by a transformation to an imaginary time $\tau = it/\hbar$ \cite{mccoy,cyrus}. The second way exploits the similarity between the Schrödinger equation and the diffusion equation.
+
+Here, we compare the Schrödinger equation \eqref{eq:2.2} to the diffusion equation 
 \begin{equation} \label{eq:2.5}
-\frac{\partial}{\partial \tau} \psi(\bm{x},\tau) = -(\mathcal{H} - E_T) \psi(\bm{x},\tau),
+\frac{\partial}{\partial t} \psi(\bm{x},t) = \frac{1}{2} \nabla^2_{\bm{x}} \psi(\bm{x},t) + (E - V(\bm{x}))\psi(\bm{x},t)
 \end{equation}
-where the energy is shifted by the trial energy $E_T$. The wave function can now be written as
-\begin{equation}
-\psi(\bm{x},\tau) = \sum_{i=1}^{\infty} e^{-(E_i - E_T)\tau}\psi_i(\bm{x}),
+with an additional growth or decay term on the right hand side.
+Comparing these two equations, we notice that for $\frac{\partial}{\partial t} \psi(\bm{x},t) = 0$ the diffusion equation satisfies the time independent Schrödinger equation and we get
+\begin{equation} \label{eq:2.6}
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi(\bm{x}) + E_0^e(\bm{x})\psi(\bm{x}) = E_T \psi(\bm{x}).
 \end{equation}
-where $E_i$ and $\psi_i(\bm{x})$ solve the time independent nucleonic Schrödinger equation $\mathcal{H}\psi_i(\bm{x}) = E_i \psi_i(\bm{x})$ and $E_0 \leq E_1 \leq E_2 \leq...$.
-As we now increase our simulation time $\tau$, the sum only converges to the ground state wave function $\psi_0(\bm{x})$ if we adjust $E_T$ to $E_0$ as all other terms decay exponentially faster. This happens independent of the inital choice of our wave function. \\
-As we now discretize our time step, we get the known short time propagator of \eqref{eq:2.5} for moving a particle form position $\bm{x}$ to position $\bm{y}$ during a short time step $\Delta \tau$
+Instead of $E_0$, we have now introduced the trial energy $E_T$. This trial energy will be adjusted during the simulation of the diffusion and will give us the solution of the Schrödinger equation $E_0$ once we have reached a stationary state, when $\frac{\partial}{\partial t} \psi(\bm{x},t) = 0$. To simulate this diffusion we use the known short time propagator of \eqref{eq:2.5} for moving a particle form position $\bm{x}$ to position $\bm{y}$ during a short time step $\Delta t$
 \begin{equation} \label{eq:2.7}
-G(\bm{x_i},\bm{y}_i;\Delta \tau) = \sqrt{\frac{m_i}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2 \Delta \tau)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta \tau^2),
+G(\bm{x_i},\bm{y}_i;\Delta t) = \sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2 \Delta t)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta t^2),
 \end{equation}
-for $i=1,...,3N_{at}$. This propagator has two parts. The first part $\sqrt{\frac{m_i}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2\Delta \tau)}$ is pure diffusion for dimension $i$ and corresponds to a Gaussian distribution centered around $\bm{x}_i$ giving a smaller value, the further $\bm{y}_i$ is away from $\bm{x}_i$. The second part $q = e^{-\Delta \tau (E_0^e(\bm{y}) - E_T)}$ represents a branching process. If $E_0^e(\bm{y}) > E_T$ then $q < 1$ and if $E_0^e(\bm{y}) < E_T$ then $q > 1$.\\
+for $i=1,...,3N_{at}$. This propagator has two parts. The first part $\sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2\Delta t)}$ is pure diffusion for dimension $i$ and corresponds to a Gaussian distribution centered around $\bm{x}_i$ giving a smaller value, the further $\bm{y}_i$ is away from $\bm{x}_i$. The second part $q = e^{-\Delta t (E_0^e(\bm{y}) - E_T)}$ represents a branching process. If $E_0^e(\bm{y}) > E_T$ then $q < 1$ and if $E_0^e(\bm{y}) < E_T$ then $q > 1$.\\
 Up to this point, we have derived the unguided DQMC algorithm. To improve the convergence it is very useful to introduce a trial or guiding wave function $\psi_T(\bm{x})$. $\psi_T$ should approximate $\psi(\bm{x})$ as good as possible, without requiring to much effort to compute and evaluate. Our program will later need a lot of evaluations of the first and second derivative of $\psi_T(\bm{x})$. We now multiply the Schrödinger equation \eqref{eq:2.6} with $\psi_T(\bm{x})$, define $f(\bm{x}) = \psi(\bm{x}) \psi_T(\bm{x})$ and after some calculation \cite{cyrus2} we get
 \begin{equation} \label{eq:2.8}
-\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} f(\bm{x}) + \nabla_{\bm{x}} (\bm{v}(\bm{x}) f(\bm{x})) + (E_L(\bm{x}) - E_T)f(\bm{x}) = 0.
+\sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} f(\bm{x}) + \nabla \cdot (\bm{v}(\bm{x}) f(\bm{x})) + (E_L(\bm{x}) - E_T)f(\bm{x}) = 0.
 \end{equation}
 We have now introduced the drift velocity $\bm{v}(\bm{x}) = \nabla \psi_T(\bm{x})/ \psi_T(\bm{x})$ and the local energy 
 \begin{equation}\label{el}
@@ -88,18 +89,18 @@ E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2
 \end{equation}
 and similarly to the unguided case, we can get the short-time propagator
 \begin{equation} \label{eq:2.9}
-\tilde{G}(\bm{x_i},\bm{y}_i;\Delta \tau) = \sqrt{\frac{m_i}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i-\bm{v}(\bm{x})\Delta \tau)^2 m_i/(2 \Delta \tau)} e^{-\Delta \tau (E_L(\bm{x})+E_L(\bm{y}))/2 - E_T)} + \mathcal{O}(\Delta \tau^2).
+\tilde{G}(\bm{x_i},\bm{y}_i;\Delta t) = \sqrt{\frac{m_i}{2 \pi \Delta t}} e^{-(\bm{x}_i-\bm{y}_i-\bm{v}(\bm{x})\Delta t)^2 m_i/(2 \Delta t)} e^{-\Delta t (E_L(\bm{x})+E_L(\bm{y}))/2 - E_T)} + \mathcal{O}(\Delta t^2).
 \end{equation}
 There are two major differences compared to the unguided propagator. In addition to the pure diffusion described by the Gaussian distribution, we now have the drift velocity, which drifts $\bm{x}$ towards a region where $f(\bm{x})$ is large. Second, the local energy adds the kinetic energy of the nuclei to the evaluation of the PES and the local energy is averaged over the position before and after the propagation. 
 With these ingredients we can construct our DQMC algorithm using a population of walkers and simulating diffusion on them. First, we just update the walker position according to the first part of the propagator by displacing it according to
 \begin{equation}\label{2.10}
-\bm{y}_i = \bm{x}_i + \bm{\eta}_i + \bm{v}_i(\bm{x})\Delta \tau/m_i \text{ for } i=1,...,N_{at},
+\bm{y}_i = \bm{x}_i + \bm{\eta}_i + \bm{v}_i(\bm{x})\Delta t/m_i \text{ for } i=1,...,N_{at},
 \end{equation}
-where $\bm{\eta}$ is a vector of $N_{at}$ normal distributed random numbers with mean $0$ and standard deviation $\sqrt{\Delta \tau / m_i}$ for dimension $i$.
+where $\bm{\eta}$ is a vector of $N_{at}$ normal distributed random numbers with mean $0$ and standard deviation $\sqrt{\Delta t / m_i}$ for dimension $i$.
 
 The branching process can be implemented by letting walkers die, survive or reproduce according to their weight $w$ which is updated from step $k$ to step $k+1$ according to 
 \begin{equation}\label{eq:2.11} 
-w^{(k+1)} = w^{(k)} e^{(-\Delta \tau (E_L(\bm{x}) + E_L(\bm{y}))/2 - E_T))}.
+w^{(k+1)} = w^{(k)} e^{(-\Delta t(E_L(\bm{x}) + E_L(\bm{y}))/2 - E_T))}.
 \end{equation}
 
 With these non-integer weights, one can implement the split-join algorithm \cite{split_join} to do the branching process. There are many alternatives, but split-join has the advantage that it limits the duplication of walker that would occur with other methods.
@@ -120,13 +121,13 @@ Putting all this theory together, we get the guided DQMC algorithm.
 \begin{algorithm}
 \caption{Guided DQMC}\label{dqmc}
 \begin{algorithmic}[1]
-\Procedure{DQMC}{$steps, \Delta \tau, E_0^e(x), \psi_T(x), m$}
+\Procedure{DQMC}{$steps, \Delta t, E_0^e(x), \psi_T(x), m$}
 \State \textbf{initialize} $walkers$
 \For{$i=1,steps$}
 	\ForAll{$x$ \textbf{in} $walkers$}
 		\State \textbf{draw} $\eta \sim \mathcal{N}(x,\sqrt{\Delta t/m})$
 		\State $x = x + \eta + v(x)$ \Comment{Moving the walker}
-		\State $w = w \cdot exp(-\Delta \tau (E_L(x)+E_L(x_{prev}))/2 - E_T))$
+		\State $w = w \cdot exp(-\Delta t (E_L(x)+E_L(x_{prev}))/2 - E_T))$
 		\If {($w > 2$)}
 		\State \textbf{make} $\lfloor q \rfloor$ \textbf{copies of} $x$ \textbf{with weight} $w/\lfloor w \rfloor$ \textbf{for the next cycle}
 		\EndIf
@@ -186,24 +187,13 @@ for the drift velocity and
 E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i \sigma^2_i} \left( \frac{(\bm{x}_i - \bm{x}^0_i)^2}{\sigma^2_i} - 1 \right) + E_0^e(\bm{x})
 \end{equation}
 for the local energy. 
-\section{Implementation Details and Improvements}
-As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the position of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation for the local energy $E_L(\bm{x})$. The transformation back to Cartesian coordinates is done using the simple matrix-vector multiplication $\bm{x}_{cart} = U\bm{x}$, where $U$ is the $3N_{at}$ by $3N_{at} - $ matrix with the eigenvectors $\bm{u}^i$ as its columns. 
-\subsection{Metropolis Step}
-The short time propagator \eqref{eq:2.9} introduces a time-step error. To get rid of this error, we can introduce an Metropolis step for the propagation of the walker. Instead of just moving the walker to a new postion $\bm{y}$, we propose a new position $\bm{x}'$ according to \eqref{eq:2.11} and calculate a acceptance probability 
-\begin{equation}\label{Pacc}
-P_{acc}(\bm{x}',\bm{x}) = \frac{P_{prop}(\bm{x},\bm{x}' \psi(\bm{x}')^2}{P_{prop}(\bm{x}',\bm{x} \psi(\bm{x})^2},
-\end{equation}
-with
-\begin{equation}\label{Pprop}
-P_{prop}(\bm{x}',\bm{x}) = \frac{1}{(2\pi\tau)^{(3N_{at}-6)/2}} e^{-\frac{(\bm{x}'-\bm{x}-\bm{v}(\bm{x})\tau)^2}{2\tau}}.
-\end{equation}
-Even though a rejected step means that a expensive evaluation of the PES is wasted, it is generally worth it to add this step to the algorithm.
+\section{Implementation Details}
+As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the position of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation for the local energy $E_L(\bm{x})$.
 \subsection{Walker Initialization}
 There are several ways to initialize walkers. The easiest way is to start with all walkers at the initial configuration where the energy is $E^e_{min}$. This has the disadvantage, that it takes time for the walkers to spread out and start sampling the entire PES. A better way, is to start with the walkers distributed according to $\psi_T(\bm{x})$. In the case of Gaussian trial wave functions, this can be achieved by giving the walkers the initial position $\bm{x}_i = \eta \sigma_i$ for each dimension $i$.
 At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. This is not the exact wave function, but it still can be useful to get some information about the system.
 \subsection{Parallelization}
 A big advantage of the DQMC Algorithm is that it can be easily parallelized to run on multiple CPU cores. By far the most expensive step of the algorithm is the evaluation of the PES for the calculation of $E_L(\bm{x})$ on line 7. This can be done in parallel for all the walkers since their are independent of each other. We therefore close the for-loop starting on line 4 after line 7 and run that part in parallel. Then we loop over all walkers again for the split-join algorithm. This part can not be done in parallel but the time this takes is negligible. \\
-In DMC algorithms, one can choose between moving along all the dimensions at once and then adjust the trial energy $E_T$ or moving along all dimensions one by one and adjusting $E_T$ after every move. Generally, the second option is slightly more efficient but it requires a lot more evaluations of the PES and would ruin the easy parallelization of the algorithm Therefore, we stick with moving along all dimensions at once. 
 %TODO comparison 1 vs 20 CPU cores
 
 \chapter{Results}
