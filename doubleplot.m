@@ -1,4 +1,5 @@
 load et_noWalkers
+load uet_noWalkers
 load walker_positions
 
 % e_min = -102.915340231900; %h2@c60
@@ -10,21 +11,25 @@ e_min = -102.2448840269; %c60
 %unguided_res = 0.07386; 
 
 figure(1)
-ll = length(et_noWalkers);
+ll = 10000
 x = 1:ll;
-s = 1000;
-plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
+s = 100;
+plot(x(s:end),(et_noWalkers(s:ll,1)-e_min),x(s:end),(uet_noWalkers(20100:30000,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
+legend('guided','unguided')
 % title('guiding wf adjusted @ n=800')
 
 zpe = mean(et_noWalkers(s:end,1))-e_min
 st = std(et_noWalkers(s:end,1)-e_min)
+uzpe = mean(uet_noWalkers(s:end,1))-e_min
+ust = std(uet_noWalkers(s:end,1)-e_min)
 
 figure(2)
-plot(x,et_noWalkers(:,2),'LineWidth',1.2)
+plot(x,et_noWalkers(1:ll,2),x,uet_noWalkers(1:ll,2),'LineWidth',1.2)
 xlabel('Iterations')
 ylabel('Number of walkers')
+legend('guided','unguided')
 
 nat = 23;
 s = 20.0;
@@ -42,17 +47,20 @@ xlim([-10 10])
 ylim([-10 10])
 zlim([-10 10])
 
-s = 1000;
-le = ll - s;
+le = 9800;
+s = 200;
 err = zeros(le,1);
+uerr = zeros(le,1);
 for i=1:le
     err(i) = mean(et_noWalkers(s-99:s+i,1))- e_min;
+    uerr(i) = mean(uet_noWalkers(s-99+20000:s+i+20000,1))- e_min;
 end
 
 figure(4)
-plot(1:le,err,'LineWidth',1.2)
+plot(1:le,err,1:le,uerr,'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$Mean(E_T) - E_{min}$ [Hartee]','Interpreter','latex')
+legend('guided','unguided')
     
 % x = -5:0.1:5;
 

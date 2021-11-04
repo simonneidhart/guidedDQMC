@@ -15,7 +15,7 @@
 
 \exhyphenpenalty=1000
 \hyphenpenalty=1000
-\linespread{1.15}
+\linespread{1.1}
 
 \title{Calculating the Zero Point Energy of Ethane Using the Diffusion Quantum Monte Carlo Method}
 \author{Simon Neidhart \\ \\ Supervisor: Prof. Dr. Stefan Goedecker}
@@ -68,7 +68,7 @@ To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} 
 \frac{\partial}{\partial \tau} \psi(\bm{x},\tau) = -(\mathcal{H} - E_T) \psi(\bm{x},\tau),
 \end{equation}
 where the energy is shifted by the trial energy $E_T$. The wave function can now be written as
-\begin{equation}
+\begin{equation} \label{eq:2.6}
 \psi(\bm{x},\tau) = \sum_{i=1}^{\infty} e^{-(E_i - E_T)\tau}\psi_i(\bm{x}),
 \end{equation}
 where $E_i$ and $\psi_i(\bm{x})$ solve the time independent nucleonic Schrödinger equation $\mathcal{H}\psi_i(\bm{x}) = E_i \psi_i(\bm{x})$ and $E_0 \leq E_1 \leq E_2 \leq...$.
@@ -78,7 +78,7 @@ As we now discretize our time step, we get the known short time propagator of \e
 G(\bm{x_i},\bm{y}_i;\Delta \tau) = \sqrt{\frac{m_i}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2 \Delta \tau)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta \tau^2),
 \end{equation}
 for $i=1,...,3N_{at}$. This propagator has two parts. The first part $\sqrt{\frac{m_i}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 m_i/(2\Delta \tau)}$ is pure diffusion for dimension $i$ and corresponds to a Gaussian distribution centered around $\bm{x}_i$ giving a smaller value, the further $\bm{y}_i$ is away from $\bm{x}_i$. The second part $q = e^{-\Delta \tau (E_0^e(\bm{y}) - E_T)}$ represents a branching process. If $E_0^e(\bm{y}) > E_T$ then $q < 1$ and if $E_0^e(\bm{y}) < E_T$ then $q > 1$.\\
-Up to this point, we have derived the unguided DQMC algorithm. To improve the convergence it is very useful to introduce a trial or guiding wave function $\psi_T(\bm{x})$. $\psi_T$ should approximate $\psi(\bm{x})$ as good as possible, without requiring to much effort to compute and evaluate. Our program will later need a lot of evaluations of the first and second derivative of $\psi_T(\bm{x})$. We now multiply the Schrödinger equation \eqref{eq:2.6} with $\psi_T(\bm{x})$, define $f(\bm{x}) = \psi(\bm{x}) \psi_T(\bm{x})$ and after some calculation \cite{cyrus2} we get
+Up to this point, we have derived the unguided DQMC algorithm. To improve the convergence it is very useful to introduce a trial or guiding wave function $\psi_T(\bm{x})$. $\psi_T$ should approximate $\psi(\bm{x})$ as good as possible, without requiring to much effort to compute and evaluate. Our program will later need a lot of evaluations of the first and second derivative of $\psi_T(\bm{x})$. We now multiply the Schrödinger equation \eqref{eq:2.5} with $\psi_T(\bm{x})$, define $f(\bm{x}) = \psi(\bm{x}) \psi_T(\bm{x})$ and after some calculation \cite{cyrus2} we get
 \begin{equation} \label{eq:2.8}
 \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} f(\bm{x}) + \nabla_{\bm{x}} (\bm{v}(\bm{x}) f(\bm{x})) + (E_L(\bm{x}) - E_T)f(\bm{x}) = 0.
 \end{equation}
@@ -92,8 +92,8 @@ and similarly to the unguided case, we can get the short-time propagator
 \end{equation}
 There are two major differences compared to the unguided propagator. In addition to the pure diffusion described by the Gaussian distribution, we now have the drift velocity, which drifts $\bm{x}$ towards a region where $f(\bm{x})$ is large. Second, the local energy adds the kinetic energy of the nuclei to the evaluation of the PES and the local energy is averaged over the position before and after the propagation. 
 With these ingredients we can construct our DQMC algorithm using a population of walkers and simulating diffusion on them. First, we just update the walker position according to the first part of the propagator by displacing it according to
-\begin{equation}\label{2.10}
-\bm{y}_i = \bm{x}_i + \bm{\eta}_i + \bm{v}_i(\bm{x})\Delta \tau/m_i \text{ for } i=1,...,N_{at},
+\begin{equation}\label{eq:2.10}
+\bm{y}_i = \bm{x}_i + \bm{\eta}_i + \bm{v}_i(\bm{x})\Delta \tau/m_i \quad \textrm{ for } \quad i=1,...,N_{at},
 \end{equation}
 where $\bm{\eta}$ is a vector of $N_{at}$ normal distributed random numbers with mean $0$ and standard deviation $\sqrt{\Delta \tau / m_i}$ for dimension $i$.
 
@@ -113,30 +113,31 @@ where $\xi > 0$ is a damping parameter, $W^{(0)}$ is the sum of weight at the st
 \begin{equation}\label{eq:2.13} 
 E_0^{(k)} = \frac{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} E_L(\bm{x}_{i}^{(k)})}{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} },
 \end{equation}
-is the current estimation of the ground state energy $E_0$. At the end of the simulation, this estimate can be improved by averaging it over may iterations after the equilibration phase giving the final result of the calculation, the energy eigenvalue of the Schrödinger equation and therefore also the ZPE.
+is the current estimation of the ground state energy $E_0$. This artificial adjustment to the trial energy introduces the so called population-control error. This error is generally small and can be easily controlled as it decreases as $1/N_{walkers}$. At the end of the simulation, this estimate can be improved by averaging it over may iterations after the equilibration phase giving the final result of the calculation, the energy eigenvalue of the Schrödinger equation and therefore also the ZPE.
+\newpage
 \section{The DQMC Algorithm}
 Putting all this theory together, we get the guided DQMC algorithm.
 
 \begin{algorithm}
 \caption{Guided DQMC}\label{dqmc}
 \begin{algorithmic}[1]
-\Procedure{DQMC}{$steps, \Delta \tau, E_0^e(x), \psi_T(x), m$}
+\Procedure{DQMC}{$steps, \Delta \tau, E_0^e(\bm{x}), \psi_T(\bm{x}), m$}
 \State \textbf{initialize} $walkers$
 \For{$i=1,steps$}
-	\ForAll{$x$ \textbf{in} $walkers$}
-		\State \textbf{draw} $\eta \sim \mathcal{N}(x,\sqrt{\Delta t/m})$
-		\State $x = x + \eta + v(x)$ \Comment{Moving the walker}
-		\State $w = w \cdot exp(-\Delta \tau (E_L(x)+E_L(x_{prev}))/2 - E_T))$
+	\ForAll{$\bm{x}$ \textbf{in} $walkers$}
+		\State \textbf{draw} $\bm{\eta} \sim \mathcal{N}(\bm{x},\sqrt{\Delta t/m})$
+		\State $\bm{x} = \bm{x} + \bm{\eta} + \bm{v}(\bm{x})$ \Comment{Moving the walker}
+		\State $w = w \: exp(-\Delta \tau (E_L(\bm{x})+E_L(\bm{x}_{prev}))/2 - E_T))$
 		\If {($w > 2$)}
-		\State \textbf{make} $\lfloor q \rfloor$ \textbf{copies of} $x$ \textbf{with weight} $w/\lfloor w \rfloor$ \textbf{for the next cycle}
+		\State \textbf{make} $\lfloor q \rfloor$ \textbf{copies of} $\bm{x}$ \textbf{with weight} $w/\lfloor w \rfloor$ \textbf{for the next cycle}
 		\EndIf
 		\If {($w < 1/2$)}
-		\State \textbf{find another walker} $y$ \textbf{with} $w_y < 1/2$
+		\State \textbf{find another walker} $\bm{y}$ \textbf{with} $w_y < 1/2$
 		\State \textbf{draw} $r \sim \mathcal{U}([0,1])$
 		\If{($w/(w+w_y) > r)$)}
-		\State \textbf{make a copy of} $x$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
+		\State \textbf{make a copy of} $\bm{x}$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
 		\Else
-		\State \textbf{make a copy of} $y$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
+		\State \textbf{make a copy of} $\bm{y}$ \textbf{with weight} $w+w_y$ \textbf{for the next cycle}
 		\EndIf
 		\EndIf 
 	\EndFor
@@ -187,19 +188,26 @@ E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2
 \end{equation}
 for the local energy. 
 \section{Implementation Details and Improvements}
-As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the position of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation for the local energy $E_L(\bm{x})$. The transformation back to Cartesian coordinates is done using the simple matrix-vector multiplication $\bm{x}_{cart} = U\bm{x}$, where $U$ is the $3N_{at}$ by $3N_{at} - $ matrix with the eigenvectors $\bm{u}^i$ as its columns. 
+\subsection{Energy Calculations}
+To evaluate the potential energy surface in the calculation of $E_L(\bm{x})$, we use an external electronic structure code. As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the position of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation for the local energy $E_L(\bm{x})$. The transformation back to Cartesian coordinates is done using the simple matrix-vector multiplication $\bm{x}_{cart} = U\bm{x}$, where $U$ is the $3N_{at}$ by $3N_{at} - 6$ matrix with the eigenvectors $\bm{u}^i$ as its columns. Now that we have our Cartesian coordinates, we can perform the energy calculation by calling a wrapper subroutine that has the form \verb|energyandforces|$(N_{at},\bm{x},\bm{f},E^e_0)$. The subroutine takes the position as an input and gives the corresponding energy and forces. It can then be implemented go call a suitable electronic structure code to perform the calculation. For the purpose of this thesis, we used DFTB+ \cite{dftbp} with the 3ob-3-1 parameter set for organic molecules \cite{3ob-3-1}.
 \subsection{Metropolis Step}
 The short time propagator \eqref{eq:2.9} introduces a time-step error. To get rid of this error, we can introduce an Metropolis step for the propagation of the walker. Instead of just moving the walker to a new postion $\bm{y}$, we propose a new position $\bm{x}'$ according to \eqref{eq:2.11} and calculate a acceptance probability 
 \begin{equation}\label{Pacc}
-P_{acc}(\bm{x}',\bm{x}) = \frac{P_{prop}(\bm{x},\bm{x}' \psi(\bm{x}')^2}{P_{prop}(\bm{x}',\bm{x} \psi(\bm{x})^2},
+P_{acc}(\bm{x}',\bm{x}) = \frac{P_{prop}(\bm{x},\bm{x}' \psi(\bm{x}')^2}{P_{prop}(\bm{x}',\bm{x} \psi(\bm{x})^2}
 \end{equation}
 with
 \begin{equation}\label{Pprop}
-P_{prop}(\bm{x}',\bm{x}) = \frac{1}{(2\pi\tau)^{(3N_{at}-6)/2}} e^{-\frac{(\bm{x}'-\bm{x}-\bm{v}(\bm{x})\tau)^2}{2\tau}}.
+P_{prop}(\bm{x}',\bm{x}) = \frac{1}{(2\pi\tau)^{(3N_{at}-6)/2}} e^{-\frac{(\bm{x}'-\bm{x}-\bm{v}(\bm{x})\tau)^2}{2\tau}}
 \end{equation}
-Even though a rejected step means that a expensive evaluation of the PES is wasted, it is generally worth it to add this step to the algorithm.
-\subsection{Walker Initialization}
-There are several ways to initialize walkers. The easiest way is to start with all walkers at the initial configuration where the energy is $E^e_{min}$. This has the disadvantage, that it takes time for the walkers to spread out and start sampling the entire PES. A better way, is to start with the walkers distributed according to $\psi_T(\bm{x})$. In the case of Gaussian trial wave functions, this can be achieved by giving the walkers the initial position $\bm{x}_i = \eta \sigma_i$ for each dimension $i$.
+and perform a Metropololis accept-reject step \ref{appendixB}.
+The time-step error still is a problem in the calculation of the weight in \eqref{eq:2.11}. To solve that, we calculate a effective time step $\Delta \tau_{eff} < \Delta \tau$ to take into account that certain moves are rejected. This means that we can just use the average acceptance ratio to calculate
+\begin{equation}\label{tau_eff}
+\Delta \tau_{eff} = \Delta \tau \frac{N_{acc}}{N_{tot}}
+\end{equation}
+Generally, it is more efficient to move along each dimension separately and do an accept-reject step each time compared to moving all walkers together and doing just one accept-reject step. In ether case, we only to the expensive evaluation of the PES after all accept-reject steps so that the addition of the Metropolis step does not significantly increase the computation time.
+\subsection{Initial Configuration and Walker Initialization}
+One of the input parameters of the DQMC algorithm is the initial configuration of the atoms. Because we do not want to assume that this configuration is the minimum energy configuration, we first minimize the energy by using a simple gradient descent algorithm \ref{gradient_descent}
+There are several ways to initialize walkers. The easiest way is to start with all walkers at the previously calculated initial configuration where the energy is $E^e_{min}$. This has the disadvantage, that it takes time for the walkers to spread out and start sampling the entire PES. A better way, is to start with the walkers distributed according to $\psi_T(\bm{x})$. In the case of Gaussian trial wave functions, this can be achieved by giving the walkers the initial position $\bm{x}_i = \eta \sigma_i$ for each dimension $i$.
 At the end of the simulation, the walkers will be distributed according to $\psi(\bm{x})\psi_T(\bm{x})$. This is not the exact wave function, but it still can be useful to get some information about the system.
 \subsection{Parallelization}
 A big advantage of the DQMC Algorithm is that it can be easily parallelized to run on multiple CPU cores. By far the most expensive step of the algorithm is the evaluation of the PES for the calculation of $E_L(\bm{x})$ on line 7. This can be done in parallel for all the walkers since their are independent of each other. We therefore close the for-loop starting on line 4 after line 7 and run that part in parallel. Then we loop over all walkers again for the split-join algorithm. This part can not be done in parallel but the time this takes is negligible. \\
@@ -291,13 +299,13 @@ The Box-Muller algorithm transforms two $\mathcal{U}([0,1])$ random numbers ($u_
 \end{algorithm}
 
 \chapter{The Metropolis Algorithm} \label{appendixB}
-The Metropolis algorithm generates random numbers distributed according to a (high-dimensional) probability distribution $p(\bm{x})$ using a Markov Chain. A Metropolis step generates a new random number $\bm{x}_{i+1}$ from a given $\bm{x}_i$ that follows the probability distribution $p(\bm{x})$.
+The Metropolis algorithm generates random numbers distributed according to a (high-dimensional) probability distribution $p(\bm{x})$ using a Markov Chain. A Metropolis step generates a new random number $\bm{x}_{i+1}$ from a given $\bm{x}_i$ that follows the probability distribution $p(\bm{x})$. It can also be used as the accept-reject step after the move of a walker. In this case, $f$ describes the propagation of the walker according to \eqref{2.10} and $\alpha$ becomes the acceptance probability \eqref{Pacc}.
 
 \begin{algorithm}
 \caption{Metropolis Step}\label{metropolis}
 \begin{algorithmic}[1]
 \Procedure{Metropolis}{$\bm{x}_i$}
-\State $\bm{x}' = f(\bm{x}_i,i,$"noise"$)$ \Comment{proposing a new random number}
+\State $\bm{x}' = f(\bm{x}_i,$"noise"$)$ \Comment{proposing a new random number}
 \State $\alpha = \frac{p(\bm{x}')}{p(\bm{x}_i)}$
 \If{$\alpha \geq 1$}
 	\State $\bm{x}_{i+1} = \bm{x}'$ \Comment{Accepting the proposed number}
@@ -324,6 +332,28 @@ and the second derivative used for the local energy $E_L(\bm{x})$ is given by
 \end{equation}
 where $h$ has to be chosen sufficiently small.
 
+\chapter{Gradient Descent} \label{gradient_descent}
+The gradient descent algorithm takes an input configuration $\bm{x}$ with the forces $\bm{f}$ and optimizes it with respect to the minimal energy $E_{min}$. There is a lot of freedom in the choice of the parameters that we will not discuss here. The here given algorithm gives some reasonable choices for the parameters. The idea of the gradient descent is to move along the negative gradient or forces to a region where the forces and the energy are lower. The step size $\alpha$ is adjusted depending on the angle between the current forces and the previous iteration. This way the step size increases if we have consecutive moves in the same direction and decreases if we start moving in an opposite direction. 
+\begin{algorithm}
+\caption{Gradient Descent}\label{grad_desc}
+\begin{algorithmic}[1]
+\Procedure{GradientDescent}{$\bm{x}, \bm{f}, E_{min}$} \Comment{calculate the energy and forces of a given configuration}
+\State $\alpha = 10^{-3}$
+\State call energyandforces($\bm{x}, \bm{f}, E_{min}$)
+\While{$(||\bm{f}||/N_{at} > 10^{-6})$} \Comment{iterate up to a desired precision}
+	\State $\bm{f}_{prev} = \bm{f}$	
+	\State $\bm{x} = \bm{x} + \alpha \bm{f}$
+	\State call energyandforces($\bm{x}, \bm{f}, E_{min}$)
+	\State $\beta = \arccos{(<\bm{f},\bm{f_{prev}}>/\sqrt{||\bm{f}||\:||\bm{f}_{prev}||})}$ 
+	\If{$(\beta/N_{at} > 1.0472)$} \Comment{60 degree in radians}
+		\State $\alpha = \alpha/2$
+	\Else
+		\State $\alpha = 1.05\ \alpha$
+	\EndIf
+\EndWhile
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 \end{appendices}
 
 \bibliographystyle{unsrt}

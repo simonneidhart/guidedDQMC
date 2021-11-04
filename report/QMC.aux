@@ -34,12 +34,13 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Monte Carlo Methods}{4}{section.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Diffusion Quantum Monte Carlo}{4}{section.2.3}\protected@file@percent }
 \newlabel{eq:2.5}{{2.5}{4}{Diffusion Quantum Monte Carlo}{equation.2.3.5}{}}
+\newlabel{eq:2.6}{{2.6}{4}{Diffusion Quantum Monte Carlo}{equation.2.3.6}{}}
 \citation{cyrus2}
 \newlabel{eq:2.7}{{2.7}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.7}{}}
 \newlabel{eq:2.8}{{2.8}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.8}{}}
 \newlabel{el}{{2.9}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.9}{}}
 \newlabel{eq:2.9}{{2.10}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.10}{}}
-\newlabel{2.10}{{2.11}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.11}{}}
+\newlabel{eq:2.10}{{2.11}{5}{Diffusion Quantum Monte Carlo}{equation.2.3.11}{}}
 \citation{split_join}
 \citation{mccoy}
 \citation{alavi}
@@ -47,18 +48,22 @@
 \newlabel{eq:2.11}{{2.12}{6}{Diffusion Quantum Monte Carlo}{equation.2.3.12}{}}
 \newlabel{eq:2.12}{{2.13}{6}{Diffusion Quantum Monte Carlo}{equation.2.3.13}{}}
 \newlabel{eq:2.13}{{2.14}{6}{Diffusion Quantum Monte Carlo}{equation.2.3.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}The DQMC Algorithm}{6}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}The DQMC Algorithm}{7}{section.2.4}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Guided DQMC}}{7}{algorithm.1}\protected@file@percent }
 \newlabel{dqmc}{{1}{7}{The DQMC Algorithm}{algorithm.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.5}Gaussian Trial Wave Functions}{8}{section.2.5}\protected@file@percent }
 \newlabel{eigs}{{2.16}{8}{Gaussian Trial Wave Functions}{equation.2.5.16}{}}
+\citation{dftbp}
+\citation{3ob-3-1}
 \newlabel{el}{{2.22}{9}{Gaussian Trial Wave Functions}{equation.2.5.22}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.6}Implementation Details and Improvements}{9}{section.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Metropolis Step}{9}{subsection.2.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Energy Calculations}{9}{subsection.2.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Metropolis Step}{9}{subsection.2.6.2}\protected@file@percent }
 \newlabel{Pacc}{{2.23}{9}{Metropolis Step}{equation.2.6.23}{}}
 \newlabel{Pprop}{{2.24}{9}{Metropolis Step}{equation.2.6.24}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Walker Initialization}{9}{subsection.2.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.3}Parallelization}{10}{subsection.2.6.3}\protected@file@percent }
+\newlabel{tau_eff}{{2.25}{10}{Metropolis Step}{equation.2.6.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.3}Initial Configuration and Walker Initialization}{10}{subsection.2.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.4}Parallelization}{10}{subsection.2.6.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Results}{11}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -82,15 +87,24 @@
 \newlabel{appendixB}{{B}{15}{The Metropolis Algorithm}{appendix.1.B}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Metropolis Step}}{15}{algorithm.3}\protected@file@percent }
 \newlabel{metropolis}{{3}{15}{The Metropolis Algorithm}{algorithm.3}{}}
-\bibstyle{unsrt}
-\bibdata{references}
 \@writefile{toc}{\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$ and $v(x)$}{16}{appendix.1.C}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{appendixC}{{C}{16}{Numerical Derrivatives for $E_L(x)$ and $v(x)$}{appendix.1.C}{}}
+\bibstyle{unsrt}
+\bibdata{references}
+\@writefile{toc}{\contentsline {chapter}{\numberline {D}Gradient Descent}{17}{appendix.1.D}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{gradient_descent}{{D}{17}{Gradient Descent}{appendix.1.D}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Gradient Descent}}{17}{algorithm.4}\protected@file@percent }
+\newlabel{grad_desc}{{4}{17}{Gradient Descent}{algorithm.4}{}}
 \bibcite{mccoy}{1}
 \bibcite{cyrus}{2}
-\bibcite{cyrus2}{3}
-\bibcite{alavi}{4}
+\bibcite{herleitung2}{3}
+\bibcite{cyrus2}{4}
 \bibcite{split_join}{5}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{17}{appendix*.2}\protected@file@percent }
+\bibcite{alavi}{6}
+\bibcite{dftbp}{7}
+\bibcite{3ob-3-1}{8}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{18}{appendix*.2}\protected@file@percent }
