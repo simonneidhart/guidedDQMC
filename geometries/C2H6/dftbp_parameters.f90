@@ -28,7 +28,7 @@ contains
     read(16,*) nat
     fulldim = nat*3 !dimensionality of the full 3*nat system
     dim = fulldim - 6 !dimensionality reduced by the rotations and tranlations
-    write(*,'(A,I5,A,I5,A,I5)'),"Nat = ", nat," 3*Nat = ", fulldim, " 3*Nat - 6 = ", dim
+    write(*,'(A,I5,A,I5,A,I5)') "Nat = ", nat," 3*Nat = ", fulldim, " 3*Nat - 6 = ", dim
 
     allocate(rxyz0(3,nat))
     allocate(rxyz(3,nat))
@@ -128,10 +128,10 @@ contains
     allocate(work(lwork))
 
     call dsyev('V','U',fulldim,hess_m,fulldim,eigenvalues_full_m,work,lwork,info)
-    if(info .neqv. 0) print*, "Mass-scaled hessian diagonalization failed: ", info
+    if(info /= 0) print*, "Mass-scaled hessian diagonalization failed: ", info
 
     call dsyev('V','U',fulldim,hess,fulldim,eigenvalues_full,work,lwork,info)
-    if(info .neqv. 0) print*, "Hessian diagonalization failed: ", info
+    if(info /= 0) print*, "Hessian diagonalization failed: ", info
 
     deallocate(work)
 
@@ -351,7 +351,7 @@ contains
      implicit none
      real(8), dimension(n,m) :: a
      integer :: n,m,i,j
-     
+
      write(*,*)
      do i = 1,n
         write(*,"(9999(G12.4,:,','))") (a(i,j), j = 1,m)

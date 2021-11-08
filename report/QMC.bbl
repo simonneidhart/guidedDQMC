@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{mccoy}
 Anne~B. McCoy.
@@ -55,5 +55,26 @@ M.~Gaus, A.~Goez, and M.~Elstner.
 \newblock Parametrization and benchmark of dftb3 for organic molecules.
 \newblock {\em Journal of Chemical Theory and Compuation}, 9(1):338–354,
   2013.
+
+\bibitem{c2h6}
+Amir Karton, Branko Ruscic, and Jan~M.L. Martin.
+\newblock Benchmark atomization energy of ethane: Importance of accurate
+  zero-point vibrational energies and diagonal born–oppenheimer corrections
+  for a ‘simple’ organic molecule.
+\newblock {\em Journal of Molecular Structure: THEOCHEM}, 811(1):345--353,
+  2007.
+\newblock Computational Organic Chemistry.
+
+\bibitem{cccbdb}
+Russell Johnson.
+\newblock Computational chemistry comparison and benchmark database
+  \url{http://cccbdb.nist.gov}.
+\newblock 04 2018.
+
+\bibitem{PyVibMS}
+Yunwen Tao, Wenli Zou, and Sadisha Nanayakkara.
+\newblock Pyvibms: a pymol plugin for visualizing vibrations in molecules and
+  solids.
+\newblock {\em Journal of Molecular Modeling}, 26, 09 2020.
 
 \end{thebibliography}

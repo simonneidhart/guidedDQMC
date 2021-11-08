@@ -4,19 +4,18 @@
 \contentsline {section}{\numberline {2.1}The Born-Oppenheimer Approximation}{3}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Monte Carlo Methods}{4}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Diffusion Quantum Monte Carlo}{4}{section.2.3}%
-\contentsline {section}{\numberline {2.4}The DQMC Algorithm}{7}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Gaussian Trial Wave Functions}{8}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Implementation Details and Improvements}{9}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Energy Calculations}{9}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Metropolis Step}{9}{subsection.2.6.2}%
-\contentsline {subsection}{\numberline {2.6.3}Initial Configuration and Walker Initialization}{10}{subsection.2.6.3}%
-\contentsline {subsection}{\numberline {2.6.4}Parallelization}{10}{subsection.2.6.4}%
-\contentsline {chapter}{\numberline {3}Results}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Ethane}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}The Quantum Harmonic Oscillator}{11}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Comparison of guided and unguided DQMC}{12}{subsection.3.2.1}%
-\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{14}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{15}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$ and $v(x)$}{16}{appendix.1.C}%
-\contentsline {chapter}{\numberline {D}Gradient Descent}{17}{appendix.1.D}%
-\contentsline {chapter}{Bibliography}{18}{appendix*.2}%
+\contentsline {section}{\numberline {2.4}The DQMC Algorithm}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Gaussian Trial Wave Functions}{9}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Implementation Details and Improvements}{10}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Energy Calculations}{10}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Metropolis Step}{11}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Initial Configuration and Walker Initialization}{11}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}Parallelization}{12}{subsection.2.6.4}%
+\contentsline {section}{\numberline {2.7}Unguided DQMC}{12}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Results}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Ethane}{13}{section.3.1}%
+\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{15}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{16}{appendix.1.B}%
+\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$ and $v(x)$}{17}{appendix.1.C}%
+\contentsline {chapter}{\numberline {D}Gradient Descent}{18}{appendix.1.D}%
+\contentsline {chapter}{Bibliography}{19}{appendix*.3}%

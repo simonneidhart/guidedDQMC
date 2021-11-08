@@ -12,10 +12,11 @@ e_min = -102.2448840269; %c60
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-s = 1000;
+s = 2000;
 plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
+grid('on')
 % title('guiding wf adjusted @ n=800')
 
 zpe = mean(et_noWalkers(s:end,1))-e_min
@@ -42,17 +43,18 @@ xlim([-10 10])
 ylim([-10 10])
 zlim([-10 10])
 
-s = 1000;
+s = 2000;
 le = ll - s;
 err = zeros(le,1);
 for i=1:le
-    err(i) = mean(et_noWalkers(s-99:s+i,1))- e_min;
+    err(i) = mean(et_noWalkers(s/2:s+i,1))- e_min;
 end
 
 figure(4)
 plot(1:le,err,'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$Mean(E_T) - E_{min}$ [Hartee]','Interpreter','latex')
+grid('on')
     
 % x = -5:0.1:5;
 

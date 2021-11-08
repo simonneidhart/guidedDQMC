@@ -4,7 +4,7 @@ program dmc
 
   damping = 0.01d0 !damping constant for the update of et in every iteration
   no_walkers_start = 1000 !initial number of walkers
-  delta_t = 10.d0 !discrete time step
+  delta_t = 5.d-4 !discrete time step
   n_steps = 10000 !number of simulation steps
   debug_extended = .FALSE. !TRUE to show extended information such as the hessian and eigenvalues
 
@@ -98,7 +98,7 @@ end program dmc
     do j=1,no_walkers
       !move the walker
       thread_num = OMP_GET_THREAD_NUM()
-      call propagate(walkers(j), et, delta_t, thread_num)
+      call propagate(walkers(j), et, delta_t, thread_num, n)
     end do
     !$omp end parallel do
 
@@ -212,7 +212,7 @@ end program dmc
 
     write(unit=12, fmt=*) et, no_walkers, e0
 
-    if (modulo(n,100) .eq. 0) then !write every 100 steps to the out file
+    if (modulo(n,10) .eq. 0) then !write every 100 steps to the out file
       write(*,'(A,I5,A,I5,A)') "Step ", n, " of ", n_steps, "--------------------------------"
       print*, "number of walkers = ", no_walkers
       print*, "et = ", et

@@ -3,11 +3,6 @@ module dftbp_walker
   type walker
     real(8), allocatable, dimension(:) :: r !position coordinates
     real(8) :: etot, weight
-  contains
-    procedure :: create_walker
-    procedure :: propagate
-    procedure :: write_walker_kartesian
-
   end type walker
 
 contains
@@ -16,46 +11,68 @@ contains
     implicit none
     class(walker) :: this
     real(8) :: etot_, weight_
+    real(8), dimension(dim) :: normal_rand
+
+    call normal(normal_rand,dim)
 
     allocate(this%r(dim))
-    this%r = 0.d0 !Equilibrium position
+    this%r = normal_rand*sqrt(sigma2)
     this%etot = etot_ + el_kin(this%r)
     this%weight = weight_
 
 
   end subroutine create_walker
 
-  subroutine propagate(this, et, delta_t, thread_num)
+  subroutine propagate(this, et, delta_t, thread_num, n)
     use mod_dftbp
     use parameters
     implicit none
-    integer :: i, thread_num
+    integer :: i, thread_num, n
     class(walker) :: this
     real(8), dimension(3,nat) :: rxyz, fxyz
-    real(8), dimension(dim) :: normal_rand
+    real(8), dimension(dim) :: normal_rand, r_prop
     real(8), dimension(fulldim) :: r_temp
-    real(8) :: delta_t, etot_prev, et, epot
+    real(8) :: delta_t, etot_prev, et, epot, p_acc, rand
 
     call normal(normal_rand,dim)
 
     etot_prev = this%etot
     !move the walkers according to the Gaussian distribution and the drift velocity
-    this%r = this%r + normal_rand*sqrt(delta_t/new_masses) + drift(this%r)*delta_t/new_masses
-    !this%r = this%r + normal_rand*sqrt(delta_t/average_mass) !unguided version
+    r_prop = this%r + normal_rand*sqrt(delta_t) + drift(this%r,delta_t)*delta_t
 
-    !calculate the local energy-------------------------------------------------
-    r_temp = matmul(ev,this%r)
-    rxyz = reshape(r_temp,shape(rxyz)) + rxyz0 !convert to kartesian corrdinated for energy calculation
 
-    call energyandforces(nat, rxyz, fxyz, epot, alat, deralat, atomnames, thread_num)
-    this%etot = epot + el_kin(this%r)
-
-    !calculate the weights------------------------------------------------------
-    if (-delta_t*((this%etot + etot_prev)/2 - et) .ge. 10) then
-      print*, "weight over/underflow: ", (-delta_t*((this%etot + etot_prev)/2 - et)), this%etot, thread_num
-      this%etot = etot_prev
+    if (n .gt. 20) then
+      p_acc = min(1.d0,exp(-dot_product(this%r-r_prop-drift(r_prop,delta_t)*&
+      delta_t,this%r-r_prop-drift(r_prop,delta_t)*delta_t))/&
+      exp(-dot_product(r_prop-this%r-drift(this%r,delta_t)*delta_t,&
+      r_prop-this%r-drift(this%r,delta_t)*delta_t))*psi(r_prop)**2/psi(this%r)**2)
+      !p_acc = min(1.d0, exp(dot_product(this%r-r_prop-0.5d0*drift(r_prop,delta_t)*delta_t,drift(r_prop,delta_t)) - &
+      !dot_product(r_prop-this%r-0.5d0*drift(this%r,delta_t)*delta_t,drift(this%r,delta_t))+ &
+      !dot_product(r_prop/sigma2,r_prop/sigma2)-dot_product(this%r/sigma2,this%r/sigma2)))
     else
-      this%weight = this%weight*exp(-delta_t*((this%etot + etot_prev)/2 - et))
+      p_acc = 1.d0
+    end if
+
+    call RANDOM_NUMBER(rand)
+
+    if (rand .le. p_acc) then !accept
+      !print*, "accept", p_acc
+      this%r = r_prop
+
+      !calculate the local energy-------------------------------------------------
+      r_temp = matmul(ev,this%r)
+      rxyz = reshape(r_temp,shape(rxyz)) + rxyz0 !convert to kartesian corrdinated for energy calculation
+
+      call energyandforces(nat, rxyz, fxyz, epot, alat, deralat, atomnames, thread_num)
+      this%etot = epot + el_kin(this%r)
+
+      !calculate the weights------------------------------------------------------
+      if (-delta_t*((this%etot + etot_prev)/2 - et) .ge. 10) then
+        print*, "weight over/underflow: ", (-delta_t*((this%etot + etot_prev)/2 - et)), this%etot, thread_num
+        this%etot = etot_prev
+      else
+        this%weight = this%weight*exp(-delta_t*((this%etot + etot_prev)/2 - et))
+      end if
     end if
 
   end subroutine propagate
@@ -97,15 +114,22 @@ contains
   end subroutine propagate_unguided
 
   !calculate the drift velocity grad(psi)/psi-----------------------------------
-  function drift(r) result(v)
+  function drift(r,delta_t) result(v)
     implicit none
     real(8), dimension(dim), intent(in) :: r
     real(8), dimension(dim) :: v
+    real(8) :: dot,delta_t
     integer :: i
 
     do i=1,dim
       v(i) = -r(i)/sigma2(i)
     end do
+
+    !julich.pdf, page 14
+    dot = dot_product(v,v)
+    if (dot .gt. 1.d-8) then
+      v = (-1.d0 + sqrt(1.d0 + 2.d0*dot*delta_t))/(dot*delta_t)*v
+    end if
 
   end function drift
 
@@ -131,7 +155,7 @@ contains
 
     psi = 0
     do i=1,dim
-      psi = psi -r(i)**2/(2*sigma2(i))
+      psi = psi - r(i)**2/(2*sigma2(i))
     end do
     psi = exp(psi)
 
