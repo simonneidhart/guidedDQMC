@@ -1,5 +1,17 @@
 \begin{thebibliography}{10}
 
+\bibitem{anharmonic}
+Florian Pfeiffer, Guntram Rauhut, David Feller, and Kirk~A. Peterson.
+\newblock Anharmonic zero point vibrational energies: Tipping the scales in
+  accurate thermochemistry calculations?
+\newblock {\em The Journal of Chemical Physics}, 138(4):044311, 2013.
+
+\bibitem{h2@c60}
+Koichi Komatsu, Michihisa Murata, and Yasujiro Murata.
+\newblock Encapsulation of molecular hydrogen in fullerene c<sub>60</sub> by
+  organic synthesis.
+\newblock {\em Science}, 307(5707):238--240, 2005.
+
 \bibitem{mccoy}
 Anne~B. McCoy.
 \newblock Diffusion monte carlo approaches for investigating the structure and
@@ -49,6 +61,13 @@ B.~Hourahine, B.~Aradi, V.~Blum, F.~Bonafé, A.~Buccheri, C.~Camacho,
 \newblock Dftb+, a software package for efficient approximate density
   functional theory based atomistic simulations.
 \newblock {\em The Journal of Chemical Physics}, 152(12):124101, 2020.
+
+\bibitem{dftbp2}
+M.~Elstner, D.~Porezag, G.~Jungnickel, J.~Elsner, M.~Haugk, Th. Frauenheim,
+  S.~Suhai, and G.~Seifert.
+\newblock Self-consistent-charge density-functional tight-binding method for
+  simulations of complex materials properties.
+\newblock {\em Phys. Rev. B}, 58:7260--7268, Sep 1998.
 
 \bibitem{3ob-3-1}
 M.~Gaus, A.~Goez, and M.~Elstner.

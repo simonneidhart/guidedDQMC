@@ -13,7 +13,7 @@ e_min = -5.69922832840000; %c2h6
 figure(1)
 ll = 10000
 x = 1:ll;
-s = 2000;
+s = 1;
 plot(x(s:end),(et_noWalkers(s:ll,1)-e_min),x(s:end),(uet_noWalkers(s:ll,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
@@ -47,8 +47,8 @@ xlim([-10 10])
 ylim([-10 10])
 zlim([-10 10])
 
-le = 9800;
-s = 200;
+le = 9900;
+s = 100;
 err = zeros(le,1);
 uerr = zeros(le,1);
 for i=1:le

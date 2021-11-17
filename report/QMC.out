@@ -13,8 +13,9 @@
 \BOOKMARK [1][-]{section.2.7}{Unguided\040DQMC}{chapter.2}% 13
 \BOOKMARK [0][-]{chapter.3}{Results}{}% 14
 \BOOKMARK [1][-]{section.3.1}{Ethane}{chapter.3}% 15
-\BOOKMARK [0][-]{appendix.1.A}{The\040Box-Muller\040Algorithm}{}% 16
-\BOOKMARK [0][-]{appendix.1.B}{The\040Metropolis\040Algorithm}{}% 17
-\BOOKMARK [0][-]{appendix.1.C}{Numerical\040Derrivatives\040for\040EL\(x\)\040and\040v\(x\)}{}% 18
-\BOOKMARK [0][-]{appendix.1.D}{Gradient\040Descent}{}% 19
-\BOOKMARK [0][-]{appendix*.3}{Bibliography}{}% 20
+\BOOKMARK [1][-]{section.3.2}{Buckminsterfullerene}{chapter.3}% 16
+\BOOKMARK [0][-]{appendix.1.A}{The\040Box-Muller\040Algorithm}{}% 17
+\BOOKMARK [0][-]{appendix.1.B}{The\040Metropolis\040Algorithm}{}% 18
+\BOOKMARK [0][-]{appendix.1.C}{Numerical\040Derrivatives\040for\040EL\(x\),\040v\(x\)\040and\040the\040Hessian\040matrix}{}% 19
+\BOOKMARK [0][-]{appendix.1.D}{Gradient\040Descent}{}% 20
+\BOOKMARK [0][-]{appendix*.6}{Bibliography}{}% 21
