@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  17 NOV 2021 17:14
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  19 NOV 2021 15:47
 entering extended mode
 **./QMC.tex
 (QMC.tex
@@ -132,7 +132,28 @@ Package babel Info: \l@australian = using hyphenrules for ukenglish
 Package babel Info: \l@newzealand = using hyphenrules for ukenglish
 (babel)             (\language76) on input line 108.
 ))
-("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\fontenc.sty"
+Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\t1enc.def"
+File: t1enc.def 2018/08/11 v2.0j Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
+5.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmr.fd"
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+))
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty"
 Package: hyperref 2019/11/10 v7.00c Hypertext links for LaTeX
 
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
@@ -283,7 +304,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
+\@emptytoks=\toks18
 \ex@=\dimen125
 ))
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
@@ -313,21 +334,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 \dotsspace@=\muskip11
 \c@parentequation=\count117
 \dspbrk@lvl=\count118
-\tag@help=\toks17
+\tag@help=\toks19
 \row@=\count119
 \column@=\count120
 \maxfields@=\count121
-\andhelp@=\toks18
+\andhelp@=\toks20
 \eqnshift@=\dimen128
 \alignsep@=\dimen129
 \tagshift@=\dimen130
 \tagwidth@=\dimen131
 \totwidth@=\dimen132
 \lineht@=\dimen133
-\@envbody=\toks19
+\@envbody=\toks21
 \multlinegap=\skip45
 \multlinetaggap=\skip46
-\mathdisplay@stack=\toks20
+\mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2858.
 LaTeX Info: Redefining \] on input line 2859.
 )
@@ -369,12 +390,12 @@ nment
 ("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count129
-\float@exts=\toks21
+\float@exts=\toks23
 \float@box=\box30
-\@float@everytoks=\toks22
+\@float@everytoks=\toks24
 \@floatcapt=\box31
 )
-\@float@every@algorithm=\toks23
+\@float@every@algorithm=\toks25
 \c@algorithm=\count130
 )
 ("C:\Program Files\MiKTeX 2.9\tex/latex/tocbibind\tocbibind.sty"
@@ -418,32 +439,29 @@ LaTeX Warning: Label `el' multiply defined.
 )
 \openout1 = `QMC.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Trying to load font information for TU+ptm on input line 30
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 32
 .
-LaTeX Font Info:    No file TUptm.fd. on input line 30.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 30.
-
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1ptm.fd"
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -482,7 +500,7 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box32
-Package hyperref Info: Link coloring OFF on input line 30.
+Package hyperref Info: Link coloring OFF on input line 32.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -494,9 +512,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count134
 )
-LaTeX Info: Redefining \ref on input line 30.
-LaTeX Info: Redefining \pageref on input line 30.
-LaTeX Info: Redefining \nameref on input line 30.
+LaTeX Info: Redefining \ref on input line 32.
+LaTeX Info: Redefining \pageref on input line 32.
+LaTeX Info: Redefining \nameref on input line 32.
 
 (QMC.out) (QMC.out)
 \@outlinefile=\write3
@@ -510,11 +528,12 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 [1
 
 ]
-
-LaTeX Font Warning: Font shape `TU/ptm/bx/n' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 32.
-
-(QMC.toc)
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 34.
+ (QMC.toc
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 2.
+)
 \tf@toc=\write4
 \openout4 = `QMC.toc'.
 
@@ -526,157 +545,170 @@ Chapter 1.
 
 ] [3]
 Chapter 2.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 45.
 
-Overfull \hbox (13.60696pt too wide) in paragraph at lines 44--45
-\TU/ptm/bx/n/12 When considering a system of $\OML/cmm/m/it/12 N[]$ \TU/ptm/bx/
-n/12 nuclei with positions $\OML/cmm/b/it/12 R[]\OML/cmm/m/it/12 ; :::; \OML/cm
-m/b/it/12 R[]$\TU/ptm/bx/n/12 , masses $\OML/cmm/m/it/12 m[]; :::; m[]$
+Overfull \hbox (4.03659pt too wide) in paragraph at lines 54--57
+\T1/ptm/m/n/12 which we will solve for the en-ergy $\OML/cmm/m/it/12 E[]$ \T1/p
+tm/m/n/12 us-ing the DQMC al-go-rithm. The Born-Oppenheimer
  []
 
 [4
 
 ] [5]
-Overfull \hbox (5.6855pt too wide) in paragraph at lines 81--84
-\TU/ptm/bx/n/12 for $\OML/cmm/m/it/12 i \OT1/cmr/m/n/12 = 1\OML/cmm/m/it/12 ; :
-::; \OT1/cmr/m/n/12 3\OML/cmm/m/it/12 N[]$\TU/ptm/bx/n/12 . This propagator has
- two parts. The first part $[]\OML/cmm/m/it/12 e[]$
+Overfull \hbox (2.35168pt too wide) in paragraph at lines 77--81
+\T1/ptm/m/n/12 where $\OML/cmm/m/it/12 E[]$ \T1/ptm/m/n/12 and $\OML/cmm/m/it/1
+2  []\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 x\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 solve
+ the time in-de-pen-dent nu-cle-onic Schrödinger equa-tion $\OMS/cmsy/m/n/12 H\
+OML/cmm/m/it/12  []\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 x\OT1/cmr/m/n/12 ) =
  []
 
 [6] [7] [8]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 125.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 127.
-
-[9] [10]
-LaTeX Font Info:    Trying to load font information for TU+pcr on input line 20
-0.
-LaTeX Font Info:    No file TUpcr.fd. on input line 200.
-
-
-LaTeX Font Warning: Font shape `TU/pcr/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 200.
-
+put line 127.
+ [9] [10]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 201.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 20
+2.
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1pcr.fd"
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
 [11] [12] [13] [14]
 Chapter 3.
 File: walkers1.png Graphic file (type bmp)
 <walkers1.png>
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 246.
 File: walkers2.png Graphic file (type bmp)
 <walkers2.png>
 
-Overfull \hbox (2.608pt too wide) in paragraph at lines 236--246
+Overfull \hbox (2.28003pt too wide) in paragraph at lines 244--254
 []$[]$ $[]$ 
  []
 
-File: c2h6_1.png Graphic file (type bmp)
-<c2h6_1.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
-[][]
- []
-
-
-Package caption Warning: \label without proper reference on input line 251.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `c2h6_1' on page 15 undefined on input line 254.
-
 [15
 
-] [16]
+]
+File: c2h6_1.png Graphic file (type bmp)
+<c2h6_1.png>
+File: c2h6_2.png Graphic file (type bmp)
+<c2h6_2.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16] [17]
 File: c60_1.png Graphic file (type bmp)
 <c60_1.png>
+ [18]
+Appendix A.
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
-[][]
+Overfull \hbox (9.96518pt too wide) in paragraph at lines 315--316
+\T1/ptm/m/n/12 The Box-Muller al-go-rithm trans-forms two $\OMS/cmsy/m/n/12 U\O
+T1/cmr/m/n/12 ([0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1])$ \T1/ptm/m/n/12 ran-dom
+ num-bers ($\OML/cmm/m/it/12 u[]; u[]$\T1/ptm/m/n/12 ) to two $\OMS/cmsy/m/n/12
+ N\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1)$
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[17] [18]
-Appendix A.
 [19
 
 ]
 Appendix B.
-
-LaTeX Warning: Reference `2.10' on page 20 undefined on input line 310.
-
 [20
 
 ]
 Appendix C.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 332.
+(hyperref)                removing `math shift' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 332.
+(hyperref)                removing `subscript' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 332.
+(hyperref)                removing `math shift' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 332.
+(hyperref)                removing `math shift' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 332.
+(hyperref)                removing `math shift' on input line 350.
 
 [21
 
 ]
 Appendix D.
-(QMC.bbl [22
+[22
 
 ]
+Appendix E.
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 3
+91.
+("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 391.
 
-LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 7.
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+
+ []
 
 [23
 
 ]
-Underfull \hbox (badness 1226) in paragraph at lines 88--92
-[]\TU/pcr/m/n/12 Russell Johnson.  Computational chemistry comparison and bench
-mark
+Overfull \hbox (3.00827pt too wide) in paragraph at lines 409--410
+[]\T1/ptm/b/n/12 walker_positions_cartesian.out \T1/ptm/m/n/12 con-tains the fi
+-nal po-si-tions of the walk-ers in Carte-
  []
 
+
+Overfull \hbox (12.78868pt too wide) in paragraph at lines 411--412
+\T1/ptm/m/n/12 This or-der also cor-re-sponds to the or-der of the dis-place-me
+nts in \T1/ptm/b/n/12 walker_positions.out\T1/ptm/m/n/12 . 
+ []
+
+(QMC.bbl [24]
+Missing character: There is no – in font ptmri8t!
+Missing character: There is no ‐ in font ptmr8t!
+Missing character: There is no ă in font ptmr8t!
+Missing character: There is no ř in font ptmr8t!
+Missing character: There is no Ř in font ptmr8t!
+Missing character: There is no č in font ptmr8t!
+ [25
+
+]
+Missing character: There is no – in font ptmr8t!
+Missing character: There is no – in font ptmr8t!
+Missing character: There is no ‘ in font ptmr8t!
+Missing character: There is no ’ in font ptmr8t!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 374.
- [24]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 374.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
+ [26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
  (QMC.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 374.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 374.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 420.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
 Package rerunfilecheck Info: File `QMC.out' has not changed.
-(rerunfilecheck)             Checksum: 6078D406E3E87E7DC7CC96DF2EF50EFA;1525.
-
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: There were undefined references.
+(rerunfilecheck)             Checksum: 5CA5764109CE6B52CC21449A33C562EE;1595.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 374.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 420.
  ) 
 Here is how much of TeX's memory you used:
- 12872 strings out of 427240
- 184822 string characters out of 3145705
- 324262 words of memory out of 3000000
- 17177 multiletter control sequences out of 15000+200000
- 20534 words of font info for 78 fonts, out of 3000000 for 9000
+ 13023 strings out of 427240
+ 186908 string characters out of 3145705
+ 317229 words of memory out of 3000000
+ 17313 multiletter control sequences out of 15000+200000
+ 49645 words of font info for 88 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 46i,10n,47p,1495b,522s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 46i,10n,47p,1659b,522s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on QMC.pdf (25 pages).
+Output written on QMC.pdf (27 pages).

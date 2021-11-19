@@ -8,8 +8,8 @@ Florian Pfeiffer, Guntram Rauhut, David Feller, and Kirk~A. Peterson.
 
 \bibitem{h2@c60}
 Koichi Komatsu, Michihisa Murata, and Yasujiro Murata.
-\newblock Encapsulation of molecular hydrogen in fullerene c<sub>60</sub> by
-  organic synthesis.
+\newblock Encapsulation of molecular hydrogen in fullerene c60 by organic
+  synthesis.
 \newblock {\em Science}, 307(5707):238--240, 2005.
 
 \bibitem{mccoy}
@@ -95,5 +95,8 @@ Yunwen Tao, Wenli Zou, and Sadisha Nanayakkara.
 \newblock Pyvibms: a pymol plugin for visualizing vibrations in molecules and
   solids.
 \newblock {\em Journal of Molecular Modeling}, 26, 09 2020.
+
+\bibitem{dftbp_manual}
+\url{https://dftbplus.org/documentation/}.
 
 \end{thebibliography}

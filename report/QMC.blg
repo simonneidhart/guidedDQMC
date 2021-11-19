@@ -1,7 +1,9 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: QMC.aux
 The style file: unsrt.bst
 Database file #1: references.bib
+Warning--entry type for "dftbp_manual" isn't style-file defined
+--line 228 of file references.bib
 Warning--entry type for "cyrus2" isn't style-file defined
---line 236 of file references.bib
+--line 242 of file references.bib
 Warning--empty journal in cccbdb
-(There were 2 warnings)
+(There were 3 warnings)

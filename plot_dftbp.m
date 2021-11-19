@@ -12,7 +12,7 @@ e_min = -102.915340231900; %h2@c60
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-s = 200;
+s = 2000;
 plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
