@@ -1,5 +1,5 @@
 load et_noWalkers
-load walker_positions
+load walker_positions_kartesian
 
 e_min = -102.915340231900; %h2@c60
 % e_min = -27.5893786053000; %c12h10o
@@ -27,10 +27,23 @@ plot(x,et_noWalkers(:,2),'LineWidth',1.2)
 xlabel('Iterations')
 ylabel('Number of walkers')
 
+s = 200;
+le = ll - s;
+err = zeros(le,1);
+for i=1:le
+    err(i) = mean(et_noWalkers(s/2:s+i,1))- e_min;
+end
+
+figure(3)
+plot(1:le,err,'LineWidth',1.2)
+xlabel('Iterations','Interpreter','latex')
+ylabel('$Mean(E_T) - E_{min}$ [Hartee]','Interpreter','latex')
+grid('on')
+
 nat = 62;
 s = 10.0;
 
-wp = walker_positions;
+wp = walker_positions_kartesian;
 walkers = et_noWalkers(end,2);
 
 c = ones(nat,3);
@@ -60,7 +73,7 @@ end
 % h2_at = wp(62:62:end,:);
         
        
-figure(3)
+figure(4)
 hold on
 scatter3(c_at(:,1),c_at(:,2),c_at(:,3),s,'b','filled')
 % scatter3(wp(:,1),wp(:,2),wp(:,3),s,'b','filled')
@@ -72,18 +85,6 @@ zlim([-10 10])
 grid on
 hold off
 
-s = 200;
-le = ll - s;
-err = zeros(le,1);
-for i=1:le
-    err(i) = mean(et_noWalkers(s/2:s+i,1))- e_min;
-end
-
-figure(4)
-plot(1:le,err,'LineWidth',1.2)
-xlabel('Iterations','Interpreter','latex')
-ylabel('$Mean(E_T) - E_{min}$ [Hartee]','Interpreter','latex')
-grid('on')
     
 % x = -5:0.1:5;
 
