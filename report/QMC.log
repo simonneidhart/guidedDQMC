@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  19 NOV 2021 15:47
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  27 NOV 2021 19:49
 entering extended mode
 **./QMC.tex
 (QMC.tex
@@ -436,6 +436,9 @@ Package: courier 2005/04/12 PSNFSS-v9.2a (WaS)
 
 LaTeX Warning: Label `el' multiply defined.
 
+
+LaTeX Warning: Label `trialwf' multiply defined.
+
 )
 \openout1 = `QMC.aux'.
 
@@ -520,6 +523,12 @@ LaTeX Info: Redefining \nameref on input line 32.
 \@outlinefile=\write3
 \openout3 = `QMC.out'.
 
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 37.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
+File: uni-basel-logo.png Graphic file (type bmp)
+<uni-basel-logo.png>
 
 ("C:\Program Files\MiKTeX 2.9\tex/generic/stringenc\se-ascii-print.def"
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
@@ -527,10 +536,7 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 )
 [1
 
-]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 34.
- (QMC.toc
+] (QMC.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 2.
 )
@@ -546,141 +552,168 @@ Chapter 1.
 ] [3]
 Chapter 2.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 45.
-
-Overfull \hbox (4.03659pt too wide) in paragraph at lines 54--57
-\T1/ptm/m/n/12 which we will solve for the en-ergy $\OML/cmm/m/it/12 E[]$ \T1/p
-tm/m/n/12 us-ing the DQMC al-go-rithm. The Born-Oppenheimer
- []
-
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 77.
 [4
 
-] [5]
-Overfull \hbox (2.35168pt too wide) in paragraph at lines 77--81
+]
+Overfull \hbox (2.35168pt too wide) in paragraph at lines 98--102
 \T1/ptm/m/n/12 where $\OML/cmm/m/it/12 E[]$ \T1/ptm/m/n/12 and $\OML/cmm/m/it/1
 2  []\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 x\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 solve
  the time in-de-pen-dent nu-cle-onic Schrödinger equa-tion $\OMS/cmsy/m/n/12 H\
 OML/cmm/m/it/12  []\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 x\OT1/cmr/m/n/12 ) =
  []
 
-[6] [7] [8]
+[5] [6] [7]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 127.
- [9] [10]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 201.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 20
-2.
+put line 153.
+ [8] [9]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 22
+8.
  ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-[11] [12] [13] [14]
+[10] [11] [12] [13]
 Chapter 3.
 File: walkers1.png Graphic file (type bmp)
 <walkers1.png>
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 246.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 272.
 File: walkers2.png Graphic file (type bmp)
 <walkers2.png>
 
-Overfull \hbox (2.28003pt too wide) in paragraph at lines 244--254
+Overfull \hbox (2.28003pt too wide) in paragraph at lines 270--280
 []$[]$ $[]$ 
  []
 
-[15
+[14
 
 ]
 File: c2h6_1.png Graphic file (type bmp)
 <c2h6_1.png>
+ [15]
 File: c2h6_2.png Graphic file (type bmp)
 <c2h6_2.png>
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[16] [17]
+[16]
 File: c60_1.png Graphic file (type bmp)
 <c60_1.png>
- [18]
+
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
+
+ []
+
+[17]
+File: walkers4.png Graphic file (type bmp)
+<walkers4.png>
+File: walkers3.png Graphic file (type bmp)
+<walkers3.png>
+
+Overfull \hbox (2.28003pt too wide) in paragraph at lines 342--352
+[]$[]$ $[]$ 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[18] [19]
+Chapter 4.
+[20
+
+]
 Appendix A.
 
-Overfull \hbox (9.96518pt too wide) in paragraph at lines 315--316
+Overfull \hbox (9.96518pt too wide) in paragraph at lines 368--369
 \T1/ptm/m/n/12 The Box-Muller al-go-rithm trans-forms two $\OMS/cmsy/m/n/12 U\O
 T1/cmr/m/n/12 ([0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1])$ \T1/ptm/m/n/12 ran-dom
  num-bers ($\OML/cmm/m/it/12 u[]; u[]$\T1/ptm/m/n/12 ) to two $\OMS/cmsy/m/n/12
  N\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1)$
  []
 
-[19
+[21
 
 ]
 Appendix B.
-[20
+[22
 
 ]
 Appendix C.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 350.
+(hyperref)                removing `math shift' on input line 403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 350.
+(hyperref)                removing `subscript' on input line 403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 350.
+(hyperref)                removing `math shift' on input line 403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 350.
+(hyperref)                removing `math shift' on input line 403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 350.
-
-[21
-
-]
-Appendix D.
-[22
-
-]
-Appendix E.
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 3
-91.
-("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 391.
-
-Underfull \hbox (badness 10000) in paragraph at lines 403--404
-
- []
+(hyperref)                removing `math shift' on input line 403.
 
 [23
 
 ]
-Overfull \hbox (3.00827pt too wide) in paragraph at lines 409--410
+Appendix D.
+[24
+
+]
+Appendix E.
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 4
+44.
+("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 444.
+
+Underfull \hbox (badness 10000) in paragraph at lines 446--456
+
+ []
+
+
+Overfull \hbox (38.51729pt too wide) in paragraph at lines 446--456
+[]\T1/ptm/m/n/12 If [][]\T1/pcr/m/n/12 continue_run []\T1/ptm/m/n/12 is set to 
+true, the files \T1/ptm/b/n/12 et_noWalkers_e0.out \T1/ptm/m/n/12 and \T1/ptm/b
+/n/12 walker_positions.out
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 457--458
+
+ []
+
+[25
+
+]
+Overfull \hbox (3.00827pt too wide) in paragraph at lines 463--464
 []\T1/ptm/b/n/12 walker_positions_cartesian.out \T1/ptm/m/n/12 con-tains the fi
 -nal po-si-tions of the walk-ers in Carte-
  []
 
 
-Overfull \hbox (12.78868pt too wide) in paragraph at lines 411--412
+Overfull \hbox (12.78868pt too wide) in paragraph at lines 465--466
 \T1/ptm/m/n/12 This or-der also cor-re-sponds to the or-der of the dis-place-me
 nts in \T1/ptm/b/n/12 walker_positions.out\T1/ptm/m/n/12 . 
  []
 
-(QMC.bbl [24]
+(QMC.bbl [26]
 Missing character: There is no – in font ptmri8t!
 Missing character: There is no ‐ in font ptmr8t!
 Missing character: There is no ă in font ptmr8t!
 Missing character: There is no ř in font ptmr8t!
 Missing character: There is no Ř in font ptmr8t!
 Missing character: There is no č in font ptmr8t!
- [25
+ [27
 
 ]
 Missing character: There is no – in font ptmr8t!
@@ -688,27 +721,27 @@ Missing character: There is no – in font ptmr8t!
 Missing character: There is no ‘ in font ptmr8t!
 Missing character: There is no ’ in font ptmr8t!
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
- [26]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 474.
+ [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 474.
  (QMC.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 420.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 474.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 474.
 Package rerunfilecheck Info: File `QMC.out' has not changed.
-(rerunfilecheck)             Checksum: 5CA5764109CE6B52CC21449A33C562EE;1595.
+(rerunfilecheck)             Checksum: E6EDCCC99924889E616EA131AD77670C;1670.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 420.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 474.
  ) 
 Here is how much of TeX's memory you used:
- 13023 strings out of 427240
- 186908 string characters out of 3145705
- 317229 words of memory out of 3000000
- 17313 multiletter control sequences out of 15000+200000
- 49645 words of font info for 88 fonts, out of 3000000 for 9000
+ 13029 strings out of 427240
+ 187024 string characters out of 3145705
+ 318539 words of memory out of 3000000
+ 17320 multiletter control sequences out of 15000+200000
+ 45520 words of font info for 74 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 46i,10n,47p,1659b,522s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 46i,10n,47p,1659b,520s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on QMC.pdf (27 pages).
+Output written on QMC.pdf (29 pages).

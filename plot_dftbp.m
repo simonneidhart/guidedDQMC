@@ -1,5 +1,8 @@
+load et_noWalkers_e0.out
 load et_noWalkers
 load walker_positions_kartesian
+
+et_noWalkers = et_noWalkers_e0;
 
 e_min = -102.915340231900; %h2@c60
 % e_min = -27.5893786053000; %c12h10o
@@ -12,7 +15,7 @@ e_min = -102.915340231900; %h2@c60
 figure(1)
 ll = length(et_noWalkers);
 x = 1:ll;
-s = 2000;
+s = 200;
 plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
 ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')

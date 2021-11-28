@@ -30,20 +30,52 @@
 
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+    \begin{center}
+            
+        \Huge
+        \textbf{Diffusion Quantum Monte Carlo With Gaussian Trial Wave Functions}
+            
+        \vspace{0.5cm}
+        \LARGE
+        Calculating Anharmonic Zero Point Energies
+            
+        \vspace{1.5cm}
+        
+        \large
+            
+        \textbf{Simon Neidhart}\\
+        \vspace{0.5cm}
+        Supervisor: Prof. Dr. Stefan Goedecker\\
+        Second Supervisor: Prof. Dr. Cyrus J. Umrigar
+            
+        \vfill
+            
+        A thesis presented for the degree of\\
+        Master of Science
+            
+            
+        \includegraphics[width=0.4\textwidth]{uni-basel-logo.png}
+            
+        Department of Physics\\
+        University of Basel\\
+        \today
+            
+    \end{center}
+\end{titlepage}
 \tableofcontents
 \newpage
 \chapter{Introduction}
-Monte Carlo methods are almost as old as computers. The first application was to simulate neutron transport in fissionable material. The outcome of collisions with the material as well as the different types of collisions or reactions are the random parts of the problem and thus require random numbers to simulate in a computer. This simulation is very intuitive as the computer simulates directly what happens in nature. The mathematical reason that this works, is that the underlying integral is in fact solved by numerical integration using these random numbers. Once people realized this, the application of Monte Carlo methods started to drift away from the obvious problems such as fission and more towards any problem that needs to solve a high dimensional integral. It is very important to keep this mathematical foundation in mind as the most intuitive approaches are often not the most efficient when doing a Monte Carlo calculation.\\
-Inspired by this, we exploit the similarity between the Schrödinger equation and the diffusion equation to develop the Diffusion Quantum Monte Carlo (DQMC) algorithm. It is rather obvious where the the randomness lies in pure diffusion and a short derivation will show, that this can also be applied to solving the many-body Schrödinger equation. In the field of quantum mechanics, Monte Carlo simulations have a long tradition as there are a lot of high dimensional integrals that need to be solved. Of the many approaches that exist in quantum Monte Carlo, DQMC is the most versatile.\\
-In this work, the aim is to calculate zero-point energies (ZPE) with the developed DQMC algorithm. The ZPE can be understood as an energy that arises from the uncertainty of quantum mechanics. Compared to classical mechanics, where the ground state energy is just the minimum of the potential energy, in quantum mechanics there is an uncertainty in the position and the momentum that will lead to a higher ground state energy than in the classical case. This difference is known as the ZPE. Nowadays, this zero-point correction to the energy is often only approximated in the harmonic approximation. We will try to overcome this approximation, by providing better zero-point corrections to ground state energy. These correction become important for accurate thermochemical calculations especially for semi-rigid molecules with hydrogen atoms \cite{anharmonic}.
-We will therefore study different systems such as ethane  and the $C_{60}$-Buckministerfullerene. Lastly, we test out algorithm on the $H_2@C_{60}$ endofullerene, which is presumed to have large anharmonic effects on the ZPE \cite{h2@c60}.
+Monte Carlo methods are almost as old as computers. After the inital idea by Enrico Fermi, it was in 1946 when Stanislaw Ulam and John von NeumannThe first first applied it to simulate neutron transport in fissionable material. The outcome of collisions with the material as well as the different types of collisions or reactions are the random parts of the problem and thus require random numbers to simulate on a computer. This simulation is very intuitive as the computer simulates directly what happens in nature. The mathematical reason that this works, is that the underlying integral is in fact solved by numerical integration using these random numbers. Once people realized this, the application of Monte Carlo methods started to drift away from the obvious problems such as fission and more towards any problem that needs to solve a high dimensional integral. Even if the randomness in a problem seems obvious, it is very important to keep this mathematical foundation in mind as the most intuitive approaches are often not the most efficient when doing a Monte Carlo calculation.\\
+Inspired by this, we exploit the similarity between the Schrödinger equation and the diffusion equation to develop the Diffusion Quantum Monte Carlo (DQMC) algorithm. It is rather obvious where the the randomness lies in a pure diffusion process and a short derivation will show, that this can also be applied to solving the many-body Schrödinger equation. In the field of quantum mechanics, Monte Carlo simulations have a long tradition as there are a lot of high dimensional integrals that need to be solved. Of the many approaches that exist in quantum Monte Carlo, DQMC is the most versatile.\\
+In this work, the aim is to calculate zero-point energies (ZPE) with the developed DQMC algorithm. The ZPE can be understood as an energy that arises from the uncertainty of quantum mechanics. Compared to classical mechanics, where the ground state energy is just the minimum of the potential energy, in quantum mechanics there is an uncertainty in the position and the momentum that will lead to a higher ground state energy than in the classical case. This difference is known as the ZPE. Nowadays, this zero-point correction to the energy is often only approximated in the harmonic approximation. We will try to overcome this approximation, by providing better zero-point corrections to ground state energy.
+Therefore, we will study different systems such as ethane  and the $C_{60}$-Buckministerfullerene where the harmonic approximation already gives a reasonably accurate result and then compare to the $H_2@C_{60}$ endofullerene, which is shown to have large anharmonic effects on the ZPE \cite{h2@c60}.
 
 \chapter{Theoretical Background}
 This chapter covers the derivation and the theory behind the developed DQMC algorithm from a mathematical and physical standpoint. It aims to act as a guide to anyone who wants to understand the theory behind the algorithm or implement and use the algorithm.
 
 \section{The Born-Oppenheimer Approximation}
-When considering a system of $N_{at}$ nuclei with positions $\bm{R}_i,...,\bm{R}_{N_{at}}$, masses $m_1,...,m_{N_{at}}$ and charge numbers $Z_1,...,N_{N_{at}}$ and $N$ electrons with positions $\bm{r}_i,...,\bm{r}_{N}$, the Born-Oppenheimer approximation justifies splitting the problem (and therefore also the Hamiltonian) into two separate problems. First, the electronic part of the Hamiltonian
+When considering a system of $N_{at}$ nuclei with positions $\bm{R}_i,...,\bm{R}_{N_{at}}$, masses $m_1,...,m_{N_{at}}$ and charge numbers $Z_1,...,Z_{N_{at}}$ and $N$ electrons with positions $\bm{r}_i,...,\bm{r}_{N}$, the Born-Oppenheimer approximation splits the problem (and therefore also the Hamiltonian) into two separate problems. First, the electronic part of the Hamiltonian
 \begin{equation}
 \mathcal{H}^e = - \frac{1}{2}\sum_{i=1}^N \nabla^2_{\bm{r}_i}  + \sum_{i=1}^{N} \sum_{j=1}^{i-1} \frac{1}{|\bm{r}_i-\bm{r}_j|} - \sum_{i=1}^{N} \sum_{j=1}^{N_{at}} \frac{Z_j}{|\bm{r}_i-\bm{R}_j|} + \sum_{i=1}^{N_{at}} \sum_{j=1}^{i-1} \frac{Z_i Z_j}{|\bm{R}_i-\bm{R}_j|}
 \end{equation}
@@ -52,34 +84,28 @@ The second part of the problem is the nucleonic Schrödinger equation
 \begin{equation} \label{eq:2.2}
 \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R_i}} \psi^n + E_0^e(\bm{R}_i,...,\bm{R}_{N_{at}}) \psi^n = \mathcal{H} \psi^n = E_0 \psi^n,
 \end{equation}
-which we will solve for the energy $E_0$ using the DQMC algorithm. The Born-Oppenheimer approximation is justified by the fact that the nuclei are much heavier than the electrons and can therefore be treated classically in the electronic structure problem but then quantum-mechanically in the nucleonic Schrödinger equation. From the point of view of the electrons, the nuclei are basically stationary and therefore, their slow movement does not influence the solution of the electronic structure problem. The nuclei then feel the potential from the electrons and move accordingly on the PES.
-In this work, the goal is to calculate the zero-point energy (ZPE) of a system of $N_{at}$ atoms. The ZPE is defined as the difference between $E_{min}^e$ and $E_0$. Because the kinetic energy (first term in eq. \eqref{eq:2.2}) is always positive, $E_0$ is always greater than $E_{min}^e$ and therefore the ZPE is always positive.
+containing the kinetic energy of the nuclei and the PES which the nuclei feel from the electrons.We will solve the nucleonic Schrödinger equation for the energy $E_0$ using the DQMC algorithm. The Born-Oppenheimer approximation is justified by the fact that the nuclei are much heavier than the electrons and can therefore be treated classically in the electronic structure problem but then quantum-mechanically in the nucleonic Schrödinger equation. From the point of view of the electrons, the nuclei are basically stationary and therefore, their slow movement does not influence the solution of the electronic structure problem. The nuclei then feel the potential from the electrons and move accordingly on the PES. From the point of view of the nuclei, the electrons adjust almost instantaneous to any movement of the nuclei and so the PES has to be recalculated for every movement of the nuclei.\\
+In this work, the goal is to calculate the zero-point energy (ZPE) of a system of $N_{at}$ atoms. The ZPE is defined as the difference between the minimum of the PES in with respect to the nuclei positions $E_{min}^e$ and the solution of the nucleonic Schrödinger equation $E_0$. Because the kinetic energy (first term in eq. \eqref{eq:2.2}) is always positive, $E_0$ is always greater than $E_{min}^e$ and therefore the ZPE is always positive.
 
-\section{Monte Carlo Methods}
-%evtl löschen
-The core of the Monte Carlo approach is to do numerical calculations by using lots of random numbers distributed according to a desired probability distribution $p(x)$ to approximate expectation values or integrals with averages over many trials.
-\begin{equation}
-\langle \mathcal{A} \rangle = \sum_{x \in \Omega} \mathcal{A}(x) p(x) \approx \frac{1}{N} \sum_{i=1}^N \mathcal{A}(x_i),
-\end{equation}
-or
-\begin{equation}
-\int_{x \in \Omega} \mathcal{A}(x) p(x) d^n x \approx \frac{1}{N} \sum_{i=1}^N \mathcal{A}(x_i),
-\end{equation}
-where $x_i$ are the random numbers generated according to the probability distribution $p(x)$. Because doing a sum or integral over the entire space $\Omega$ is often not possible because the space is too large, one generates the $x_i$ from a Markov Chain. This means that from a given $x_i$, $x_{i+1} = f(x_i,i,$"noise"$)$ can be generated using a stochastic process. To ensure that the $x_i$ follow the probability distribution $p(x)$ a acceptance-rejection step needs to be introduced. Namely, if $\alpha = \frac{p(x_{i+1})}{p(x_i)} > 1$ the new value $x_{i+1}$ always gets accepted and if $\alpha < 1$ the new value $x_{i+1}$ only gets accepted with probability $\alpha$. Put together, these steps leads to the Metropolis algorithm (Appendix \ref{appendixB}). These ingredients form the basis of most Monte Carlo methods including the here presented DQMC algorithm.
 \section{Diffusion Quantum Monte Carlo}
-To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are different ways to derive the DQMC algorithm but the most common one is by a transformation to of the Schrödinger equation to an imaginary time $\tau = it$ \cite{mccoy,cyrus,herleitung2}. The Schrödinger equation then becomes
+To get the ZPE, we now solve the nucleonic Schrödinger equation \eqref{eq:2.2} for the energy $E_0$ using diffusion quantum Monte Carlo. There are different ways to derive the DQMC algorithm but the most common one is by a transformation to of the Schrödinger equation to imaginary time $\tau = -it$ \cite{mccoy,cyrus,herleitung2}. The Schrödinger equation then becomes
 \begin{equation} \label{eq:2.5}
 \frac{\partial}{\partial \tau} \psi(\bm{x},\tau) = -(\mathcal{H} - E_T) \psi(\bm{x},\tau),
 \end{equation}
-where the energy is shifted by the trial energy $E_T$. The wave function can now be written as
+where the energy is shifted by the trial energy $E_T$. The wave function can now be expanded as
 \begin{equation} \label{eq:2.6}
 \psi(\bm{x},\tau) = \sum_{i=1}^{\infty} e^{-(E_i - E_T)\tau}\psi_i(\bm{x}),
 \end{equation}
-where $E_i$ and $\psi_i(\bm{x})$ solve the time independent nucleonic Schrödinger equation $\mathcal{H}\psi_i(\bm{x}) = E_i \psi_i(\bm{x})$ and $E_0 \leq E_1 \leq E_2 \leq...$.
-As we now increase our simulation time $\tau$, the sum converges to the ground state wave function $\psi_0(\bm{x})$ if we adjust $E_T$ close to $E_0$ as all other terms decay exponentially faster. This happens independent of the initial choice of our wave function.
-As we now discretize our time step, we get the known short time propagator of \eqref{eq:2.5} for moving a particle form position $\bm{x}$ to position $\bm{y}$ during a short time step $\Delta \tau$
+where $E_i$ and $\psi_i(\bm{x})$ solve the time independent nucleonic Schrödinger equation $\mathcal{H}\psi_i(\bm{x}) = E_i \psi_i(\bm{x})$ and $E_0 \leq E_1 \leq E_2 \leq...$ .
+As we now increase our simulation time $\tau$, the sum converges to the ground state wave function $\psi_0(\bm{x})$ if we adjust $E_T$ to match $E_0$ as all other terms decay exponentially faster. This happens independent of the initial choice of our wave function.
+To increase our imaginary time $\tau$ we write \eqref{eq:2.6} in position representation as
+\begin{equation} \label{propagate}
+\psi(\bm{y},\tau) = \int G(\bm{x},\bm{y},\tau) \psi(\bm{x}) d \bm{x},
+\end{equation}
+where $G(\bm{x},\bm{y},\tau)$ is the imaginary-time propagator to move a particle form position $\bm{x}$ to position $\bm{y}$. 
+As we now discretize our time step, we get the short-time approximation of the imaginary-time  propagator 
 \begin{equation} \label{eq:2.7}
-G(\bm{x_i},\bm{y}_i;\Delta \tau) = \sqrt{\frac{1}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 /(2 \Delta \tau)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta \tau^2),
+G(\bm{x}_i,\bm{y}_i;\Delta \tau) = \sqrt{\frac{1}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2 /(2 \Delta \tau)} e^{-\Delta t (E_0(\bm{y}) - E_T)} + \mathcal{O}(\Delta \tau^2),
 \end{equation}
 for $i=1,...,3N_{at}$. This propagator has two parts. The first part $\sqrt{\frac{1}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i)^2/(2\Delta \tau)}$ is pure diffusion for dimension $i$ and corresponds to a Gaussian distribution centered around $\bm{x}_i$. The second part $w = e^{-\Delta \tau (E_0^e(\bm{y}) - E_T)}$ represents a branching process. If $E_0^e(\bm{y}) > E_T$ then $w < 1$ and if $E_0^e(\bm{y}) < E_T$ then $w > 1$.\\
 Up to this point, we have derived the unguided DQMC algorithm. To improve the convergence it is very useful to introduce a trial or guiding wave function $\psi_T(\bm{x})$. $\psi_T(\bm{x})$ should approximate $\psi(\bm{x})$ as good as possible, without requiring to much effort to compute and evaluate. Our algorithm will later need a lot of evaluations of the first and second derivative of $\psi_T(\bm{x})$. We now multiply the Schrödinger equation \eqref{eq:2.5} with $\psi_T(\bm{x})$, define $f(\bm{x}) = \psi(\bm{x}) \psi_T(\bm{x})$ and after some calculations \cite{cyrus2} we get
@@ -90,11 +116,11 @@ We have now introduced the drift velocity $\bm{v}(\bm{x}) = \nabla \psi_T(\bm{x}
 \begin{equation}\label{el}
 E_L(\bm{x}) = (H\psi_T(\bm{x}))/\psi_T(\bm{x}) = \sum_{i=1}^{N_{at}} \frac{-1}{2m_i} \nabla^2_{\bm{R}_i} \psi_T(\bm{x}) + E_0^e(\bm{x}),
 \end{equation}
-and similarly to the unguided case, we can get the short-time propagator
+and similarly to the unguided case, we can get the short-time approximation of the propagator
 \begin{equation} \label{eq:2.9}
 \tilde{G}(\bm{x_i},\bm{y}_i;\Delta \tau) = \sqrt{\frac{1}{2 \pi \Delta \tau}} e^{-(\bm{x}_i-\bm{y}_i-\bm{v}(\bm{x})\Delta \tau)^2 /(2 \Delta \tau)} e^{-\Delta \tau (E_L(\bm{x})+E_L(\bm{y}))/2 - E_T)} + \mathcal{O}(\Delta \tau^2).
 \end{equation}
-There are two major differences compared to the unguided propagator. In addition to the pure diffusion described by the Gaussian distribution, we now have the drift velocity, which drifts $\bm{x}$ towards a region where $f(\bm{x})$ is large. This means that the position $\bm{x}$ is now biased by the guiding wave function. Second, the local energy adds the kinetic energy of the nuclei to the evaluation of the PES and the local energy is averaged over the position before and after the propagation. This kinetic energy counteracts the drifting, since it raises the energy that was decreased by moving $\bm{x}$ towards the center of the trial wave function.
+There are two major differences compared to the unguided propagator. In addition to the pure diffusion described by the Gaussian distribution, we now have the drift velocity, which drifts $\bm{x}$ towards a region where $f(\bm{x})$ is large. This means that the new position $\bm{y}$ is now biased by the guiding wave function. Second, the local energy adds the kinetic energy of the nuclei to the evaluation of the PES and the local energy is averaged over the position before and after the propagation. This kinetic energy counteracts the drifting since it raises the energy that was decreased by moving $\bm{x}$ towards the center of the trial wave function.
 With these ingredients we can construct our DQMC algorithm using a population of walkers and simulating diffusion on them. First, we just update the walker position according to the first part of the propagator by displacing it according to
 \begin{equation}\label{eq:2.10}
 \bm{y} = \bm{x} + \bm{\eta}\sqrt{\Delta \tau} + \bm{v}(\bm{x})\Delta \tau,
@@ -105,15 +131,15 @@ The branching process can be implemented by letting walkers die, survive or repr
 w^{(k+1)} = w^{(k)} e^{(-\Delta \tau (E_L(\bm{x}) + E_L(\bm{y}))/2 - E_T))}.
 \end{equation}
 With these non-integer weights, one can implement the split-join algorithm \cite{split_join} to do the branching process. There are many alternatives, but split-join has the advantage that it limits the duplication of walker that would occur with other methods.
- In each iteration, the weight for each walker is updated according to \eqref{eq:2.11}. Walkers with a weight $w > 2$ split into $\lfloor w \rfloor$ walkers with weights $w/\lfloor w \rfloor$. For two walkers $\alpha$ and $\beta$ with weight $w_\alpha < 0.5$ and $w_\beta < 0.5$ one keeps walker $\alpha$  with probability $w_\alpha/(w_\alpha + w_\beta)$ and walker $\beta$ otherwise. The surviving walker gets the new weight $(w_\alpha + w_\beta)$. All walkers with weight $0.5 \leq w \leq 2$ survive and keep their weight. This algorithm keeps the total weight of all walkers $W^{(k)} =  \sum_{i = 1}^{N_w^{(k)}} w_i^{(k)}$ constant during iteration $k$ and limits the duplication of walkers that would occur with the standard branching process.
- This process also ensures that even walkers with a local energy higher than $E_T$ have a chance of surviving and therefore the entire PES is sampled if we run the simulation long enough. \\
-The last step is to adjust the trial energy $E_T$. $E_T$ controls the population of walker $N_w$ and it therefore needs to be adjusted to keep the walker population from dying out or growing exponentially. Generally speaking, we need to decrease $E_T$ if the number of walkers is increasing and increase $E_T$ if the number of walkers is decreasing.  Like with the split-join algorithm, there are multiple ways to adjust the trial energy \cite{mccoy,alavi}. We will here use an approach \cite{cyrus} that makes use of the total weight $W^{(k)}$ after iteration $k$ and updates $E_T$ according to
+ In each iteration, the weight for each walker is updated according to \eqref{eq:2.11}. Walkers with a weight $w > 2$ split into $\lfloor w \rfloor$ walkers with weights $w/\lfloor w \rfloor$. For two walkers $\alpha$ and $\beta$ with weight $w_\alpha < 0.5$ and $w_\beta < 0.5$ we keep walker $\alpha$  with probability $w_\alpha/(w_\alpha + w_\beta)$ and walker $\beta$ otherwise. The surviving walker gets the new weight $(w_\alpha + w_\beta)$. All walkers with weight $0.5 \leq w \leq 2$ survive and keep their weight. This algorithm keeps the total weight of all walkers $W^{(k)} =  \sum_{i = 1}^{N_w^{(k)}} w_i^{(k)}$ constant during iteration $k$ and limits the duplication of walkers that would occur with the standard branching process.
+ This process also ensures that even walkers with a local energy higher than $E_T$ have a chance of surviving and therefore, the entire PES is sampled if we run the simulation long enough. \\
+The last step is to adjust the trial energy $E_T$. $E_T$ controls the population of walkers $N_w$ and it therefore needs to be adjusted to keep the walker population from dying out or growing exponentially. Generally speaking, we need to decrease $E_T$ if the number of walkers is increasing and increase $E_T$ if the number of walkers is decreasing.  Like with the split-join algorithm, there are multiple ways to adjust the trial energy \cite{mccoy,alavi}. We will here use an approach \cite{cyrus} that makes use of the total weight $W^{(k)}$ after iteration $k$ and updates $E_T$ according to
 \begin{equation}\label{eq:2.12} 
 E_T^{(k+1)} = E_0^{(k)} + \xi \log(W^{(k)}/W^{(0)}),
 \end{equation}
 where $\xi > 0$ is a damping parameter, $W^{(0)}$ is the sum of weight at the start of the simulation and
 \begin{equation}\label{eq:2.13} 
-E_0^{(k)} = \frac{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} E_L(\bm{x}_{i}^{(k)})}{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} },
+E_0^{(k)} = \frac{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} E_L(\bm{x}_{i}^{(k)})}{\sum_{i = 1}^{N_w^{(k)}} w_{i}^{(k)} }
 \end{equation}
 is the current estimation of the ground state energy $E_0$. This artificial adjustment to the trial energy introduces the so called population-control error. This error is generally small and can be easily controlled as it decreases as $1/N_{w}$. At the end of the simulation, this estimate can be improved by averaging it over may iterations after the equilibration phase giving the final result of the calculation, the energy eigenvalue of the Schrödinger equation and, by subtracting $E^e_{min}$, also the ZPE. It makes sense to further average the ZPE over many identical runs to get even more accuracy. The statistical uncertainty of the ZPE is then defined as the standard deviation over $M$ identical runs \cite{herleitung2}
 \begin{equation}
@@ -201,7 +227,7 @@ Gaussian trial wave functions only work well if the harmonic approximation is go
 \subsection{Energy Calculations}
 To evaluate the potential energy surface in the calculation of $E_L(\bm{x})$, we use an external electronic structure code. As we saw in the last section, it is very simple to make calculations in the coordinate system of the normal modes $\bm{u}^i$. It therefore makes sense to keep track of the displacement from the minimal energy postion of each walker in this coordinate system and only transform back to the Cartesian representation when doing the energy evaluation. The transformation back to Cartesian coordinates is done using the simple matrix-vector multiplication $\bm{x}_{cart} = U\bm{x}$, where $U$ is the $3N_{at}$ by $3N_{at} - 6$ matrix with the eigenvectors $\bm{u}^i$ as its columns. After that, we need to add the inital configuration to the displacements to get the full Cartesian coordinates. Now, we can perform the energy calculation by calling a wrapper subroutine that has the form \verb+energyandforces+$(N_{at},\bm{x},\bm{f},E^e_0)$. The subroutine takes the position as an input and gives the corresponding energy and forces. It can then be implemented to call a suitable electronic structure code to perform the calculation. Because we need so many energy calculation to get accurate DQMC results, is is important to find a good compromise between accuracy and speed. For the purpose of this thesis, we used DFTB+ \cite{dftbp,dftbp2} with the 3ob-3-1 parameter set for organic molecules \cite{3ob-3-1}. Of course, a full density functional theory (DFT) method would give more accurate results but this would require much more computation time.
 
-In a software package like DFTB+, the hessian matrix can directly be calculated by DFTB+ at the beginning of the simulation after doing a geometry optimization of the atomic positions. Alternatively, one can calculate the hessian by taking the derivative of the forces with respect to the position as described in \ref{appendixC}.
+In a software package like DFTB+, the Hessian matrix can directly be calculated by DFTB+ at the beginning of the simulation after doing a geometry optimization of the atomic positions. Alternatively, one can calculate the Hessian by taking the derivative of the forces with respect to the position as described in \ref{appendixC}.
 \subsection{Metropolis Step} \label{metro}
 The short time propagator \eqref{eq:2.9} introduces a time-step error of the order $\mathcal{O}(\Delta \tau^2)$. To get rid of this error, we can introduce an Metropolis step for the propagation of the walker. Instead of just moving the walker to a new position $\bm{y}$, we propose a new position $\bm{x}'$ according to \eqref{eq:2.11}, calculate a acceptance probability 
 \begin{equation}\label{Pacc}
@@ -242,28 +268,29 @@ Ethane ($C_2H_6$) is a small and simple molecule to test our implemetation and d
 
 \begin{figure}[h]
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{walkers1.png} 
+\includegraphics[width=\linewidth]{walkers1.png} 
 \caption{Dimension 7}
 \label{dim7}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{walkers2.png}
+\includegraphics[width=\linewidth]{walkers2.png}
 \caption{Dimension 16}
 \label{dim16}
 \end{subfigure}
 \caption{Comparison between the PES and the harmonic approximation for two example dimensions shows a good agreement up to the desired region of the harmonic approximation ZPE. The calculated trial wave function and the final distribution of the walkers also show excellent agreement.}
 \label{trialwf}
 \end{figure}
-Next, we can check the harmonic approximation by comparing it to the true PES and calculate the trial wave function. For the ethane molecule, the harmonic approximation gives a ZPE of $0.07264$ Hartree. With the trial wave function calculated, we can start the main calculation of the ZPE. We start with 10 parallel simulations of 1000 walkers and simulate for 10000 time steps of size $\Delta \tau = 5 \cdot 10^{-4}$ with a damping parameter $\zeta = 0.01$ Hartree. After the simulation, we see that the walkers are distributed according to the trial wave function. Because the harmonic approximation is very good in this example, we expect the distribution of walkers to match the trial wave function. For the ethane molecule, the DQMC result  changes the harmonic approximation by less than one percent. Therefore, it does not make much sense to run a long DQMC simulation to improve the accuracy of the ZPE compared to just taking the harmonic approximation.
+Next, we can check the harmonic approximation by comparing it to the true PES and calculate the trial wave function. For the ethane molecule, the harmonic approximation gives a ZPE of $0.07264$ Hartree. With the trial wave function calculated, we can start the main calculation of the ZPE. We start with 10 parallel simulations of 1000 walkers and simulate for 10000 time steps of size $\Delta \tau = 5 \cdot 10^{-4}$ with a damping parameter $\zeta = 0.01$ Hartree. After the simulation, we see that the walkers are distributed according to the trial wave function. Because the harmonic approximation is very good in this example, we expect the distribution of walkers to match the trial wave function.
 
 \begin{figure}[h!]
-\includegraphics[width=\linewidth, height=6cm] {c2h6_1.png}
+\includegraphics[width=\linewidth] {c2h6_1.png}
 \caption{Evolution of the ZPE with time for the 10 different runs (in color) and the average over all the runs (in black)} \label{c2h6_1}
 \end{figure}
-From figure \ref{c2h6_1} we can see that the ZPE stays approximately constant after $2000$ time steps. Therefore, we can say that the system has equilibrated after $2000$ steps and we can start taking the average from there to the end of the simulation. This gives a value of $0.07293$ Hartree with a statisitcal uncertainty  of $2.4 \cdot 10^{-5}$ Hartree. We must keep in mind that DFTB+ is an approximate DFT method, so the result still lacks accuracy compared to a calculation with DFT energy calculations. We finally observe, that the harmonic approximation of $0.072641$ Hartree is fairly close to the DQMC result, which makes sense considering the good quality of the harmonic approximation in \ref{trialwf}. From the literature \cite{c2h6} we get a value of $0.07393$ Hartree and from the CCCBDB \cite{cccbdb} we get values forms $0.07$ to $0.08$ Hartree, depending on the method and basis set used and a experimental value of $0.072234$ Hartree (from fundamental vibrations). Event though these values are obtained from different methods, it suggests that our method is working correctly.
+From figure \ref{c2h6_1} we can see that the ZPE stays approximately constant after $2000$ time steps. Therefore, we can say that the system has equilibrated after $2000$ steps and we can start taking the average from there to the end of the simulation. This gives a value of $0.07293$ Hartree with a statisitcal uncertainty  of $2.4 \cdot 10^{-5}$ Hartree. We must keep in mind that DFTB+ is an approximate DFT method, so the result still lacks accuracy compared to a calculation with DFT energy calculations. We finally observe, that the harmonic approximation of $0.072641$ Hartree is fairly close to the DQMC result, which makes sense considering the good quality of the harmonic approximation in \ref{trialwf}. From the literature \cite{c2h6} we get a value of $0.07393$ Hartree and from the CCCBDB \cite{cccbdb} we get values forms $0.07$ to $0.08$ Hartree, depending on the method and basis set used and a experimental value of $0.072234$ Hartree (from fundamental vibrations). Event though these values are obtained from different methods, it suggests that our method is working correctly.\\
+One run of 1000 walkers for 10000 time steps took 12 hours and 24 minutes on a 20-core CPU on the sciCORE scientific computing center at the University of Basel \cite{http://scicore.unibas.ch/}. Over the 10000 steps, the number of walkers remained constant at 1000 walkers.  We also observe an acceptance rate of the metropolis step of around 85\% so we can easily calculate that we needed around 8.5 million energy calculations which means that the average average energy calculation takes about 5.3 ms. With this value, one can easily predict, how long any run will take. 
 
 \begin{figure}[h!]
-\includegraphics[width=\linewidth, height=6cm] {c2h6_2.png}
+\includegraphics[width=\linewidth] {c2h6_2.png}
 \caption{Comparison between guided and unguided DQMC for Cartesian and normal mode coordinates.} \label{c2h6_2}
 \end{figure}
 We can also compare our results with the unguided DQMC algorithm as described in \ref{uDQMC}. If we perform the calculation in Cartesian coordinates, we get a ZPE of $0.07322$ Hartree with an uncertainty of $0.00076$ Hartree and if we do the calculation in the coordinate system of the normal modes we get a ZPE of $0.07288$ Hartree with an uncertainty of $0.00062$ Hartree. Because the results are within each others uncertainties, we can conclude that both coordinate systems are equivalent in their DQMC result. The difference between guided and unguided DQMC in very noticeable. For the exact same parameters, we get about 30 to 40 times less statistical uncertainty with guided DQMC. Equivalently, one would need less than 2000 steps with guided DQMC to get the same uncertainty as with unguided DQMC for the full 10000 steps.
@@ -291,25 +318,51 @@ We can also compare our results with the unguided DQMC algorithm as described in
 \end{tabular}
 \caption{Summary of the results for the ethane molecule and literature values for comparison.}
 \end{table}
+For the ethane molecule, the DQMC result  changes the harmonic approximation by less than one percent. Therefore, it does not make much sense to run a long DQMC simulation to improve the accuracy of the ZPE compared to just taking the harmonic approximation.
 
-
-%TODO acceptance rate?
-%TODO timing runs
 
 \section{Buckminsterfullerene}
 Due to the number of atoms, the Buckminsterfullerene ($C_{60}$) poses a bigger challenge to the algorithm. We start again by looking at the harmonic approximation and find, that it matches quite very well again. Visualizing the vibrations, we find that the modes with small frequencies correspond to bending and stretching movements of the entire molecule, while the modes with large frequencies correspond to stretching and compressing the bonds between the atoms. 
 Similar to the ethane molecule, the harmonic approximation holds well for all the $176$ dimension the coordinate system of the normal modes and we get a harmonic approximation of the energy of $0.381769$ Hartree.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth, height=6cm] {c60_1.png}
+\includegraphics[width=\linewidth] {c60_1.png}
 \caption{Evolution of the ZPE with time for the 10 different runs (in color) and the average over all the runs (in black). The parameters are exacly the same as for the $C_2H_6$} \label{c60_1}
 \end{figure}
 
 We can see that the DQMC algorithm has about the same converge behavior for the $C_{60}$ than for the $C_2H_6$ but the fluctuations are a about 5 times larger and the energy fluctuates with a larger frequency. Again taking averages after $2000$ simulation steps, we get a ZPE of $0.384524$ Hartree with a statistical uncertainty of $1.4 \cdot 10^{-5}$. This shows the most powerful aspect of the DQMC algorithm. The convergence does not get worse with larger systems and the accuracy only decreases slightly. For comparison, we look again at the CCCBDB \cite{cccbdb}, where we find an experimental value of  $0.369493$ Hartree and calcuated values ranging from 0.35 to 0.40 Hartree.\\
+
+
 The unguided DQMC algorithm does not work well at all for the $C_{60}$. The energy rises at the start of the simulation to about 0.6 Hartree and only decreases very  slowly making it very inefficient and not worth the computer time.
 
-%\section{Endohedral Hydrogen Fullerene}
-%\chapter{Conclusions}
+\section{Endohedral Hydrogen Fullerene}
+Up to now, we calculated the ZPE for two molecules, where the harmonic approximation worked very well. This is not the case for the endohedral hydrogen fullerene $H_2@C_{60}$, a system with a $H_2$ molecule trapped in the $C_{60}$ Buckminsterfullerene. In this structure, the $H_2$ experiences an anharmonic potential from the surrounding $C_{60}$. By visualizing the vibrations, we discover that for the five modes with the lowest vibrational frequency, the $H_2$ molecules rotates and translates inside the $C_{60}$ with the $C_{60}$ doing only small movements. In the other vibrational modes, the $H_2$ remains still while the $C_{60}$ vibrates similar to when we only study the $C_{60}$.\\
+These five mentioned dimensions cause problems for the algorithm, because the potential is not harmonic. Nevertheless, we still get a guiding wave function that does not look completely unseasonable and we run the algorithm with the same parameters as before.
+\begin{figure}[h]
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{walkers4.png} 
+\caption{Dimension 1}
+\label{dim1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{walkers3.png}
+\caption{Dimension 5}
+\label{dim5}
+\end{subfigure}
+\caption{Comparison between the PES and the harmonic approximation for two example problematic dimensions. In both cases the harmonic approximation is too flat compared to the PES. The trial wave functions are also not good. In dimension 1 the trial wave function is too wide and in dimension 5 it is too narrow.}
+\label{trialwf}
+\end{figure}
+
+Resultat $H_2@C_{60}$\\
+Plot $H_2@C_{60}$
+
+
+\chapter{Conclusions and Outlook}
+We have developed a very stable and versatile diffusion quantum Monte Carlo algorithm with Gaussian trial wave function that can be used to accurately determine zero-point energies of different molecules. For the cases of ethane and the Buckminsterfullerene we have demonstrated, that the developed algorithm converges very fast and gives reliably ZPEs with low statistical uncertainties. In these two cases, the harmonic approximation works well and gives a good trial wave function which leads to a fast convergence. This lets us conclude that the DQMC algorithm converges equally fast, independent of the number of atoms and the only difference in run time is due to the energy calculations taking longer for larger systems. \\
+On the other hand, for systems like $H_2@C_{60}$, where anharmonic effects play a big role the convergence is much slower and the result has a larger statistical uncertainty. Nevertheless, the algorithm still converges and with the result we can show that the harmonic approximation underestimates the ZPE by xxxx Hartree. \\
+Do no meh schribe!!!
+The goal of the Goedecker group is now to adapt the algorithm to periodic structures and calculuate the ZPE of molecular crystals, where anharmonic effects could play a big role in the ZPE.
+
 \begin{appendices}
 \chapter{The Box-Muller Algorithm} \label{appendixA}
 The Box-Muller algorithm transforms two $\mathcal{U}([0,1])$ random numbers ($u_1, u_2$) to two $\mathcal{N}(0,1)$ random numbers ($x_1, x_2$).
@@ -398,10 +451,11 @@ The DQMC program requires the following input files:
 \verb+debug_extended .FALSE. #show extended information+\\
 \verb+continue_run .FALSE. #continue a previous simulation+\\
 \verb+grad_descent .TRUE. #do a gradient descent+\\
-If restart is set to true, the files \textbf{et\_noWalkers\_e0.out} and \textbf{walker\_positions.out} from the simulation that wants to be continued are also required as input files. The simulation then continues from where it finished for \verb+n_steps+ more steps. In the output file \textbf{et\_noWalkers\_e0.out} the new steps will be added to the end of the file.
+\\
+If \verb+continue_run+ is set to true, the files \textbf{et\_noWalkers\_e0.out} and \textbf{walker\_positions.out} from the simulation that wants to be continued are also required as input files. The simulation then continues from where it finished for \verb+n_steps+ more steps. In the output file \textbf{et\_noWalkers\_e0.out} the new steps will be added to the end of the file.
 \end{itemize}
 If the simulation is run using DFTB+, the input files such as \textbf{dftb\_in.hsd} and the Slater-Koster files are also required. Details can be found in the DFTB+ manual\cite{dftbp_manual}.\\
-\newpage
+
 The DQMC program gives the following output files:
 \begin{itemize}
 \item \textbf{et\_noWalkers\_e0.out} contains the trial energy $E_T$, the number of walkers $N_w$ and the current ground state estimate $E_0$ in its columns for each iteration. The energies are given in the Hartree energy unit.
