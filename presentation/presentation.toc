@@ -5,6 +5,7 @@
 \beamer@sectionintoc {4}{Input and Output}{7}{0}{4}
 \beamer@sectionintoc {5}{Results}{8}{0}{5}
 \beamer@subsectionintoc {5}{1}{$C_2 H_6$}{8}{0}{5}
-\beamer@subsectionintoc {5}{2}{$C_{12} H_{10} O$}{11}{0}{5}
+\beamer@subsectionintoc {5}{2}{$C_{60}$}{12}{0}{5}
 \beamer@subsectionintoc {5}{3}{$H_2@C_{60}$}{14}{0}{5}
-\beamer@sectionintoc {6}{Conclusions and Improvements}{17}{0}{6}
+\beamer@sectionintoc {6}{Conclusions}{18}{0}{6}
+\beamer@sectionintoc {7}{Further Research}{19}{0}{7}

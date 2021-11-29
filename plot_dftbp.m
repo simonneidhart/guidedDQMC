@@ -2,7 +2,7 @@ load et_noWalkers_e0.out
 load et_noWalkers
 load walker_positions_kartesian
 
-et_noWalkers = et_noWalkers_e0;
+% et_noWalkers = et_noWalkers_e0;
 
 e_min = -102.915340231900; %h2@c60
 % e_min = -27.5893786053000; %c12h10o
@@ -18,10 +18,11 @@ x = 1:ll;
 s = 200;
 plot(x(s:end),(et_noWalkers(s:end,1)-e_min),'LineWidth',1.2)
 xlabel('Iterations','Interpreter','latex')
-ylabel('$E_T - E_{min}$ [Hartee]','Interpreter','latex')
+ylabel('ZPE [Hartee]','Interpreter','latex')
 grid('on')
 % title('guiding wf adjusted @ n=800')
 
+s = 200000;
 zpe = mean(et_noWalkers(s:end,1))-e_min
 st = std(et_noWalkers(s:end,1)-e_min)
 
@@ -30,11 +31,12 @@ plot(x,et_noWalkers(:,2),'LineWidth',1.2)
 xlabel('Iterations')
 ylabel('Number of walkers')
 
-s = 200;
-le = ll - s;
+start = 2000;
+le = ll - start;
 err = zeros(le,1);
+
 for i=1:le
-    err(i) = mean(et_noWalkers(s/2:s+i,1))- e_min;
+    err(i) = abs(mean(et_noWalkers(i:i+start,3))-e_min-zpe);
 end
 
 figure(3)
@@ -85,6 +87,9 @@ scatter3(h2_at(:,1),h2_at(:,2),h2_at(:,3),s,'g','filled')
 xlim([-10 10])
 ylim([-10 10])
 zlim([-10 10])
+xlabel('x [Angstrom]','Interpreter','latex')
+ylabel('y [Angstrom]','Interpreter','latex')
+zlabel('z [Angstrom]','Interpreter','latex')
 grid on
 hold off
 

@@ -35,15 +35,15 @@
 \headcommand {\beamer@framepages {9}{9}}
 \headcommand {\slideentry {5}{1}{3}{10/10}{$C_2 H_6$}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\beamer@subsectionpages {8}{10}}
-\headcommand {\beamer@subsectionentry {0}{5}{2}{11}{$C_{12} H_{10} O$}}
-\headcommand {\slideentry {5}{2}{1}{11/11}{$C_{12} H_{10} O$}{0}}
+\headcommand {\slideentry {5}{1}{4}{11/11}{$C_2 H_6$}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\slideentry {5}{2}{2}{12/12}{$C_{12} H_{10} O$}{0}}
+\headcommand {\beamer@subsectionpages {8}{11}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{12}{$C_{60}$}}
+\headcommand {\slideentry {5}{2}{1}{12/12}{$C_{60}$}{0}}
 \headcommand {\beamer@framepages {12}{12}}
-\headcommand {\slideentry {5}{2}{3}{13/13}{$C_{12} H_{10} O$}{0}}
+\headcommand {\slideentry {5}{2}{2}{13/13}{$C_{60}$}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\beamer@subsectionpages {11}{13}}
+\headcommand {\beamer@subsectionpages {12}{13}}
 \headcommand {\beamer@subsectionentry {0}{5}{3}{14}{$H_2@C_{60}$}}
 \headcommand {\slideentry {5}{3}{1}{14/14}{$H_2@C_{60}$}{0}}
 \headcommand {\beamer@framepages {14}{14}}
@@ -51,15 +51,22 @@
 \headcommand {\beamer@framepages {15}{15}}
 \headcommand {\slideentry {5}{3}{3}{16/16}{$H_2@C_{60}$}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\beamer@sectionpages {8}{16}}
-\headcommand {\beamer@subsectionpages {14}{16}}
-\headcommand {\sectionentry {6}{Conclusions and Improvements}{17}{Conclusions and Improvements}{0}}
-\headcommand {\slideentry {6}{0}{1}{17/17}{}{0}}
+\headcommand {\slideentry {5}{3}{4}{17/17}{$H_2@C_{60}$}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {6}{0}{2}{18/18}{}{0}}
+\headcommand {\beamer@sectionpages {8}{17}}
+\headcommand {\beamer@subsectionpages {14}{17}}
+\headcommand {\sectionentry {6}{Conclusions}{18}{Conclusions}{0}}
+\headcommand {\slideentry {6}{0}{1}{18/18}{}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\beamer@partpages {1}{18}}
-\headcommand {\beamer@subsectionpages {17}{18}}
-\headcommand {\beamer@sectionpages {17}{18}}
-\headcommand {\beamer@documentpages {18}}
-\headcommand {\gdef \inserttotalframenumber {18}}
+\headcommand {\beamer@sectionpages {18}{18}}
+\headcommand {\beamer@subsectionpages {18}{18}}
+\headcommand {\sectionentry {7}{Further Research}{19}{Further Research}{0}}
+\headcommand {\slideentry {7}{0}{1}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {7}{0}{2}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\beamer@partpages {1}{20}}
+\headcommand {\beamer@subsectionpages {19}{20}}
+\headcommand {\beamer@sectionpages {19}{20}}
+\headcommand {\beamer@documentpages {20}}
+\headcommand {\gdef \inserttotalframenumber {20}}
