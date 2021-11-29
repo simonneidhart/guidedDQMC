@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  29 NOV 2021 14:47
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2021.4.4)  29 NOV 2021 15:51
 entering extended mode
 **./presentation.tex
 (presentation.tex
@@ -1034,8 +1034,8 @@ File: h2c60_1.png Graphic file (type bmp)
  [16
 
 ]
-File: walkers4.png Graphic file (type bmp)
-<walkers4.png>
+File: h2c60_walkers.png Graphic file (type bmp)
+<h2c60_walkers.png>
  [17
 
 ] [18
@@ -1047,17 +1047,7 @@ File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
 File: beamericonarticle.pdf Graphic file (type pdf)
 <use beamericonarticle.pdf>
-File: beamericonarticle.pdf Graphic file (type pdf)
-<use beamericonarticle.pdf>
-File: beamericonarticle.pdf Graphic file (type pdf)
-<use beamericonarticle.pdf>
-File: beamericonarticle.pdf Graphic file (type pdf)
-<use beamericonarticle.pdf>
-)
-Overfull \vbox (31.89398pt too high) detected at line 250
- []
-
-[20
+) [20
 
 ]
 \tf@nav=\write6
@@ -1082,10 +1072,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 21529 strings out of 427240
- 374941 string characters out of 3145705
- 476725 words of memory out of 3000000
- 25543 multiletter control sequences out of 15000+200000
+ 21523 strings out of 427240
+ 374896 string characters out of 3145705
+ 474701 words of memory out of 3000000
+ 25537 multiletter control sequences out of 15000+200000
  15821 words of font info for 66 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,15n,57p,781b,588s stack positions out of 5000i,500n,10000p,200000b,50000s

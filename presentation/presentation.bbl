@@ -1,34 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{dftbp}
-B.~Hourahine, B.~Aradi, V.~Blum, F.~Bonafé, A.~Buccheri, C.~Camacho,
-  C.~Cevallos, M.~Y. Deshaye, T.~Dumitrică, A.~Dominguez, S.~Ehlert,
-  M.~Elstner, T.~van~der Heide, J.~Hermann, S.~Irle, J.~J. Kranz, C.~Köhler,
-  T.~Kowalczyk, T.~Kubař, I.~S. Lee, V.~Lutsker, R.~J. Maurer, S.~K. Min,
-  I.~Mitchell, C.~Negre, T.~A. Niehaus, A.~M.~N. Niklasson, A.~J. Page,
-  A.~Pecchia, G.~Penazzi, M.~P. Persson, J.~Řezáč, C.~G. Sánchez,
-  M.~Sternberg, M.~Stöhr, F.~Stuckenberg, A.~Tkatchenko, V.~W.-z. Yu, and
-  T.~Frauenheim.
-\newblock Dftb+, a software package for efficient approximate density
-  functional theory based atomistic simulations.
-\newblock {\em The Journal of Chemical Physics}, 152(12):124101, 2020.
-
-\bibitem{mccoy}
-Anne~B. McCoy.
-\newblock Diffusion monte carlo approaches for investigating the structure and
-  vibrational spectra of fluxional systems.
-\newblock {\em International Reviews in Physical Chemistry}, 25(1-2):77--107,
-  2006.
-
-\bibitem{cyrus}
-Julien Toulouse, Roland Assaraf, and Cyrus~J. Umrigar.
-\newblock Chapter fifteen - introduction to the variational and diffusion monte
-  carlo methods.
-\newblock In Philip~E. Hoggan and Telhat Ozdogan, editors, {\em Electron
-  Correlation in Molecules – ab initio Beyond Gaussian Quantum Chemistry},
-  volume~73 of {\em Advances in Quantum Chemistry}, pages 285 -- 314. Academic
-  Press, 2016.
-
 \bibitem{c2h6}
 Amir Karton, Branko Ruscic, and Jan~M.L. Martin.
 \newblock Benchmark atomization energy of ethane: Importance of accurate
