@@ -42,7 +42,7 @@ program guiding_test
   open(unit=13, file="pes.out", iostat=ios, action="write")
   if ( ios /= 0 ) stop "Error opening file unit 13"
   do i=1,dim
-    do j=1,100
+    do j=1,n_eval
       write(unit=13, fmt=*) energies(j, i)
     end do
   end do

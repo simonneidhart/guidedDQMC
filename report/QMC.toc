@@ -15,10 +15,10 @@
 \contentsline {section}{\numberline {3.1}Ethane}{14}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Buckminsterfullerene}{17}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Endohedral Hydrogen Fullerene}{18}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Conclusions and Outlook}{20}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Conclusion and Outlook}{20}{chapter.4}%
 \contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{21}{appendix.1.A}%
 \contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{22}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$, $v(x)$ and the Hessian matrix}{23}{appendix.1.C}%
+\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$, $v(x)$ and the Hessian Matrix}{23}{appendix.1.C}%
 \contentsline {chapter}{\numberline {D}Gradient Descent}{24}{appendix.1.D}%
 \contentsline {chapter}{\numberline {E}Input and Output Files}{25}{appendix.1.E}%
 \contentsline {chapter}{Bibliography}{27}{appendix*.8}%
