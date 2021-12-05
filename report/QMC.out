@@ -3,7 +3,7 @@
 \BOOKMARK [1][-]{section.2.1}{The\040Born-Oppenheimer\040Approximation}{chapter.2}% 3
 \BOOKMARK [1][-]{section.2.2}{Diffusion\040Quantum\040Monte\040Carlo}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.3}{The\040DQMC\040Algorithm}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.4}{Gaussian\040Trial\040Wave\040Functions}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.4}{Gaussian\040Guiding\040Wave\040Functions}{chapter.2}% 6
 \BOOKMARK [1][-]{section.2.5}{Implementation\040Details\040and\040Improvements}{chapter.2}% 7
 \BOOKMARK [2][-]{subsection.2.5.1}{Energy\040Calculations}{section.2.5}% 8
 \BOOKMARK [2][-]{subsection.2.5.2}{Metropolis\040Step}{section.2.5}% 9
@@ -20,4 +20,4 @@
 \BOOKMARK [0][-]{appendix.1.C}{Numerical\040Derrivatives\040for\040EL\(x\),\040v\(x\)\040and\040the\040Hessian\040Matrix}{}% 20
 \BOOKMARK [0][-]{appendix.1.D}{Gradient\040Descent}{}% 21
 \BOOKMARK [0][-]{appendix.1.E}{Input\040and\040Output\040Files}{}% 22
-\BOOKMARK [0][-]{appendix*.8}{Bibliography}{}% 23
+\BOOKMARK [0][-]{appendix*.10}{Bibliography}{}% 23

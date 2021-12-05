@@ -1,42 +1,42 @@
 \begin{thebibliography}{10}
 
+\bibitem{monte_carlo}
+N.~Metropolis, A.~W. Rosenbluth, M.~N. Rosenbluth, A.~H. Teller, and E.~Teller.
+\newblock Equation of state calculations by fast computing machines.
+\newblock {\em The Journal of Chemical Physics}, 21(6):1087--1092, 1953.
+
 \bibitem{anharmonic}
-Florian Pfeiffer, Guntram Rauhut, David Feller, and Kirk~A. Peterson.
+F.~Pfeiffer, G.~Rauhut, D.~Feller, and K.~A. Peterson.
 \newblock Anharmonic zero point vibrational energies: Tipping the scales in
   accurate thermochemistry calculations?
 \newblock {\em The Journal of Chemical Physics}, 138(4):044311, 2013.
 
-\bibitem{h2@c60}
-Koichi Komatsu, Michihisa Murata, and Yasujiro Murata.
-\newblock Encapsulation of molecular hydrogen in fullerene c60 by organic
-  synthesis.
-\newblock {\em Science}, 307(5707):238--240, 2005.
-
 \bibitem{mccoy}
-Anne~B. McCoy.
+A.~B. McCoy.
 \newblock Diffusion monte carlo approaches for investigating the structure and
   vibrational spectra of fluxional systems.
 \newblock {\em International Reviews in Physical Chemistry}, 25(1-2):77--107,
   2006.
 
 \bibitem{cyrus}
-Julien Toulouse, Roland Assaraf, and Cyrus~J. Umrigar.
+J.~Toulouse, R.~Assaraf, and C.~J. Umrigar.
 \newblock Chapter fifteen - introduction to the variational and diffusion monte
   carlo methods.
-\newblock In Philip~E. Hoggan and Telhat Ozdogan, editors, {\em Electron
-  Correlation in Molecules – ab initio Beyond Gaussian Quantum Chemistry},
-  volume~73 of {\em Advances in Quantum Chemistry}, pages 285 -- 314. Academic
-  Press, 2016.
+\newblock In P.~E. Hoggan and T.~Ozdogan, editors, {\em Electron Correlation in
+  Molecules – ab initio Beyond Gaussian Quantum Chemistry}, volume~73 of {\em
+  Advances in Quantum Chemistry}, pages 285 -- 314. Academic Press, 2016.
 
 \bibitem{herleitung2}
-Apurba Nandi, Chen Qu, and Joel Bowman.
+A.~Nandi, C.~Qu, and J.~Bowman.
 \newblock Diffusion monte carlo calculations of zero-point energies of methanol
   and deuterated methanol.
 \newblock {\em Journal of computational chemistry}, 40, 10 2018.
 
 \bibitem{cyrus2}
-Cyrus~J. Umrigar.
-\newblock Introduction to variational and projector monte carlo.
+C.~J. Umrigar.
+\newblock Introduction to variational and projector monte carlo
+  \url{https://www.cond-mat.de/events/correl19/manuscripts/umrigar.pdf}
+  (2021-10-01).
 
 \bibitem{split_join}
 C.~J. Umrigar, M.~P. Nightingale, and K.~J. Runge.
@@ -44,7 +44,7 @@ C.~J. Umrigar, M.~P. Nightingale, and K.~J. Runge.
 \newblock {\em The Journal of Chemical Physics}, 99(4):2865--2890, 1993.
 
 \bibitem{alavi}
-George~H. Booth, Alex J.~W. Thom, and Ali Alavi.
+G.~H. Booth, A.~J.~W. Thom, and A.~Alavi.
 \newblock Fermion monte carlo without fixed nodes: A game of life, death, and
   annihilation in slater determinant space.
 \newblock {\em The Journal of Chemical Physics}, 131(5):054106, 2009.
@@ -76,7 +76,7 @@ M.~Gaus, A.~Goez, and M.~Elstner.
   2013.
 
 \bibitem{c2h6}
-Amir Karton, Branko Ruscic, and Jan~M.L. Martin.
+A.~Karton, B.~Ruscic, and J.~M.~L. Martin.
 \newblock Benchmark atomization energy of ethane: Importance of accurate
   zero-point vibrational energies and diagonal born–oppenheimer corrections
   for a ‘simple’ organic molecule.
@@ -85,21 +85,36 @@ Amir Karton, Branko Ruscic, and Jan~M.L. Martin.
 \newblock Computational Organic Chemistry.
 
 \bibitem{cccbdb}
-Russell Johnson.
+R.~Johnson.
 \newblock Computational chemistry comparison and benchmark database
-  \url{http://cccbdb.nist.gov}.
-\newblock 04 2018.
+  \url{http://cccbdb.nist.gov} (2020-12-05).
 
 \bibitem{PyVibMS}
-Yunwen Tao, Wenli Zou, and Sadisha Nanayakkara.
+Y.~Tao, W.~Zou, and S.~Nanayakkara.
 \newblock Pyvibms: a pymol plugin for visualizing vibrations in molecules and
   solids.
 \newblock {\em Journal of Molecular Modeling}, 26, 09 2020.
 
 \bibitem{http://scicore.unibas.ch/}
-\url{http://scicore.unibas.ch/}.
+\url{http://scicore.unibas.ch/} (2021-11-19).
+
+\bibitem{h2@c60}
+K.~Komatsu, M~Murata, and Y~Murata.
+\newblock Encapsulation of molecular hydrogen in fullerene c60 by organic
+  synthesis.
+\newblock {\em Science}, 307(5707):238--240, 2005.
+
+\bibitem{h2@c60_anharmonic}
+M.~Ge, U.~Nagel, D.~Hüvonen, T.~Rõõm, S.~Mamone, M.~H. Levitt,
+  M.~Carravetta, Y.~Murata, K.~Komatsu, J.~Y.-C. Chen, and N.~J. Turro.
+\newblock Interaction potential and infrared absorption of endohedral h2 in
+  c60.
+\newblock {\em The Journal of Chemical Physics}, 134(5):054507, 2011.
+
+\bibitem{git}
+\url{https://github.com/IDontNeedOne/guidedDQMC} (2021-12-05).
 
 \bibitem{dftbp_manual}
-\url{https://dftbplus.org/documentation/}.
+\url{https://dftbplus.org/documentation/} (2021-11-19).
 
 \end{thebibliography}

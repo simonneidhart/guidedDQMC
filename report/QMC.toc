@@ -4,7 +4,7 @@
 \contentsline {section}{\numberline {2.1}The Born-Oppenheimer Approximation}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Diffusion Quantum Monte Carlo}{5}{section.2.2}%
 \contentsline {section}{\numberline {2.3}The DQMC Algorithm}{8}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Gaussian Trial Wave Functions}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Gaussian Guiding Wave Functions}{9}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Implementation Details and Improvements}{10}{section.2.5}%
 \contentsline {subsection}{\numberline {2.5.1}Energy Calculations}{10}{subsection.2.5.1}%
 \contentsline {subsection}{\numberline {2.5.2}Metropolis Step}{11}{subsection.2.5.2}%
@@ -14,11 +14,11 @@
 \contentsline {chapter}{\numberline {3}Results}{14}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Ethane}{14}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Buckminsterfullerene}{17}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Endohedral Hydrogen Fullerene}{18}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Conclusion and Outlook}{20}{chapter.4}%
-\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{21}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{22}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$, $v(x)$ and the Hessian Matrix}{23}{appendix.1.C}%
-\contentsline {chapter}{\numberline {D}Gradient Descent}{24}{appendix.1.D}%
-\contentsline {chapter}{\numberline {E}Input and Output Files}{25}{appendix.1.E}%
-\contentsline {chapter}{Bibliography}{27}{appendix*.8}%
+\contentsline {section}{\numberline {3.3}Endohedral Hydrogen Fullerene}{19}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Conclusion and Outlook}{22}{chapter.4}%
+\contentsline {chapter}{\numberline {A}The Box-Muller Algorithm}{23}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}The Metropolis Algorithm}{24}{appendix.1.B}%
+\contentsline {chapter}{\numberline {C}Numerical Derrivatives for $E_L(x)$, $v(x)$ and the Hessian Matrix}{25}{appendix.1.C}%
+\contentsline {chapter}{\numberline {D}Gradient Descent}{26}{appendix.1.D}%
+\contentsline {chapter}{\numberline {E}Input and Output Files}{27}{appendix.1.E}%
+\contentsline {chapter}{Bibliography}{29}{appendix*.10}%
