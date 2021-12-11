@@ -1,7 +1,0 @@
-damping 0.01d0 #damping constant for the update of et in every iteration
-no_walkers_start 1000 #initial number of walkers
-delta_t 5.d-4 #discrete time step
-n_steps 20000 #number of simulation steps
-debug_extended .FALSE. #TRUE to show extended information such as the hessian and eigenvalues
-restart .TRUE.
-grad_descent .TRUE.
